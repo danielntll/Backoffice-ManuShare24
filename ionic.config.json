@@ -1,0 +1,7 @@
+{
+  "name": "Backoffice",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
