@@ -4,6 +4,7 @@ export const text: typeAvailableLanguagesModel = {
   it_IT: {
     pageTitleAdd: "Aggiungi",
     pageTitleModify: "Modifica",
+    cardSubtitle: "Compila i campi",
     input__displayName: {
       label: "Nome",
       ph: "Obbligatiorio",
@@ -17,6 +18,7 @@ export const text: typeAvailableLanguagesModel = {
   en_GB: {
     pageTitleAdd: "Add",
     pageTitleModify: "Modify",
+    cardSubtitle: "Compila i campi",
     input__displayName: {
       label: "Nome",
       ph: "Obbligatiorio",

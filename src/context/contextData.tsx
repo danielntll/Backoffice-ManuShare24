@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { ContextLanguage } from "./contextLanguage";
-import { typeAttivita } from "../types/typeCreateAttivita";
 import { AuthContext } from "./contextAuth";
-import { getAllAttivitaAPI } from "../pages/Attivita/Dashboard/api";
 import { typeIngredient } from "../types/typeIngredient";
+import { typeAttivita } from "../types/typeAttivita";
+import { serviceGetAllAttivita } from "../services/attivita/service_get_all_attivita";
 
 type dataContext = {
   attivita: typeAttivita[];
@@ -31,7 +31,7 @@ export const DataContextProvider = ({ children }: any) => {
   }, [authenticateUser]);
   // FUNCTIONS ------------------------------
   const getAllAttivita = async () => {
-    setAttivita(await getAllAttivitaAPI(authenticateUser!.uid));
+    setAttivita(await serviceGetAllAttivita(authenticateUser!.uid));
   };
   // EXTRA UI -------------------------------
   // RETURN ---------------------------------

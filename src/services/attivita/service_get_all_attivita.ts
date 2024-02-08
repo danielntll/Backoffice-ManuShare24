@@ -10,7 +10,7 @@ import { db } from "../../firebase/firebaseConfig";
  * @param userUID string - L'UID del utente autenticato
  * @returns typeAttivita[] - Array delle attività trovate
  */
-export const getAllAttivitaAPI = async (
+export const serviceGetAllAttivita = async (
   userUID: string
 ): Promise<typeAttivita[]> => {
   //Prendo il nome della tabella sul DB
