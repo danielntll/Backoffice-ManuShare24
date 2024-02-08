@@ -1,0 +1,64 @@
+import {
+  IonContent,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonListHeader,
+  IonMenu,
+  IonMenuToggle,
+  IonNote,
+} from "@ionic/react";
+
+import { useLocation } from "react-router-dom";
+import "./Menu.css";
+import { appRoutes } from "../../routes/routes";
+import { useContext } from "react";
+import { ContextLanguage } from "../../context/contextLanguage";
+
+const Menu: React.FC = () => {
+  const location = useLocation();
+  const { l } = useContext(ContextLanguage);
+
+  return (
+    <IonMenu contentId="main" type="overlay">
+      <IonContent>
+        <IonList id="inbox-list">
+          <IonListHeader>Inbox</IonListHeader>
+          <IonNote>hi@ionicframework.com</IonNote>
+          {appRoutes.map((appPage, index) => {
+            return (
+              <IonMenuToggle key={index} autoHide={false}>
+                <IonItem
+                  className={
+                    location.pathname === appPage.path ? "selected" : ""
+                  }
+                  routerLink={appPage.path}
+                  routerDirection="none"
+                  lines="none"
+                  detail={false}
+                >
+                  <IonIcon
+                    aria-hidden="true"
+                    slot="start"
+                    color={
+                      location.pathname === appPage.path ? "primary" : "medium"
+                    }
+                    icon={
+                      location.pathname === appPage.path
+                        ? appPage.icons.active
+                        : appPage.icons.notActive
+                    }
+                  />
+                  <IonLabel>{appPage.tab[l]}</IonLabel>
+                </IonItem>
+              </IonMenuToggle>
+            );
+          })}
+        </IonList>
+      </IonContent>
+    </IonMenu>
+  );
+};
+
+export default Menu;
