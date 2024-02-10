@@ -12,7 +12,7 @@ import {
   IonThumbnail,
 } from "@ionic/react";
 import { textButtons } from "../../text/textButtons";
-import { closeOutline, image } from "ionicons/icons";
+import { closeOutline } from "ionicons/icons";
 
 interface ContainerProps {
   defaultImages?: string[];

@@ -5,6 +5,10 @@ export const text: typeAvailableLanguagesModel = {
     pageTitleAdd: "Aggiungi",
     pageTitleModify: "Modifica",
     cardSubtitle: "Compila i campi",
+    toast: {
+      not__found: "Ingrediente non trovato.",
+      no__data: "Attenzione inserire tutti i dati obbligatori.",
+    },
     input__displayName: {
       label: "Nome",
       ph: "Obbligatiorio",
@@ -14,11 +18,20 @@ export const text: typeAvailableLanguagesModel = {
       label: "Descrizione",
       ph: "(Opzionale)",
     },
+    input__marca: {
+      label: "Marca",
+      help: "Azienda produttrice",
+      ph: "(Opzionale)",
+    },
   },
   en_GB: {
     pageTitleAdd: "Add",
     pageTitleModify: "Modify",
     cardSubtitle: "Compila i campi",
+    toast: {
+      not__found: "Ingrediente non trovato.",
+      no__data: "Attenzione inserire tutti i dati obbligatori.",
+    },
     input__displayName: {
       label: "Nome",
       ph: "Obbligatiorio",
@@ -26,6 +39,10 @@ export const text: typeAvailableLanguagesModel = {
     },
     input__description: {
       label: "Descrizione",
+      ph: "(Opzionale)",
+    },
+    input__marca: {
+      label: "Marca",
       ph: "(Opzionale)",
     },
   },

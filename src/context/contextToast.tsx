@@ -6,9 +6,9 @@ type typeContextToast = {
   toast: (
     type: "success" | "warning" | "danger" | "medium",
     message: string,
+    button?: ToastOptions["buttons"],
     duration?: number,
-    position?: "top" | "bottom",
-    button?: ToastOptions["buttons"]
+    position?: "top" | "bottom"
   ) => void;
 };
 
@@ -33,9 +33,9 @@ export const ProviderContextToast = ({
   const toast = (
     type: "success" | "warning" | "danger" | "medium",
     message: string,
+    button?: ToastOptions["buttons"],
     duration?: number,
-    position?: "top" | "bottom",
-    button?: ToastOptions["buttons"]
+    position?: "top" | "bottom"
   ) => {
     present({
       message: message,
