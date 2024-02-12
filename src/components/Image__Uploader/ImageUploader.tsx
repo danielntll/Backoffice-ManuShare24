@@ -3,16 +3,17 @@ import styles from "./ImageUploader.module.css";
 import { ContextLanguage } from "../../context/contextLanguage";
 import { text } from "./text";
 import {
+  IonAvatar,
+  IonBadge,
   IonButton,
   IonIcon,
   IonItem,
   IonLabel,
   IonList,
-  IonListHeader,
   IonThumbnail,
 } from "@ionic/react";
 import { textButtons } from "../../text/textButtons";
-import { closeOutline } from "ionicons/icons";
+import { closeOutline, imagesOutline } from "ionicons/icons";
 
 interface ContainerProps {
   defaultImages?: string[];
@@ -26,7 +27,7 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
   const [imageURLS, setImageURLs] = useState(
     defaultImages ? defaultImages : []
   );
-  const refInputImmage = useRef<HTMLInputElement | null>(null);
+  const refInputImmage = useRef<any>(null);
   //USE EFFECT -----------------------
   useEffect(() => {
     console.log(images);
@@ -47,6 +48,9 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
     const newImages = [...images];
     newImages.splice(index, 1);
     setImages(newImages);
+    if (refInputImmage.current != null) {
+      refInputImmage.current.value = null;
+    }
   }
 
   //RETURN COMPONENT -----------------
@@ -61,16 +65,27 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
         multiple
       />
       <IonList className={styles.container} inset>
-        <IonListHeader>
-          <IonLabel>{text[l].componentTitle}</IonLabel>
+        <IonItem className="ion-padding-top">
+          <IonAvatar className="icon-margin-right">
+            <IonIcon size="large" icon={imagesOutline} />
+          </IonAvatar>
+          {/* Generic info */}
+          <IonLabel>
+            <div className={styles.label}>
+              {text[l].componentTitle}
+              <IonBadge color={"medium"}>{imageURLS.length}</IonBadge>
+            </div>
+          </IonLabel>
+          {/* Select button */}
           <IonButton onClick={() => refInputImmage.current?.click()}>
             {textButtons[l].btn__select}
           </IonButton>
-        </IonListHeader>
-        {imageURLS.length == 0 ? (
+        </IonItem>
+
+        {imageURLS.length === 0 ? (
           <IonItem>
             <IonLabel>
-              <p>Nessuna immagine selezionata</p>
+              <p>{text[l].text_images}</p>
             </IonLabel>
           </IonItem>
         ) : (
@@ -92,6 +107,7 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
             ))}
           </>
         )}
+
         <div className="ion-padding-bottom"></div>
       </IonList>
     </>

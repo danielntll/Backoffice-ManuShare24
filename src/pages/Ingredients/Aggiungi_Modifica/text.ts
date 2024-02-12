@@ -20,11 +20,13 @@ export const text: typeAvailableLanguagesModel = {
     },
     input__marca: {
       label: "Marca",
-      help: "Azienda produttrice",
-      ph: "(Opzionale)",
+      help: "",
+      ph: "Azienda produttrice",
     },
+    optional_list_title: "Informazioni opzionali",
   },
   en_GB: {
+    optional_list_title: "Informazioni opzionali",
     pageTitleAdd: "Add",
     pageTitleModify: "Modify",
     cardSubtitle: "Compila i campi",

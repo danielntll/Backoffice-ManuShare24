@@ -6,6 +6,5 @@ export type typeIngredientStoricoForniture = {
   prodottoUID: string;
   quantita?: number;
   prezzo?: number;
-
   fornitore: typeIngredientFornitore;
 };

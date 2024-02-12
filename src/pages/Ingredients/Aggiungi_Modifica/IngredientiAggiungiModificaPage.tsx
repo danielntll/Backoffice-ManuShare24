@@ -10,7 +10,9 @@ import {
   IonIcon,
   IonInput,
   IonItem,
+  IonLabel,
   IonList,
+  IonListHeader,
   IonPage,
   IonTextarea,
   IonTitle,
@@ -188,6 +190,9 @@ const IngredientiAggiungiModificaPage: React.FC = () => {
               </IonList>
               {/* OPZIONALE */}
               <IonList inset>
+                <IonListHeader>
+                  <IonLabel>{text[l].optional_list_title}</IonLabel>
+                </IonListHeader>
                 {/* ----  marca ----- */}
                 <IonItem>
                   <IonInput
@@ -198,7 +203,6 @@ const IngredientiAggiungiModificaPage: React.FC = () => {
                     labelPlacement="stacked"
                     type={"text"}
                     value={marca}
-                    helperText={text[l].input__marca.help}
                     onIonInput={(e) => setMarca(e.detail.value!)}
                   />
                 </IonItem>
