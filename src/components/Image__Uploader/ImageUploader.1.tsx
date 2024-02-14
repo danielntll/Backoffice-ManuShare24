@@ -17,13 +17,9 @@ import {
   informationCircle,
 } from "ionicons/icons";
 import ImageUploaderItem from "../Image__Uploader__Item/ImageUploaderItem";
-import { textButtons } from "../../text/textButtons";
+import { ContainerProps } from "./ImageUploader";
 
-interface ContainerProps {
-  defaultImages?: string[];
-}
-
-const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
+export const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
   const dafaultImageSize = 0.5;
@@ -64,14 +60,6 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
     }
   }
 
-  function selectFromLocal() {
-    refInputImmage.current?.click();
-  }
-
-  function takePic() {}
-
-  function galleryCloud() {}
-
   //RETURN COMPONENT -----------------
   return (
     <>
@@ -86,10 +74,29 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
       <IonList className={styles.container} inset>
         <IonListHeader>
           <IonLabel>{text[l].componentTitle}</IonLabel>
-          <IonButton onClick={() => setIsSelectMethodOpen(!isSelectMethodOpen)}>
-            {text[l].btn__select}
-          </IonButton>
+          <IonButton>{text[l].btn__select}</IonButton>
         </IonListHeader>
+
+        {/* BUTTON SELECT FROM COMPUTER */}
+        <IonButton
+          expand="block"
+          size="small"
+          fill="clear"
+          onClick={() => refInputImmage.current?.click()}
+        >
+          <IonIcon icon={folderOutline} className="icon-margin-right" />
+          {text[l].btn__select}
+        </IonButton>
+        {/* BUTTON SELECT FROM GALLERY */}
+        <IonButton
+          size="small"
+          fill="clear"
+          expand="block"
+          onClick={() => refInputImmage.current?.click()}
+        >
+          <IonIcon icon={imagesOutline} className="icon-margin-right" />
+          {text[l].btn__galleria}
+        </IonButton>
 
         {/* SELECTED IMAGES */}
         {imageURL.length === 0 ? (
@@ -126,34 +133,31 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
       {/* -------------  EXTRA UI ------------ */}
       <IonActionSheet
         isOpen={isSelectMethodOpen}
-        header={textButtons[l].btn__select}
+        header={btn__select[l].btn__select}
         buttons={[
           {
-            text: text[l].btn__picture,
-            role: "take_pic",
+            text: "Delete",
+            role: "destructive",
+            data: {
+              action: "delete",
+            },
           },
           {
-            text: text[l].btn__local,
-            role: "local",
+            text: "Share",
+            data: {
+              action: "share",
+            },
           },
           {
-            text: text[l].btn__galleria,
-            role: "gallery",
-          },
-          {
-            text: textButtons[l].btn__annulla,
+            text: "Cancel",
             role: "cancel",
+            data: {
+              action: "cancel",
+            },
           },
         ]}
-        onDidDismiss={({ detail }) => {
-          if (detail.role === "take_pic") takePic();
-          if (detail.role === "local") selectFromLocal();
-          if (detail.role === "gallery") galleryCloud();
-          setIsSelectMethodOpen(false);
-        }}
+        onDidDismiss={() => setIsSelectMethodOpen(false)}
       ></IonActionSheet>
     </>
   );
 };
-
-export default ImageUploader;

@@ -7,6 +7,7 @@ export const textButtons: typeAvailableLanguagesModel = {
     btn__back: "Indietro",
     btn__select: "Seleziona",
     btn__upload: "Salva",
+    btn__annulla: "Annulla",
   },
   en_GB: {
     btn__toast__close: "Close",
@@ -14,5 +15,6 @@ export const textButtons: typeAvailableLanguagesModel = {
     btn__back: "Back",
     btn__select: "Seleziona",
     btn__upload: "Salva",
+    btn__annulla: "Annulla",
   },
 };
