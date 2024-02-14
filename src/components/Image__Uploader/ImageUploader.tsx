@@ -22,19 +22,22 @@ interface ContainerProps {
 const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
+  const dafaultImageSize = 0.5;
   //USE STATE ------------------------
-  const [images, setImages] = useState([] as any);
-  const [imageURLS, setImageURLs] = useState(
-    defaultImages ? defaultImages : []
-  );
+  const [images, setImages] = useState<any>([]);
+  const [imageURL, setImageURLs] = useState(defaultImages ? defaultImages : []);
   const refInputImmage = useRef<any>(null);
+  const [imagesToCompress, setImagesToCompress] = useState<any>([]);
   //USE EFFECT -----------------------
   useEffect(() => {
     console.log(images);
     const newImageUrls: any = [];
-    images.forEach((image: any) =>
-      newImageUrls.push(URL.createObjectURL(image))
-    );
+    images?.forEach((image: any) => {
+      newImageUrls.push(URL.createObjectURL(image));
+      if (image.size > dafaultImageSize) {
+        imagesToCompress.push(image);
+      }
+    });
     setImageURLs(newImageUrls);
     setImages(images);
   }, [images]);
@@ -46,8 +49,11 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
 
   function handleDeleteImage(index: number) {
     const newImages = [...images];
+    const newImagesURL = [...imageURL];
     newImages.splice(index, 1);
+    newImagesURL.splice(index, 1);
     setImages(newImages);
+    setImageURLs(newImagesURL);
     if (refInputImmage.current != null) {
       refInputImmage.current.value = null;
     }
@@ -73,16 +79,24 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
           <IonLabel>
             <div className={styles.label}>
               {text[l].componentTitle}
-              <IonBadge color={"medium"}>{imageURLS.length}</IonBadge>
+              <IonBadge color={"medium"}>{imageURL.length}</IonBadge>
             </div>
           </IonLabel>
+          {/* Select button */}
+          {imagesToCompress.length > 0 ? (
+            <IonButton onClick={() => refInputImmage.current?.click()}>
+              comprimi
+            </IonButton>
+          ) : (
+            <></>
+          )}
           {/* Select button */}
           <IonButton onClick={() => refInputImmage.current?.click()}>
             {textButtons[l].btn__select}
           </IonButton>
         </IonItem>
 
-        {imageURLS.length === 0 ? (
+        {imageURL.length === 0 ? (
           <IonItem>
             <IonLabel>
               <p>{text[l].text_images}</p>
@@ -90,16 +104,52 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
           </IonItem>
         ) : (
           <>
-            {imageURLS.map((image: string, index: number) => (
+            {imageURL.map((image: string, index: number) => (
               <IonItem key={index + "img"}>
-                <IonThumbnail>
+                <IonThumbnail className="icon-margin-right">
                   <img src={image} />
                 </IonThumbnail>
-                <IonLabel>{index}</IonLabel>
+
+                <IonLabel>
+                  <h3>
+                    {text[l].name}
+                    {": "}
+                    {images[index].name}
+                  </h3>
+                  <h3 className="inline-row-gap">
+                    {text[l].peso}
+                    {": "}
+                    <IonBadge
+                      color={
+                        images[index].size / (1024 * 1024) > dafaultImageSize
+                          ? "warning"
+                          : "success"
+                      }
+                    >
+                      {(images[index].size / (1024 * 1024)).toFixed(2)}
+                      {" MB"}
+                    </IonBadge>
+                    {}
+                  </h3>
+                  <p>
+                    {text[l].ext}
+                    {": "}
+                    {images[index].type}
+                  </p>
+                </IonLabel>
                 <IonButton
                   onClick={() => handleDeleteImage(index)}
                   slot="end"
                   color={"danger"}
+                  fill="outline"
+                >
+                  <IonIcon icon={closeOutline} />
+                </IonButton>
+                <IonButton
+                  onClick={() => handleDeleteImage(index)}
+                  slot="end"
+                  color={"danger"}
+                  fill="outline"
                 >
                   <IonIcon icon={closeOutline} />
                 </IonButton>
