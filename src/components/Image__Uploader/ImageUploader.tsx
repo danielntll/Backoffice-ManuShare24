@@ -11,11 +11,7 @@ import {
   IonList,
   IonListHeader,
 } from "@ionic/react";
-import {
-  folderOutline,
-  imagesOutline,
-  informationCircle,
-} from "ionicons/icons";
+import { informationCircle } from "ionicons/icons";
 import ImageUploaderItem from "../Image__Uploader__Item/ImageUploaderItem";
 import { textButtons } from "../../text/textButtons";
 
@@ -115,8 +111,7 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
       </IonList>
       {imageURL.length > 0 ? (
         <IonLabel>
-          <p className="inline-row-gap ion-padding-horizontal ion-padding-bottom">
-            <IonIcon size="large" icon={informationCircle} color="warning" />
+          <p className="ion-padding-horizontal ion-padding-bottom">
             {text[l].info}
           </p>
         </IonLabel>
@@ -146,8 +141,8 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
           },
         ]}
         onDidDismiss={({ detail }) => {
-          if (detail.role === "take_pic") takePic();
           if (detail.role === "local") selectFromLocal();
+          if (detail.role === "take_pic") takePic();
           if (detail.role === "gallery") galleryCloud();
           setIsSelectMethodOpen(false);
         }}

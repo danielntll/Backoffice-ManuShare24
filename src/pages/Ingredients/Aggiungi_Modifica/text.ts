@@ -17,6 +17,7 @@ export const text: typeAvailableLanguagesModel = {
     input__description: {
       label: "Descrizione",
       ph: "(Opzionale)",
+      help: "Avere una descrizione persuasiva è importante per una comunicazione efficace",
     },
     input__marca: {
       label: "Marca",
@@ -46,6 +47,7 @@ export const text: typeAvailableLanguagesModel = {
     input__marca: {
       label: "Marca",
       ph: "(Opzionale)",
+      help: "Avere una descrizione persuasiva è importante per una comunicazione efficace",
     },
   },
 };

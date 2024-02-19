@@ -219,6 +219,13 @@ const IngredientiAggiungiModificaPage: React.FC = () => {
                   />
                 </IonItem>
               </IonList>
+
+              <IonLabel>
+                <p className="ion-padding-horizontal">
+                  {text[l].input__description.help}
+                </p>
+              </IonLabel>
+
               {/* OPZIONALE */}
               <ImageUploader />
             </IonCard>
