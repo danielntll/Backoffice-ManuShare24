@@ -98,6 +98,8 @@ const IngredientiAggiungiModificaPage: React.FC = () => {
    * successivamente usa il metodo di ContextData per
    * caricare l'ingrediente sul database e salvare una copia
    * nel dati locali.
+   *
+   * @param
    */
   const handleUploadIngredient = async (e: any) => {
     //STEP 1
@@ -158,10 +160,18 @@ const IngredientiAggiungiModificaPage: React.FC = () => {
               <IonButton
                 onClick={handleUploadIngredient}
                 fill="solid"
-                color={"success"}
+                color={"tertiary"}
               >
-                <IonIcon icon={cloudUpload} />
-                {textButtons[l].btn__upload}
+                {textButtons[l].btn__upload_exit}
+                <IonIcon className="icon-margin-left" icon={cloudUpload} />
+              </IonButton>
+              <IonButton
+                onClick={handleUploadIngredient}
+                fill="solid"
+                color={"primary"}
+              >
+                {textButtons[l].btn__upload_new}
+                <IonIcon className="icon-margin-left" icon={cloudUpload} />
               </IonButton>
             </div>
             {/* --- Form --- */}
@@ -209,7 +219,6 @@ const IngredientiAggiungiModificaPage: React.FC = () => {
                 {/* ----  description ----- */}
                 <IonItem>
                   <IonTextarea
-                    required
                     label={text[l].input__description.label}
                     placeholder={text[l].input__description.ph}
                     labelPlacement="stacked"
@@ -226,7 +235,7 @@ const IngredientiAggiungiModificaPage: React.FC = () => {
                 </p>
               </IonLabel>
 
-              {/* OPZIONALE */}
+              {/* --------- IMMAGINI --------- */}
               <ImageUploader />
             </IonCard>
           </form>

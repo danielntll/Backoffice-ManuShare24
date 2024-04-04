@@ -1,19 +1,18 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import styles from "./ImageUploader.module.css";
 import { ContextLanguage } from "../../context/contextLanguage";
 import { text } from "./text";
 import {
   IonActionSheet,
   IonButton,
-  IonIcon,
   IonItem,
   IonLabel,
   IonList,
   IonListHeader,
 } from "@ionic/react";
-import { informationCircle } from "ionicons/icons";
 import ImageUploaderItem from "../Image__Uploader__Item/ImageUploaderItem";
 import { textButtons } from "../../text/textButtons";
+
+import styles from "./ImageUploader.module.css";
 
 interface ContainerProps {
   defaultImages?: string[];
@@ -44,10 +43,20 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
   }, [imagesFILE]);
 
   //FUNCTIONS ------------------------
+  /// --- onImageChange
+  /**
+   *
+   * @param e
+   */
   function onImageChange(e: any) {
     setImagesFILE([...imagesFILE, ...e.target.files]);
   }
 
+  // --- handleRemoveImage
+  /**
+   *
+   * @param index
+   */
   function handleRemoveImage(index: number) {
     const newImages = [...imagesFILE];
     const newImagesURL = [...imageURL];
@@ -60,12 +69,24 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
     }
   }
 
+  // --- selectFromLocal
+  /**
+   *
+   */
   function selectFromLocal() {
     refInputImmage.current?.click();
   }
 
+  // --- takePic
+  /**
+   *
+   */
   function takePic() {}
 
+  // --- galleryCloud
+  /**
+   *
+   */
   function galleryCloud() {}
 
   //RETURN COMPONENT -----------------

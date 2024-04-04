@@ -1,5 +1,4 @@
 import { useContext, useRef, useState } from "react";
-import styles from "./ImageUploaderItem.module.css";
 import { ContextLanguage } from "../../context/contextLanguage";
 import { text } from "./text";
 import {
@@ -15,13 +14,16 @@ import {
   IonItemSliding,
   IonLabel,
   IonModal,
+  IonNote,
   IonProgressBar,
   IonThumbnail,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { closeOutline, colorWandOutline, eye, trashBin } from "ionicons/icons";
+import { colorWandOutline, eye, trashBin } from "ionicons/icons";
 import imageCompression from "browser-image-compression";
+import styles from "./ImageUploaderItem.module.css";
+import { textButtons } from "../../text/textButtons";
 
 interface ContainerProps {
   imageURL: string;
@@ -45,7 +47,13 @@ const ImageUploaderItem: React.FC<ContainerProps> = ({
   const [compressetFile, setCompressedFile] = useState<File | null>(null);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
   //FUNCTIONS ------------------------
-  const compress = async () => {
+
+  // --- compress
+  /**
+   * Questo metodo serve per comprimere l'immagine
+   * @returns {void}
+   */
+  const compress = async (): Promise<void> => {
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 1920,
@@ -63,8 +71,22 @@ const ImageUploaderItem: React.FC<ContainerProps> = ({
       setCompressedFile(null);
     }
   };
+
+  // --- openImage
+  /**
+   *
+   */
   const openImage = () => {};
-  const onItemClick = () => {
+
+  // --- onItemClick
+  /**
+   * Questo metodo serve per aprire il menu a tendina
+   * con le opzioni
+   *
+   *
+   * @returns {void}
+   */
+  const onItemClick = (): void => {
     if (ref != null) {
       ref.current.open();
     }
@@ -128,8 +150,12 @@ const ImageUploaderItem: React.FC<ContainerProps> = ({
           {/* BUTTON OTTIMIZZA */}
           {sizeMB > dafaultImageSize && compressetFile == null ? (
             <IonItemOption onClick={compress} color={"warning"}>
-              <IonIcon slot="end" icon={colorWandOutline}></IonIcon>
               {text[l].btn_comprimi}
+              <IonIcon
+                className="icon-margin-left"
+                slot="end"
+                icon={colorWandOutline}
+              ></IonIcon>
             </IonItemOption>
           ) : (
             <></>
@@ -139,16 +165,18 @@ const ImageUploaderItem: React.FC<ContainerProps> = ({
             onClick={() => setIsFullScreen(true)}
             color={"primary"}
           >
-            <IonIcon slot="end" icon={eye} />
             {text[l].btn_visualizza}
+            <IonIcon className="icon-margin-left" slot="end" icon={eye} />
           </IonItemOption>
           {/* BUTTON ELIMINA */}
           <IonItemOption onClick={() => callbackRemoveImage()} color={"danger"}>
-            <IonIcon icon={trashBin} />
+            {text[l].btn_elimina}
+            <IonIcon className="icon-margin-left" icon={trashBin} />
           </IonItemOption>
         </IonItemOptions>
       </IonItemSliding>
 
+      {/* -------- EXTRA UI ------- */}
       {/* MODAL FULL SCREEN */}
       <IonModal
         isOpen={isFullScreen}
@@ -161,10 +189,10 @@ const ImageUploaderItem: React.FC<ContainerProps> = ({
                 color={"medium"}
                 onClick={() => setIsFullScreen(false)}
               >
-                Chiudi
+                {textButtons[l].btn__toast__close}
               </IonButton>
             </IonButtons>
-            <IonTitle>Immagine a schermo intero</IonTitle>
+            <IonTitle>{text[l].modal_img}</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent>

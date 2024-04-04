@@ -6,6 +6,9 @@ export const text = {
     ext: "Estensione",
     btn_comprimi: "Ottimizza",
     btn_visualizza: "Apri",
+    btn_elimina: "Elimina",
+    btn_opzioni: "opzioni",
+    modal_img: "Immagine caricata",
   },
   en_GB: {
     componentTitle: "DefaultComponent",
@@ -14,5 +17,8 @@ export const text = {
     ext: "Estensione",
     btn_comprimi: "Ottimizza",
     btn_visualizza: "Apri",
+    btn_elimina: "Elimina",
+    btn_opzioni: "opzioni",
+    modal_img: "Immagine caricata",
   },
 };

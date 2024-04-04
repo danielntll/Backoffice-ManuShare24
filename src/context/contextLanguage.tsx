@@ -1,17 +1,24 @@
-import React, { createContext, useContext, useState } from "react"
+import React, { createContext, useContext, useState } from "react";
 import { typeAvailableLanguages } from "../types/typeAvailableLanguage";
 
 type typeContextLanguage = {
-  l: typeAvailableLanguages,
+  l: typeAvailableLanguages;
   updateLanguage: (newLanguage: typeAvailableLanguages) => void;
-}
+};
 
-export const ContextLanguage = createContext<typeContextLanguage>({ l: "it_IT", updateLanguage: () => { console.log("Language") } });
+export const ContextLanguage = createContext<typeContextLanguage>({
+  l: "it_IT",
+  updateLanguage: () => {
+    console.log("Language");
+  },
+});
 
 export const useContextLanguage = () => useContext(ContextLanguage);
 
-export const ProviderContextLanguage = ({ children }: {
-  children: React.ReactNode
+export const ProviderContextLanguage = ({
+  children,
+}: {
+  children: React.ReactNode;
 }) => {
   // Variables ------------------------
   // UseStates ---------------------------

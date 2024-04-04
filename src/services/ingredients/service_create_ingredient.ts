@@ -3,10 +3,11 @@ import { typeIngredient } from "../../types/typeIngredient";
 import { db } from "../../firebase/firebaseConfig";
 
 /**
- * Questa funzione carica un ingrediente sul DB
+ * Questa funzione permette di caricare un ingrediente sul DB e ritorna
+ * l'ingrediente compreso di UID
  *
  * @param ingredient : typeIngredient - L'ingrediente da caricare sul DB
- * @returns Promise<typeIngredient | null> - L'oggetto dell'ingrediente creato o NULL
+ * @returns Promise<typeIngredient | null> - L'oggetto dell'ingrediente creato compreso di UID o NULL
  */
 export const serviceCreateIngredient = async (
   ingredient: typeIngredient

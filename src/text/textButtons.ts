@@ -8,6 +8,8 @@ export const textButtons: typeAvailableLanguagesModel = {
     btn__select: "Seleziona",
     btn__upload: "Salva",
     btn__annulla: "Annulla",
+    btn__upload_exit: "Salva ed esci",
+    btn__upload_new: "Salva e crea nuovo",
   },
   en_GB: {
     btn__toast__close: "Close",
@@ -16,5 +18,7 @@ export const textButtons: typeAvailableLanguagesModel = {
     btn__select: "Seleziona",
     btn__upload: "Salva",
     btn__annulla: "Annulla",
+    btn__upload_exit: "Salva ed esci",
+    btn__upload_new: "Salva e crea nuovo",
   },
 };

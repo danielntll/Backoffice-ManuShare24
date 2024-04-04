@@ -32,7 +32,7 @@ import {
   LOCAL_KEY_ATTIVITA,
   setLocalstorageData,
 } from "../../../utils/localstorage";
-import { DataContext } from "../../../context/contextData";
+import { DataContext } from "../../../context/data/contextData";
 import { User } from "firebase/auth";
 import CardAttivita from "../../../components/Card__Attivita/CardAttivita";
 import { ContextLanguage } from "../../../context/contextLanguage";

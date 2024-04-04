@@ -16,10 +16,10 @@ import {
   IonLoading,
   IonModal,
 } from "@ionic/react";
-import { useHistory, useLocation } from "react-router";
+import { useHistory } from "react-router";
 import { authenticatedRoutesOutlet, loginRoutesOutlet } from "../App";
 import { textAuthContext } from "../text/textAuthContext";
-import { DataContextProvider } from "./contextData";
+import { DataContextProvider } from "./data/contextData";
 import { ContextLanguage } from "./contextLanguage";
 import { ContextToast } from "./contextToast";
 
