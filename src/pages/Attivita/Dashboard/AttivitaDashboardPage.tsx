@@ -13,7 +13,6 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  useIonToast,
 } from "@ionic/react";
 import { text } from "./text";
 
@@ -21,13 +20,10 @@ import styles from "./AttivitaDashboardPage.module.css";
 import { useContext, useEffect, useState } from "react";
 import {
   checkmark,
-  happyOutline,
-  skullOutline,
   storefrontOutline,
   warning,
 } from "ionicons/icons";
 import { AuthContext } from "../../../context/contextAuth";
-import { textButtons } from "../../../text/textButtons";
 import {
   LOCAL_KEY_ATTIVITA,
   setLocalstorageData,
@@ -40,9 +36,9 @@ import { serviceCreateAttivita } from "../../../services/attivita/service_create
 import { typeAttivita } from "../../../types/typeAttivita";
 import { ContextToast } from "../../../context/contextToast";
 
-interface PageProps {}
+interface PageProps { }
 
-const AttivitaDashboardPage: React.FC<PageProps> = ({}) => {
+const AttivitaDashboardPage: React.FC<PageProps> = ({ }) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
   const { authenticateUser } = useContext(AuthContext);
@@ -71,8 +67,8 @@ const AttivitaDashboardPage: React.FC<PageProps> = ({}) => {
         toast(
           "success",
           text[l].success__welcome__start +
-            nameAttivita +
-            text[l].success__welcome__end
+          nameAttivita +
+          text[l].success__welcome__end
         );
       } else {
         toast("danger", text[l].danger__creation);

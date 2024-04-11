@@ -16,7 +16,6 @@ import {
   IonPage,
   IonText,
   IonToolbar,
-  useIonToast,
 } from "@ionic/react";
 import { text } from "./text";
 
@@ -26,11 +25,8 @@ import { useContext, useState } from "react";
 import {
   eyeOffOutline,
   eyeOutline,
-  happyOutline,
   informationCircleOutline,
   logInOutline,
-  skullOutline,
-  warning,
 } from "ionicons/icons";
 import { route_LoginPage } from "../../../routes/singleRoute";
 import {
@@ -42,7 +38,6 @@ import { LINK_TERMNS_POLICY } from "../../../utils/links";
 import Footer from "../../../components/Footer/Footer";
 import ModalTutorial from "../../../components/Modal__Tutorial/ModalTutorial";
 import { AuthContext } from "../../../context/contextAuth";
-import { textButtons } from "../../../text/textButtons";
 import { ContextLanguage } from "../../../context/contextLanguage";
 import { ContextToast } from "../../../context/contextToast";
 

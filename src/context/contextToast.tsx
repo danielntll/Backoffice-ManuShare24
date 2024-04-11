@@ -6,8 +6,8 @@ type typeContextToast = {
   toast: (
     type: "success" | "warning" | "danger" | "medium",
     message: string,
-    button?: ToastOptions["buttons"],
     duration?: number,
+    button?: ToastOptions["buttons"],
     position?: "top" | "bottom"
   ) => void;
 };
@@ -33,8 +33,8 @@ export const ProviderContextToast = ({
   const toast = (
     type: "success" | "warning" | "danger" | "medium",
     message: string,
-    button?: ToastOptions["buttons"],
     duration?: number,
+    button?: ToastOptions["buttons"],
     position?: "top" | "bottom"
   ) => {
     present({
@@ -54,6 +54,8 @@ export const ProviderContextToast = ({
   };
   // Return ---------------------------
   return (
-    <ContextToast.Provider value={{ toast }}>{children}</ContextToast.Provider>
+    <ContextToast.Provider value={{ toast }}>
+      {children}
+    </ContextToast.Provider>
   );
 };
