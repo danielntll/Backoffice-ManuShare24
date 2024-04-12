@@ -20,7 +20,6 @@ import {
   IonTitle,
   IonToggle,
   IonToolbar,
-  useIonToast,
 } from "@ionic/react";
 import { text } from "./text";
 import { text as textFooter } from "../../components/Footer/text";
@@ -31,14 +30,11 @@ import {
   createOutline,
   eye,
   eyeOff,
-  happyOutline,
   informationCircleOutline,
   lockClosedOutline,
   logOutOutline,
   mailOutline,
-  skullOutline,
   trashOutline,
-  warning,
 } from "ionicons/icons";
 import {
   deleteUser,
@@ -48,7 +44,6 @@ import {
   verifyBeforeUpdateEmail,
 } from "firebase/auth";
 import { AuthContext } from "../../context/contextAuth";
-import { textButtons } from "../../text/textButtons";
 import {
   ActionPerformed,
   PushNotifications,
