@@ -12,6 +12,7 @@ import { text } from "./text";
 import styles from "./HomePage.module.css";
 import { useContext } from "react";
 import { ContextLanguage } from "../../context/contextLanguage";
+import OrderDetails from "./components/OrderDetails/OrderDetails";
 
 
 interface PageProps { }
@@ -39,7 +40,9 @@ const HomePage: React.FC<PageProps> = ({ }) => {
           </IonToolbar>
         </IonHeader>
         {/* ----------------- PAGE CONTENT ------------------*/}
-        <div className={styles.content + " ion-padding"}></div>
+        <div className={styles.content}>
+          <OrderDetails />
+        </div>
         {/* ----------------- EXTRA UI ----------------------*/}
       </IonContent>
     </IonPage>
