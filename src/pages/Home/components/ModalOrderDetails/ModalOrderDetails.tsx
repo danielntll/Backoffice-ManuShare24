@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styles from "./ModalOrderDetails.module.css";
 import { text } from "./text";
 import { ContextLanguage } from "../../../../context/contextLanguage";
 import {
+  IonBadge,
   IonButton,
   IonButtons,
   IonCard,
@@ -16,7 +17,6 @@ import {
   IonList,
   IonListHeader,
   IonModal,
-  IonNote,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -28,8 +28,9 @@ import {
   typeOrderProduct,
   typeProduct,
 } from "../../../../types/typeOrder";
-import { chevronForward } from "ionicons/icons";
+import { chevronForward, filterOutline, timeOutline } from "ionicons/icons";
 import { mockProducts } from "../../../../mock/mockProducts";
+import ActionsheetFilter from "../../../../components/Actionsheet__Filter/ActionsheetFilter";
 
 interface ContainerProps {
   isModalPreviewOpen: boolean;
@@ -49,79 +50,136 @@ const ModalOrderDetails: React.FC<ContainerProps> = ({
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
   //CONDITIONS -----------------------
-  console.log(listToPreview);
+  const [listOrders, setListOrders] = useState<typeListOrders | null>(
+    listToPreview
+  );
+  const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
+  const [selectedFilter, setSelectedFilter] = useState<string>("");
+
   //FUNCTIONS ------------------------
+  const handleSelectFilter = (value: string) => {
+    console.log(value);
+  };
   //RETURN COMPONENT -----------------
   return (
-    <IonModal
-      isOpen={isModalPreviewOpen}
-      onDidDismiss={() => setIsModalPreviewOpen(false)}
-    >
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonButton
-              color={"medium"}
-              onClick={() => setIsModalPreviewOpen(false)}
-            >
-              {textButtons[l].btn__toast__close}
-            </IonButton>
-          </IonButtons>
-          <IonTitle>{text[l].componentTitle}</IonTitle>
-          <IonButtons slot="end">
-            <IonButton onClick={callbackHandleListAction}>
-              {textButtons[l].btn__go_to_page}
-            </IonButton>
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        <IonCard>
-          <IonCardHeader>
-            <IonCardTitle>
-              {
-                statusOrders.find(
-                  (status) => status.statusOrderID === listToPreview?.statusID
-                )?.name
-              }
-            </IonCardTitle>
-          </IonCardHeader>
-          {listToPreview?.orders.map((order: typeOrder, index: number) => {
-            return (
-              <IonList inset key={order.orderID}>
-                <IonListHeader>
-                  <IonLabel>{order.tableID}</IonLabel>
-                  <IonButton onClick={() => {}}>
-                    {text[l].btn__table}
-                    <IonIcon icon={chevronForward} />
-                  </IonButton>
-                </IonListHeader>
+    <>
+      <IonModal
+        isOpen={isModalPreviewOpen}
+        onDidDismiss={() => setIsModalPreviewOpen(false)}
+      >
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonButton
+                color={"medium"}
+                onClick={() => setIsModalPreviewOpen(false)}
+              >
+                {textButtons[l].btn__toast__close}
+              </IonButton>
+            </IonButtons>
+            <IonTitle>{text[l].componentTitle}</IonTitle>
+            <IonButtons slot="end">
+              <IonButton onClick={callbackHandleListAction}>
+                {textButtons[l].btn__go_to_page}
+              </IonButton>
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonCard>
+            <IonCardHeader>
+              <IonCardTitle className="inline-row-sb">
+                {
+                  statusOrders.find(
+                    (status) => status.statusOrderID === listOrders?.statusID
+                  )?.name
+                }
+                <IonButton
+                  onClick={() => setIsFiltersOpen(true)}
+                  fill="clear"
+                  size="small"
+                >
+                  <IonIcon icon={filterOutline} />
+                </IonButton>
+              </IonCardTitle>
+            </IonCardHeader>
+            {listOrders?.orders.map((order: typeOrder) => {
+              const now = Date.now();
+              const differenceInMilliseconds = now - order.createdAt;
+              const differenceInMinutes = Math.floor(
+                differenceInMilliseconds / (1000 * 60)
+              );
+              return (
+                <IonList inset key={order.orderID}>
+                  <IonListHeader>
+                    <IonLabel>
+                      <h3 className="inline-row-gap">
+                        <IonBadge className={styles.badge}>
+                          <IonIcon icon={timeOutline} />
+                          {differenceInMinutes} min
+                        </IonBadge>{" "}
+                        {order.tableID}
+                      </h3>
+                    </IonLabel>
+                    <IonButton onClick={() => {}}>
+                      {text[l].btn__table}
+                      <IonIcon icon={chevronForward} />
+                    </IonButton>
+                  </IonListHeader>
 
-                {order.products.map(
-                  (orderProduct: typeOrderProduct, index: number) => {
-                    const product: typeProduct | undefined = mockProducts.find(
-                      (prod) => prod.productID === orderProduct.productID
-                    );
-                    return (
-                      <IonItem
-                        key={index + orderProduct.productID}
-                        button={true}
-                        onClick={() => {}}
-                      >
-                        <IonLabel>
-                          <h3>{product?.name}</h3>
-                          <p>{orderProduct.notes}</p>
-                        </IonLabel>
-                      </IonItem>
-                    );
-                  }
-                )}
-              </IonList>
-            );
-          })}
-        </IonCard>
-      </IonContent>
-    </IonModal>
+                  {order.products.map(
+                    (orderProduct: typeOrderProduct, index: number) => {
+                      const product: typeProduct | undefined =
+                        mockProducts.find(
+                          (prod) => prod.productID === orderProduct.productID
+                        );
+                      return (
+                        <IonItem
+                          key={index + orderProduct.productID}
+                          button={true}
+                          onClick={() => {}}
+                        >
+                          <IonLabel>
+                            <h3>{product?.name}</h3>
+                            <p>{orderProduct.notes}</p>
+                          </IonLabel>
+                        </IonItem>
+                      );
+                    }
+                  )}
+                </IonList>
+              );
+            })}
+          </IonCard>
+        </IonContent>
+      </IonModal>
+      {/* ----------------- EXTRA UI ----------------------*/}
+      <ActionsheetFilter
+        isOpen={isFiltersOpen}
+        setIsOpen={setIsFiltersOpen}
+        callbackSelectedValue={handleSelectFilter}
+        buttons={[
+          {
+            text: "Tempo di attesa",
+            data: {
+              action: "Tempo di attesa",
+            },
+          },
+          {
+            text: "Nome tavolo",
+            data: {
+              action: "Nome tavolo",
+            },
+          },
+          {
+            text: "Numero ordini",
+            data: {
+              action: "Numero ordini",
+            },
+          },
+        ]}
+      />
+    </>
   );
 };
 
