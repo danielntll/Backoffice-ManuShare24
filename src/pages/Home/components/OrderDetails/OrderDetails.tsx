@@ -70,44 +70,42 @@ const OrderDetails: React.FC<ContainerProps> = ({}) => {
   return (
     <>
       <div className={styles.container}>
-        <IonCard>
-          <IonList inset>
-            <IonListHeader>
-              <IonLabel>{text[l].componentTitle}</IonLabel>
-              <IonButton onClick={handleListAction}>
-                {textButtons[l].btn__go_to_page}
-                <IonIcon icon={icons["chevronForward"]} />
-              </IonButton>
-            </IonListHeader>
-            {statusOrders.map((status: typeStatusOrder, index: number) => {
-              const listOrders: typeListOrders[] = orders.filter(
-                (listOrd: typeListOrders) =>
-                  listOrd.statusID === status.statusOrderID
-              );
+        <IonList inset>
+          <IonListHeader>
+            <IonLabel>{text[l].componentTitle}</IonLabel>
+            <IonButton onClick={handleListAction}>
+              {textButtons[l].btn__go_to_page}
+              <IonIcon icon={icons["chevronForward"]} />
+            </IonButton>
+          </IonListHeader>
+          {statusOrders.map((status: typeStatusOrder, index: number) => {
+            const listOrders: typeListOrders[] = orders.filter(
+              (listOrd: typeListOrders) =>
+                listOrd.statusID === status.statusOrderID
+            );
 
-              return (
-                <IonItem
-                  key={index + status.statusOrderID}
-                  button={listOrders.length > 0 ? true : false}
-                  onClick={
-                    listOrders.length > 0
-                      ? () => handlePreviewOrdersList(listOrders[0])
-                      : () => {}
-                  }
-                >
-                  <IonIcon
-                    style={{ color: status?.color }}
-                    slot="start"
-                    icon={status?.icon}
-                    size="large"
-                  ></IonIcon>
-                  <IonLabel>{status?.name}</IonLabel>
-                  <IonNote slot="end">{listOrders[0]?.orders.length}</IonNote>
-                </IonItem>
-              );
-            })}
-          </IonList>
-        </IonCard>
+            return (
+              <IonItem
+                key={index + status.statusOrderID}
+                button={listOrders.length > 0 ? true : false}
+                onClick={
+                  listOrders.length > 0
+                    ? () => handlePreviewOrdersList(listOrders[0])
+                    : () => {}
+                }
+              >
+                <IonIcon
+                  style={{ color: status?.color }}
+                  slot="start"
+                  icon={status?.icon}
+                  size="large"
+                />
+                <IonLabel>{status?.name}</IonLabel>
+                <IonNote slot="end">{listOrders[0]?.orders.length}</IonNote>
+              </IonItem>
+            );
+          })}
+        </IonList>
       </div>
       {/* ----------------- EXTRA UI ----------------------*/}
       <ModalOrderDetails

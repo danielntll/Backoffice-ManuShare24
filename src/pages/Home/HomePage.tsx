@@ -1,7 +1,10 @@
 import {
+  IonButton,
   IonButtons,
+  IonCard,
   IonContent,
   IonHeader,
+  IonIcon,
   IonMenuButton,
   IonPage,
   IonTitle,
@@ -13,11 +16,15 @@ import styles from "./HomePage.module.css";
 import { useContext } from "react";
 import { ContextLanguage } from "../../context/contextLanguage";
 import OrderDetails from "./components/OrderDetails/OrderDetails";
+import AnalyticsDetails from "./components/AnalyticsDetails/AnalyticsDetails";
+import InventoryDetails from "./components/InventoryDetails/InventoryDetails";
+import ReservationDetails from "./components/ReservationDetails/ReservationDetails";
+import { ellipsisVerticalCircle, optionsOutline } from "ionicons/icons";
+import ReviewsDetails from "./components/ReviewsDetails/ReviewsDetails";
 
+interface PageProps {}
 
-interface PageProps { }
-
-const HomePage: React.FC<PageProps> = ({ }) => {
+const HomePage: React.FC<PageProps> = ({}) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
   //CONDITIONS -----------------------
@@ -31,6 +38,11 @@ const HomePage: React.FC<PageProps> = ({ }) => {
             <IonMenuButton />
           </IonButtons>
           <IonTitle>{text[l].pageTitle}</IonTitle>
+          <IonButtons slot="end">
+            <IonButton>
+              <IonIcon icon={ellipsisVerticalCircle} />
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -41,7 +53,13 @@ const HomePage: React.FC<PageProps> = ({ }) => {
         </IonHeader>
         {/* ----------------- PAGE CONTENT ------------------*/}
         <div className={styles.content}>
-          <OrderDetails />
+          <IonCard>
+            <OrderDetails />
+            <ReservationDetails />
+            <InventoryDetails />
+            <ReviewsDetails />
+            <AnalyticsDetails />
+          </IonCard>
         </div>
         {/* ----------------- EXTRA UI ----------------------*/}
       </IonContent>
