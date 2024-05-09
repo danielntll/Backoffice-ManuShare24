@@ -37,7 +37,7 @@ const ActionsheetFilter: React.FC<ContainerProps> = ({
         },
       ]}
       onDidDismiss={({ detail }) => {
-        callbackSelectedValue(JSON.stringify(detail, null, 2));
+        callbackSelectedValue(detail.data);
         setIsOpen(false);
       }}
     ></IonActionSheet>

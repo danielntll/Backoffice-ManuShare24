@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./ModalOrderDetails.module.css";
 import { text } from "./text";
 import { ContextLanguage } from "../../../../context/contextLanguage";
@@ -50,13 +50,15 @@ const ModalOrderDetails: React.FC<ContainerProps> = ({
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
   //CONDITIONS -----------------------
-  const [listOrders, setListOrders] = useState<typeListOrders | null>(
-    listToPreview
-  );
+  const [listOrders, setListOrders] = useState<typeListOrders | null>(null);
   const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
   const [selectedFilter, setSelectedFilter] = useState<string>("");
 
   //FUNCTIONS ------------------------
+  useEffect(() => {
+    setListOrders(listToPreview);
+  }, [listToPreview]);
+
   const handleSelectFilter = (value: string) => {
     console.log(value);
   };
@@ -118,11 +120,10 @@ const ModalOrderDetails: React.FC<ContainerProps> = ({
                           <IonIcon icon={timeOutline} />
                           {differenceInMinutes} min
                         </IonBadge>{" "}
-                        {order.tableID}
                       </h3>
                     </IonLabel>
                     <IonButton onClick={() => {}}>
-                      {text[l].btn__table}
+                      {order.tableID}
                       <IonIcon icon={chevronForward} />
                     </IonButton>
                   </IonListHeader>
