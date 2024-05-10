@@ -79,7 +79,7 @@ ion-menu.ios ion-item {
   --padding-start: 16px;
   --padding-end: 16px;
   --min-height: 50px;
-  --background: var(--ion-background-color);
+  --background: var(--ion-item-background);
 }
 
 ion-menu.ios ion-item ion-icon {
@@ -102,7 +102,7 @@ ion-menu.ios ion-list-header,
 ion-menu.ios ion-note {
   padding-left: 16px;
   padding-right: 16px;
-  --background: var(--ion-background-color);
+  --background: var(--ion-item-background);
 }
 
 ion-menu.ios ion-note {

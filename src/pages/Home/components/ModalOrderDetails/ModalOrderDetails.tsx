@@ -8,14 +8,13 @@ import {
   IonButtons,
   IonCard,
   IonCardHeader,
-  IonCardTitle,
+  IonCardSubtitle,
   IonContent,
   IonHeader,
   IonIcon,
   IonItem,
   IonLabel,
   IonList,
-  IonListHeader,
   IonModal,
   IonTitle,
   IonToolbar,
@@ -79,31 +78,22 @@ const ModalOrderDetails: React.FC<ContainerProps> = ({
                 {textButtons[l].btn__toast__close}
               </IonButton>
             </IonButtons>
-            <IonTitle>{text[l].componentTitle}</IonTitle>
-            <IonButtons slot="end">
-              <IonButton onClick={callbackHandleListAction}>
-                {textButtons[l].btn__go_to_page}
-              </IonButton>
-            </IonButtons>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent>
-          <IonCardHeader>
-            <IonCardTitle className="inline-row-sb">
+            <IonTitle>
               {
                 statusOrders.find(
                   (status) => status.statusOrderID === listOrders?.statusID
                 )?.name
               }
-              <IonButton
-                onClick={() => setIsFiltersOpen(true)}
-                fill="clear"
-                size="small"
-              >
-                <IonIcon icon={filterOutline} />
+            </IonTitle>
+            <IonButtons slot="end">
+              <IonButton onClick={() => setIsFiltersOpen(true)} fill="clear">
+                {text[l].btn__filter}
+                <IonIcon className="icon-margin-left" icon={filterOutline} />
               </IonButton>
-            </IonCardTitle>
-          </IonCardHeader>
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
           {listOrders?.orders.map((order: typeOrder) => {
             const now = Date.now();
             const differenceInMilliseconds = now - order.createdAt;
@@ -111,42 +101,51 @@ const ModalOrderDetails: React.FC<ContainerProps> = ({
               differenceInMilliseconds / (1000 * 60)
             );
             return (
-              <IonList inset key={order.orderID}>
-                <IonListHeader>
-                  <IonLabel>
+              <IonCard>
+                <IonCardHeader className={styles.header}>
+                  <IonCardSubtitle className="inline-row-sb">
                     <h3 className="inline-row-gap">
-                      <IonBadge className={styles.badge}>
+                      <IonBadge
+                        style={{
+                          background: statusOrders.find(
+                            (status) =>
+                              status.statusOrderID === listOrders?.statusID
+                          )?.color,
+                          color: "#000",
+                        }}
+                        className={styles.badge}
+                      >
                         <IonIcon icon={timeOutline} />
                         {differenceInMinutes} min
                       </IonBadge>{" "}
                     </h3>
-                  </IonLabel>
-                  <IonButton onClick={() => {}}>
-                    {order.tableID}
-                    <IonIcon icon={chevronForward} />
-                  </IonButton>
-                </IonListHeader>
-
-                {order.products.map(
-                  (orderProduct: typeOrderProduct, index: number) => {
-                    const product: typeProduct | undefined = mockProducts.find(
-                      (prod) => prod.productID === orderProduct.productID
-                    );
-                    return (
-                      <IonItem
-                        key={index + orderProduct.productID}
-                        button={true}
-                        onClick={() => {}}
-                      >
-                        <IonLabel>
-                          <h3>{product?.name}</h3>
-                          <p>{orderProduct.notes}</p>
-                        </IonLabel>
-                      </IonItem>
-                    );
-                  }
-                )}
-              </IonList>
+                    <IonButton size="small" fill="clear" onClick={() => {}}>
+                      {order.tableID}
+                      <IonIcon icon={chevronForward} />
+                    </IonButton>
+                  </IonCardSubtitle>
+                </IonCardHeader>
+                <span className="ion-padding-start">{text[l].orders}</span>
+                <IonList inset>
+                  {order.products.map(
+                    (orderProduct: typeOrderProduct, index: number) => {
+                      const product: typeProduct | undefined =
+                        mockProducts.find(
+                          (prod) => prod.productID === orderProduct.productID
+                        );
+                      return (
+                        <IonItem key={index + orderProduct.productID}>
+                          <IonLabel>
+                            <h3>{product?.name}</h3>
+                            <p>{orderProduct.notes}</p>
+                          </IonLabel>
+                        </IonItem>
+                      );
+                    }
+                  )}
+                </IonList>
+                <IonLabel></IonLabel>
+              </IonCard>
             );
           })}
         </IonContent>

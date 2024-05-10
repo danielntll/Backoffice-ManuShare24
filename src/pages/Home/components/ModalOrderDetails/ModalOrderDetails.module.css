@@ -1,6 +1,9 @@
-.container {
-}
 .badge {
   display: flex;
   gap: 5px;
+}
+.header {
+  padding-bottom: 0;
+  padding-top: 0;
+  padding-right: 0;
 }
