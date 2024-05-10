@@ -18,11 +18,7 @@ import { text } from "./text";
 
 import styles from "./AttivitaDashboardPage.module.css";
 import { useContext, useEffect, useState } from "react";
-import {
-  checkmark,
-  storefrontOutline,
-  warning,
-} from "ionicons/icons";
+import { checkmark, storefrontOutline, warning } from "ionicons/icons";
 import { AuthContext } from "../../../context/contextAuth";
 import {
   LOCAL_KEY_ATTIVITA,
@@ -35,18 +31,23 @@ import { ContextLanguage } from "../../../context/contextLanguage";
 import { serviceCreateAttivita } from "../../../services/attivita/service_create_attivita";
 import { typeAttivita } from "../../../types/typeAttivita";
 import { ContextToast } from "../../../context/contextToast";
+import { useLocation } from "react-router";
+import { appRoutes } from "../../../routes/routes";
+import { typeRoute } from "../../../types/typeRoute";
 
-interface PageProps { }
+interface PageProps {}
 
-const AttivitaDashboardPage: React.FC<PageProps> = ({ }) => {
+const AttivitaDashboardPage: React.FC<PageProps> = ({}) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
   const { authenticateUser } = useContext(AuthContext);
   const { attivita } = useContext(DataContext);
   const { toast } = useContext(ContextToast);
+  const location = useLocation();
   //CONDITIONS -----------------------
   const [user, setUser] = useState<User>();
   const [nameAttivita, setNameAttivita] = useState<string>("");
+  const [pageName, setPageName] = useState<string | undefined>("");
   // USE EFFECTS ---------------------
   useEffect(() => {
     if (authenticateUser !== undefined) {
@@ -55,6 +56,12 @@ const AttivitaDashboardPage: React.FC<PageProps> = ({ }) => {
     }
   }, [authenticateUser]);
 
+  useEffect(() => {
+    setPageName(
+      appRoutes.find((route: typeRoute) => route.path === location.pathname)
+        ?.tab[l]
+    );
+  }, [location]);
   //FUNCTIONS ------------------------
   const createAttivita = async () => {
     if (nameAttivita.length > 0) {
@@ -67,8 +74,8 @@ const AttivitaDashboardPage: React.FC<PageProps> = ({ }) => {
         toast(
           "success",
           text[l].success__welcome__start +
-          nameAttivita +
-          text[l].success__welcome__end
+            nameAttivita +
+            text[l].success__welcome__end
         );
       } else {
         toast("danger", text[l].danger__creation);
@@ -91,13 +98,13 @@ const AttivitaDashboardPage: React.FC<PageProps> = ({ }) => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>{text[l].pageTitle}</IonTitle>
+          <IonTitle>{pageName}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">{text[l].pageTitle}</IonTitle>
+            <IonTitle size="large">{pageName}</IonTitle>
           </IonToolbar>
         </IonHeader>
         {/* ----------------- PAGE CONTENT ------------------*/}

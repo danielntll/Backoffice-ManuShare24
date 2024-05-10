@@ -12,7 +12,7 @@ import {
 import { text } from "./text";
 
 import styles from "./HomePage.module.css";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContextLanguage } from "../../context/contextLanguage";
 import OrderDetails from "./components/OrderDetails/OrderDetails";
 import AnalyticsDetails from "./components/AnalyticsDetails/AnalyticsDetails";
@@ -20,13 +20,48 @@ import InventoryDetails from "./components/InventoryDetails/InventoryDetails";
 import ReservationDetails from "./components/ReservationDetails/ReservationDetails";
 import { ellipsisVerticalCircle } from "ionicons/icons";
 import ReviewsDetails from "./components/ReviewsDetails/ReviewsDetails";
+import { useLocation } from "react-router";
+import { appRoutes } from "../../routes/routes";
+import { typeRoute } from "../../types/typeRoute";
+import { typeWidget } from "../../types/typeWidget";
 
 interface PageProps {}
 
 const HomePage: React.FC<PageProps> = ({}) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
+  const location = useLocation();
   //CONDITIONS -----------------------
+  const [pageName, setPageName] = useState<string | undefined>("");
+  const [components, setComponents] = useState<typeWidget[]>([
+    {
+      widgetID: "AnalyticsDetails",
+      component: <AnalyticsDetails key={"AnalyticsDetails"} />,
+    },
+    {
+      widgetID: "InventoryDetails",
+      component: <InventoryDetails key={"InventoryDetails"} />,
+    },
+    {
+      widgetID: "OrderDetails",
+      component: <OrderDetails key={"OrderDetails"} />,
+    },
+    {
+      widgetID: "ReservationDetails",
+      component: <ReservationDetails key={"ReservationDetails"} />,
+    },
+    {
+      widgetID: "ReviewsDetails",
+      component: <ReviewsDetails key={"ReviewsDetails"} />,
+    },
+  ]);
+
+  useEffect(() => {
+    setPageName(
+      appRoutes.find((route: typeRoute) => route.path === location.pathname)
+        ?.tab[l]
+    );
+  }, [location]);
   //FUNCTIONS ------------------------
   //RETURN COMPONENT -----------------
   return (
@@ -36,7 +71,7 @@ const HomePage: React.FC<PageProps> = ({}) => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>{text[l].pageTitle}</IonTitle>
+          <IonTitle>{pageName}</IonTitle>
           <IonButtons slot="end">
             <IonButton>
               <IonIcon icon={ellipsisVerticalCircle} />
@@ -47,16 +82,14 @@ const HomePage: React.FC<PageProps> = ({}) => {
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">{text[l].pageTitle}</IonTitle>
+            <IonTitle size="large">{pageName}</IonTitle>
           </IonToolbar>
         </IonHeader>
         {/* ----------------- PAGE CONTENT ------------------*/}
         <div className={styles.content}>
-          <OrderDetails />
-          <ReservationDetails />
-          <InventoryDetails />
-          <ReviewsDetails />
-          <AnalyticsDetails />
+          {components.map((widget: typeWidget, index: number) => {
+            return widget.component;
+          })}
         </div>
         {/* ----------------- EXTRA UI ----------------------*/}
       </IonContent>

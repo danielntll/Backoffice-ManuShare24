@@ -59,6 +59,9 @@ import { Device, DeviceInfo } from "@capacitor/device";
 import { ContextLanguage } from "../../context/contextLanguage";
 import { typeAvailableLanguages } from "../../types/typeAvailableLanguage";
 import { ContextToast } from "../../context/contextToast";
+import { appRoutes } from "../../routes/routes";
+import { typeRoute } from "../../types/typeRoute";
+import { useLocation } from "react-router";
 
 interface PageProps {}
 
@@ -67,7 +70,17 @@ const ImpostazioniPage: React.FC<PageProps> = ({}) => {
   const { l, updateLanguage } = useContext(ContextLanguage);
   const { authenticateUser, auth } = useContext(AuthContext);
   const { toast } = useContext(ContextToast);
+  const location = useLocation();
   //CONDITIONS -----------------------
+  const [pageName, setPageName] = useState<string | undefined>("");
+
+  useEffect(() => {
+    setPageName(
+      appRoutes.find((route: typeRoute) => route.path === location.pathname)
+        ?.tab[l]
+    );
+  }, [location]);
+
   // ---- user
   const [user, setUser] = useState<User>();
   // ---- new mail
@@ -332,13 +345,13 @@ const ImpostazioniPage: React.FC<PageProps> = ({}) => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>{text[l].pageTitle}</IonTitle>
+          <IonTitle>{pageName}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">{text[l].pageTitle}</IonTitle>
+            <IonTitle size="large">{pageName}</IonTitle>
           </IonToolbar>
         </IonHeader>
         {/* ----------------- PAGE CONTENT ------------------*/}

@@ -17,9 +17,12 @@ import { useContext } from "react";
 import { ContextLanguage } from "../../context/contextLanguage";
 
 const Menu: React.FC = () => {
+  //VARIABLES ------------------------
   const location = useLocation();
   const { l } = useContext(ContextLanguage);
-
+  //CONDITIONS -----------------------
+  //FUNCTIONS ------------------------
+  //RETURN COMPONENT -----------------
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>

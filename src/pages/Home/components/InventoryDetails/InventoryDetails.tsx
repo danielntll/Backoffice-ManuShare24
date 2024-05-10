@@ -2,20 +2,10 @@ import { useContext } from "react";
 import styles from "./InventoryDetails.module.css";
 import { text } from "./text";
 import { ContextLanguage } from "../../../../context/contextLanguage";
-import {
-  IonButton,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
-  IonNote,
-} from "@ionic/react";
-import { textButtons } from "../../../../text/textButtons";
+import { IonIcon, IonItem, IonLabel, IonList, IonNote } from "@ionic/react";
 import {
   calendarNumberOutline,
   calendarOutline,
-  chevronForward,
   fileTrayFullOutline,
   fileTrayOutline,
 } from "ionicons/icons";
