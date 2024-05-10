@@ -88,70 +88,67 @@ const ModalOrderDetails: React.FC<ContainerProps> = ({
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          <IonCard>
-            <IonCardHeader>
-              <IonCardTitle className="inline-row-sb">
-                {
-                  statusOrders.find(
-                    (status) => status.statusOrderID === listOrders?.statusID
-                  )?.name
-                }
-                <IonButton
-                  onClick={() => setIsFiltersOpen(true)}
-                  fill="clear"
-                  size="small"
-                >
-                  <IonIcon icon={filterOutline} />
-                </IonButton>
-              </IonCardTitle>
-            </IonCardHeader>
-            {listOrders?.orders.map((order: typeOrder) => {
-              const now = Date.now();
-              const differenceInMilliseconds = now - order.createdAt;
-              const differenceInMinutes = Math.floor(
-                differenceInMilliseconds / (1000 * 60)
-              );
-              return (
-                <IonList inset key={order.orderID}>
-                  <IonListHeader>
-                    <IonLabel>
-                      <h3 className="inline-row-gap">
-                        <IonBadge className={styles.badge}>
-                          <IonIcon icon={timeOutline} />
-                          {differenceInMinutes} min
-                        </IonBadge>{" "}
-                      </h3>
-                    </IonLabel>
-                    <IonButton onClick={() => {}}>
-                      {order.tableID}
-                      <IonIcon icon={chevronForward} />
-                    </IonButton>
-                  </IonListHeader>
+          <IonCardHeader>
+            <IonCardTitle className="inline-row-sb">
+              {
+                statusOrders.find(
+                  (status) => status.statusOrderID === listOrders?.statusID
+                )?.name
+              }
+              <IonButton
+                onClick={() => setIsFiltersOpen(true)}
+                fill="clear"
+                size="small"
+              >
+                <IonIcon icon={filterOutline} />
+              </IonButton>
+            </IonCardTitle>
+          </IonCardHeader>
+          {listOrders?.orders.map((order: typeOrder) => {
+            const now = Date.now();
+            const differenceInMilliseconds = now - order.createdAt;
+            const differenceInMinutes = Math.floor(
+              differenceInMilliseconds / (1000 * 60)
+            );
+            return (
+              <IonList inset key={order.orderID}>
+                <IonListHeader>
+                  <IonLabel>
+                    <h3 className="inline-row-gap">
+                      <IonBadge className={styles.badge}>
+                        <IonIcon icon={timeOutline} />
+                        {differenceInMinutes} min
+                      </IonBadge>{" "}
+                    </h3>
+                  </IonLabel>
+                  <IonButton onClick={() => {}}>
+                    {order.tableID}
+                    <IonIcon icon={chevronForward} />
+                  </IonButton>
+                </IonListHeader>
 
-                  {order.products.map(
-                    (orderProduct: typeOrderProduct, index: number) => {
-                      const product: typeProduct | undefined =
-                        mockProducts.find(
-                          (prod) => prod.productID === orderProduct.productID
-                        );
-                      return (
-                        <IonItem
-                          key={index + orderProduct.productID}
-                          button={true}
-                          onClick={() => {}}
-                        >
-                          <IonLabel>
-                            <h3>{product?.name}</h3>
-                            <p>{orderProduct.notes}</p>
-                          </IonLabel>
-                        </IonItem>
-                      );
-                    }
-                  )}
-                </IonList>
-              );
-            })}
-          </IonCard>
+                {order.products.map(
+                  (orderProduct: typeOrderProduct, index: number) => {
+                    const product: typeProduct | undefined = mockProducts.find(
+                      (prod) => prod.productID === orderProduct.productID
+                    );
+                    return (
+                      <IonItem
+                        key={index + orderProduct.productID}
+                        button={true}
+                        onClick={() => {}}
+                      >
+                        <IonLabel>
+                          <h3>{product?.name}</h3>
+                          <p>{orderProduct.notes}</p>
+                        </IonLabel>
+                      </IonItem>
+                    );
+                  }
+                )}
+              </IonList>
+            );
+          })}
         </IonContent>
       </IonModal>
       {/* ----------------- EXTRA UI ----------------------*/}
