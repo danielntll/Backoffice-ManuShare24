@@ -12,7 +12,7 @@ export const textButtons: typeAvailableLanguagesModel = {
     btn__upload_new: "Salva e crea nuovo",
     btn__see_all: "Visualizza tutto",
     btn__open: "Apri",
-    btn__go_to_page: "Vai alla pagina",
+    btn__go_to_page: "",
   },
   en_GB: {
     btn__toast__close: "Close",
@@ -25,6 +25,6 @@ export const textButtons: typeAvailableLanguagesModel = {
     btn__upload_new: "Salva e crea nuovo",
     btn__see_all: "Visualizza tutto",
     btn__open: "Apri",
-    btn__go_to_page: "Vai alla pagina",
+    btn__go_to_page: "",
   },
 };

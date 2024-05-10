@@ -19,6 +19,7 @@ import {
   trendingUp,
 } from "ionicons/icons";
 import { textButtons } from "../../../../text/textButtons";
+import ListHeader from "../../../../components/List__Header/ListHeader";
 
 interface ContainerProps {}
 
@@ -41,13 +42,10 @@ const AnalyticsDetails: React.FC<ContainerProps> = ({}) => {
   return (
     <div className={styles.container}>
       <IonList inset>
-        <IonListHeader>
-          <IonLabel>{text[l].componentTitle}</IonLabel>
-          <IonButton onClick={handleListAction}>
-            {textButtons[l].btn__go_to_page}
-            <IonIcon icon={chevronForward} />
-          </IonButton>
-        </IonListHeader>
+        <ListHeader
+          title={text[l].componentTitle}
+          callbackListAction={handleListAction}
+        />
         <IonItem button>
           <IonIcon slot="start" icon={earthOutline} />
           <IonLabel>

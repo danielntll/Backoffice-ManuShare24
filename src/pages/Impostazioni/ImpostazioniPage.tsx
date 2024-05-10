@@ -343,210 +343,206 @@ const ImpostazioniPage: React.FC<PageProps> = ({}) => {
         </IonHeader>
         {/* ----------------- PAGE CONTENT ------------------*/}
         <div className={styles.content}>
-          <IonCard>
-            {/* -------- ACCOUNT ------- */}
-            <IonList inset>
-              <IonListHeader>{text[l].account_section}</IonListHeader>
-              {/* ----- Email ------ */}
-              <IonItem button onClick={handleEmail} detail={false}>
-                <IonLabel>
-                  <p>{text[l].email_title}</p>
-                  <h2>{authenticateUser?.email}</h2>
-                </IonLabel>
-                <IonButtons slot="end">
-                  <IonButton onClick={handleEmail}>
-                    <IonIcon icon={createOutline} />
-                  </IonButton>
-                </IonButtons>
-              </IonItem>
-              {/* ----- Password ------ */}
-              <IonItem button onClick={handlePassword} detail={false}>
-                <IonLabel>
-                  <p>{text[l].password_title}</p>
-                  <h2>*************</h2>
-                </IonLabel>
-                <IonButtons slot="end">
-                  <IonButton onClick={handlePassword}>
-                    <IonIcon icon={createOutline} />
-                  </IonButton>
-                </IonButtons>
-              </IonItem>
-            </IonList>
-            {/* -------- PREFERENZE ------- */}
-            <IonList inset>
-              <IonListHeader>{text[l].preferenze_sezione}</IonListHeader>
-              {/* ----- Lingua ------ */}
-              <IonItem button onClick={openScegliLingua}>
-                <IonLabel>
-                  <h3>{text[l].preferenze_lingua}</h3>
-                </IonLabel>
-                <IonNote slot="end">{lingua}</IonNote>
-              </IonItem>
-            </IonList>
-            {/* -------- ABBONAMENTO ------ */}
-            <IonList inset>
-              <IonListHeader>{text[l].abbonamento_section}</IonListHeader>
-              {/* ----- Premium ------ */}
-              <IonItem button onClick={handlePremium}>
-                <IonLabel>
-                  <h3>{text[l].cta_abbonamento}</h3>
-                  <p>{text[l].note_premium}</p>
-                </IonLabel>
-              </IonItem>
-              {/* ----- Abbonamento ------ */}
-              <IonItem button onClick={handleDettagliAbbonamento}>
-                <IonLabel className="ion-text-wrap">
-                  <h3>{text[l].abbonamento_title}</h3>
-                  <p>{text[l].note_abbonamento}</p>
-                </IonLabel>
-                <IonChip color={"primary"}>FREE</IonChip>
-              </IonItem>
-              {/* ----- Storico Abbonamento ------ */}
-              <IonItem button onClick={handleStoricoAbbonamento}>
-                <IonLabel className="ion-text-wrap">
-                  <h3>{text[l].abbonamento_storico}</h3>
-                  <p>{text[l].note_storico}</p>
-                </IonLabel>
-              </IonItem>
-            </IonList>
-            {/* -------- NOTIFICHE ------ */}
-            <IonList inset>
-              <IonListHeader>{text[l].interazione_section}</IonListHeader>
-              {/* ------ Notifiche vantaggi ------ */}
-              <IonItem disabled={device?.platform == "web"}>
-                <IonToggle
-                  onIonChange={handleEnableVantaggi}
-                  checked={enabledNotifications?.vantaggi}
-                  enableOnOffLabels={true}
-                >
-                  <IonLabel>
-                    <h3>{text[l].notifiche_vantaggi}</h3>
-                    <p className="ion-text-wrap">
-                      {text[l].notifiche_vantaggi_note}
-                    </p>
-                  </IonLabel>
-                </IonToggle>
-              </IonItem>
-              {/* ------ Notifiche promozioni ------ */}
-              <IonItem disabled={device?.platform == "web"}>
-                <IonToggle
-                  onIonChange={handleEnablePromozioni}
-                  checked={enabledNotifications?.promozioni}
-                  enableOnOffLabels={true}
-                >
-                  <IonLabel>
-                    <h3>{text[l].notifiche_promozioni}</h3>
-                    <p className="ion-text-wrap">
-                      {text[l].notifiche_promozioni_note}
-                    </p>
-                  </IonLabel>
-                </IonToggle>
-              </IonItem>
-              {/* ------ Notifiche inventario ------ */}
-              <IonItem disabled={device?.platform == "web"}>
-                <IonToggle
-                  onIonChange={handleEnableInventario}
-                  checked={enabledNotifications?.inventario}
-                  enableOnOffLabels={true}
-                >
-                  <IonLabel>
-                    <h3>{text[l].notifiche_inventario}</h3>
-                    <p className="ion-text-wrap">
-                      {text[l].notifiche_inventario_note}
-                    </p>
-                  </IonLabel>
-                </IonToggle>
-              </IonItem>
-              {/* ------ Notifiche recensioni ------ */}
-              <IonItem disabled={device?.platform == "web"}>
-                <IonToggle
-                  onIonChange={handleEnableRecensioni}
-                  checked={enabledNotifications?.recensioni}
-                  enableOnOffLabels={true}
-                >
-                  <IonLabel>
-                    <h3>{text[l].notifiche_recensioni}</h3>
-                    <p className="ion-text-wrap">
-                      {text[l].notifiche_recensioni_note}
-                    </p>
-                  </IonLabel>
-                </IonToggle>
-              </IonItem>
-              {/* ------ Notifiche report mensile ------ */}
-              <IonItem disabled={device?.platform == "web"}>
-                <IonToggle
-                  onIonChange={handleEnableReportMensile}
-                  checked={enabledNotifications?.report}
-                  enableOnOffLabels={true}
-                >
-                  <IonLabel>
-                    <h3>{text[l].notifiche_report}</h3>
-                    <p className="ion-text-wrap">
-                      {text[l].notifiche_report_note}
-                    </p>
-                  </IonLabel>
-                </IonToggle>
-              </IonItem>
-            </IonList>
-            {/* -------- SUPPORTO ------ */}
-            <IonList inset>
-              {/* --- Release ---- */}
-              <IonItem
-                button
-                onClick={() => {
-                  window.open(LINK_LAST_RELEASE, "_blank");
-                }}
-              >
-                <IonLabel>{textFooter[l].last__realease}</IonLabel>
-              </IonItem>
-              {/* --- Termini ---- */}
-              <IonItem
-                button
-                onClick={() => {
-                  window.open(LINK_TERMNS_POLICY, "_blank");
-                }}
-              >
-                <IonLabel>{textFooter[l].btn__user_policy}</IonLabel>
-              </IonItem>
-              {/* --- Contatto ---- */}
-              <IonItem
-                button
-                onClick={() => {
-                  window.open(LINK_SUPPORT, "_blank");
-                }}
-              >
-                <IonLabel>
-                  <IonText color={"primary"}>
-                    {textFooter[l].btn_support}
-                  </IonText>
-                </IonLabel>
-              </IonItem>
-            </IonList>
-
-            {/* -------- LOGOUT ------ */}
-            <IonList inset>
-              <IonItem button onClick={handleLogout} detail={false}>
-                <IonLabel>
-                  <IonText color={"danger"}>{text[l].btn__logout}</IonText>
-                </IonLabel>
-                <IonButton fill="clear" color={"danger"} slot="end">
-                  <IonIcon icon={logOutOutline} />
+          {/* -------- ACCOUNT ------- */}
+          <IonList inset>
+            <IonListHeader>{text[l].account_section}</IonListHeader>
+            {/* ----- Email ------ */}
+            <IonItem button onClick={handleEmail} detail={false}>
+              <IonLabel>
+                <p>{text[l].email_title}</p>
+                <h2>{authenticateUser?.email}</h2>
+              </IonLabel>
+              <IonButtons slot="end">
+                <IonButton onClick={handleEmail}>
+                  <IonIcon icon={createOutline} />
                 </IonButton>
-              </IonItem>
-            </IonList>
-
-            {/* -------- DELETE ACCOUNT ------ */}
-            <IonList inset>
-              <IonItem button onClick={openDeleteModal} detail={false}>
-                <IonLabel>
-                  <IonText color={"danger"}>{text[l].btn__delete}</IonText>
-                </IonLabel>
-                <IonButton fill="clear" color={"danger"} slot="end">
-                  <IonIcon icon={trashOutline} />
+              </IonButtons>
+            </IonItem>
+            {/* ----- Password ------ */}
+            <IonItem button onClick={handlePassword} detail={false}>
+              <IonLabel>
+                <p>{text[l].password_title}</p>
+                <h2>*************</h2>
+              </IonLabel>
+              <IonButtons slot="end">
+                <IonButton onClick={handlePassword}>
+                  <IonIcon icon={createOutline} />
                 </IonButton>
-              </IonItem>
-            </IonList>
-          </IonCard>
+              </IonButtons>
+            </IonItem>
+          </IonList>
+          {/* -------- PREFERENZE ------- */}
+          <IonList inset>
+            <IonListHeader>{text[l].preferenze_sezione}</IonListHeader>
+            {/* ----- Lingua ------ */}
+            <IonItem button onClick={openScegliLingua}>
+              <IonLabel>
+                <h3>{text[l].preferenze_lingua}</h3>
+              </IonLabel>
+              <IonNote slot="end">{lingua}</IonNote>
+            </IonItem>
+          </IonList>
+          {/* -------- ABBONAMENTO ------ */}
+          <IonList inset>
+            <IonListHeader>{text[l].abbonamento_section}</IonListHeader>
+            {/* ----- Premium ------ */}
+            <IonItem button onClick={handlePremium}>
+              <IonLabel>
+                <h3>{text[l].cta_abbonamento}</h3>
+                <p>{text[l].note_premium}</p>
+              </IonLabel>
+            </IonItem>
+            {/* ----- Abbonamento ------ */}
+            <IonItem button onClick={handleDettagliAbbonamento}>
+              <IonLabel className="ion-text-wrap">
+                <h3>{text[l].abbonamento_title}</h3>
+                <p>{text[l].note_abbonamento}</p>
+              </IonLabel>
+              <IonChip color={"primary"}>FREE</IonChip>
+            </IonItem>
+            {/* ----- Storico Abbonamento ------ */}
+            <IonItem button onClick={handleStoricoAbbonamento}>
+              <IonLabel className="ion-text-wrap">
+                <h3>{text[l].abbonamento_storico}</h3>
+                <p>{text[l].note_storico}</p>
+              </IonLabel>
+            </IonItem>
+          </IonList>
+          {/* -------- NOTIFICHE ------ */}
+          <IonList inset>
+            <IonListHeader>{text[l].interazione_section}</IonListHeader>
+            {/* ------ Notifiche vantaggi ------ */}
+            <IonItem disabled={device?.platform == "web"}>
+              <IonToggle
+                onIonChange={handleEnableVantaggi}
+                checked={enabledNotifications?.vantaggi}
+                enableOnOffLabels={true}
+              >
+                <IonLabel>
+                  <h3>{text[l].notifiche_vantaggi}</h3>
+                  <p className="ion-text-wrap">
+                    {text[l].notifiche_vantaggi_note}
+                  </p>
+                </IonLabel>
+              </IonToggle>
+            </IonItem>
+            {/* ------ Notifiche promozioni ------ */}
+            <IonItem disabled={device?.platform == "web"}>
+              <IonToggle
+                onIonChange={handleEnablePromozioni}
+                checked={enabledNotifications?.promozioni}
+                enableOnOffLabels={true}
+              >
+                <IonLabel>
+                  <h3>{text[l].notifiche_promozioni}</h3>
+                  <p className="ion-text-wrap">
+                    {text[l].notifiche_promozioni_note}
+                  </p>
+                </IonLabel>
+              </IonToggle>
+            </IonItem>
+            {/* ------ Notifiche inventario ------ */}
+            <IonItem disabled={device?.platform == "web"}>
+              <IonToggle
+                onIonChange={handleEnableInventario}
+                checked={enabledNotifications?.inventario}
+                enableOnOffLabels={true}
+              >
+                <IonLabel>
+                  <h3>{text[l].notifiche_inventario}</h3>
+                  <p className="ion-text-wrap">
+                    {text[l].notifiche_inventario_note}
+                  </p>
+                </IonLabel>
+              </IonToggle>
+            </IonItem>
+            {/* ------ Notifiche recensioni ------ */}
+            <IonItem disabled={device?.platform == "web"}>
+              <IonToggle
+                onIonChange={handleEnableRecensioni}
+                checked={enabledNotifications?.recensioni}
+                enableOnOffLabels={true}
+              >
+                <IonLabel>
+                  <h3>{text[l].notifiche_recensioni}</h3>
+                  <p className="ion-text-wrap">
+                    {text[l].notifiche_recensioni_note}
+                  </p>
+                </IonLabel>
+              </IonToggle>
+            </IonItem>
+            {/* ------ Notifiche report mensile ------ */}
+            <IonItem disabled={device?.platform == "web"}>
+              <IonToggle
+                onIonChange={handleEnableReportMensile}
+                checked={enabledNotifications?.report}
+                enableOnOffLabels={true}
+              >
+                <IonLabel>
+                  <h3>{text[l].notifiche_report}</h3>
+                  <p className="ion-text-wrap">
+                    {text[l].notifiche_report_note}
+                  </p>
+                </IonLabel>
+              </IonToggle>
+            </IonItem>
+          </IonList>
+          {/* -------- SUPPORTO ------ */}
+          <IonList inset>
+            {/* --- Release ---- */}
+            <IonItem
+              button
+              onClick={() => {
+                window.open(LINK_LAST_RELEASE, "_blank");
+              }}
+            >
+              <IonLabel>{textFooter[l].last__realease}</IonLabel>
+            </IonItem>
+            {/* --- Termini ---- */}
+            <IonItem
+              button
+              onClick={() => {
+                window.open(LINK_TERMNS_POLICY, "_blank");
+              }}
+            >
+              <IonLabel>{textFooter[l].btn__user_policy}</IonLabel>
+            </IonItem>
+            {/* --- Contatto ---- */}
+            <IonItem
+              button
+              onClick={() => {
+                window.open(LINK_SUPPORT, "_blank");
+              }}
+            >
+              <IonLabel>
+                <IonText color={"primary"}>{textFooter[l].btn_support}</IonText>
+              </IonLabel>
+            </IonItem>
+          </IonList>
+
+          {/* -------- LOGOUT ------ */}
+          <IonList inset>
+            <IonItem button onClick={handleLogout} detail={false}>
+              <IonLabel>
+                <IonText color={"danger"}>{text[l].btn__logout}</IonText>
+              </IonLabel>
+              <IonButton fill="clear" color={"danger"} slot="end">
+                <IonIcon icon={logOutOutline} />
+              </IonButton>
+            </IonItem>
+          </IonList>
+
+          {/* -------- DELETE ACCOUNT ------ */}
+          <IonList inset>
+            <IonItem button onClick={openDeleteModal} detail={false}>
+              <IonLabel>
+                <IonText color={"danger"}>{text[l].btn__delete}</IonText>
+              </IonLabel>
+              <IonButton fill="clear" color={"danger"} slot="end">
+                <IonIcon icon={trashOutline} />
+              </IonButton>
+            </IonItem>
+          </IonList>
         </div>
         {/* ----------------- EXTRA UI ----------------------*/}
         {/* ---- Request change Email ----  */}

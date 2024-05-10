@@ -5,7 +5,6 @@ import { text } from "./text";
 import { ContextLanguage } from "../../../../context/contextLanguage";
 import {
   IonButton,
-  IonCard,
   IonIcon,
   IonItem,
   IonLabel,
@@ -21,6 +20,7 @@ import { groupOrdersByStatus } from "../../../../utils/groupOrdersByStatus";
 import { typeStatusOrder } from "../../../../types/typeStatusOrder";
 import { mockStatusOrders } from "../../../../mock/mockStatusOrders";
 import ModalOrderDetails from "../ModalOrderDetails/ModalOrderDetails";
+import ListHeader from "../../../../components/List__Header/ListHeader";
 
 interface ContainerProps {}
 
@@ -53,7 +53,9 @@ const OrderDetails: React.FC<ContainerProps> = ({}) => {
    * PARAMS:
    * - Nessuno
    */
-  const handleListAction = () => {};
+  const handleListAction = () => {
+    console.log("Click");
+  };
 
   // --- handlePreviewOrdersList
   /**
@@ -71,13 +73,10 @@ const OrderDetails: React.FC<ContainerProps> = ({}) => {
     <>
       <div className={styles.container}>
         <IonList inset>
-          <IonListHeader>
-            <IonLabel>{text[l].componentTitle}</IonLabel>
-            <IonButton onClick={handleListAction}>
-              {textButtons[l].btn__go_to_page}
-              <IonIcon icon={icons["chevronForward"]} />
-            </IonButton>
-          </IonListHeader>
+          <ListHeader
+            title={text[l].componentTitle}
+            callbackListAction={handleListAction}
+          />
           {statusOrders.map((status: typeStatusOrder, index: number) => {
             const listOrders: typeListOrders[] = orders.filter(
               (listOrd: typeListOrders) =>

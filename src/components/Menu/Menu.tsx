@@ -50,7 +50,11 @@ const Menu: React.FC = () => {
                         : appPage.icons.notActive
                     }
                   />
-                  <IonLabel>{appPage.tab[l]}</IonLabel>
+                  <IonLabel
+                    color={location.pathname === appPage.path ? "primary" : ""}
+                  >
+                    {appPage.tab[l]}
+                  </IonLabel>
                 </IonItem>
               </IonMenuToggle>
             );

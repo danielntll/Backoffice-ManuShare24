@@ -193,6 +193,15 @@ http://ionicframework.com/docs/theming/ */
     --ion-toolbar-border-color: var(--ion-color-step-250);
   }
 
+  .ios ion-item {
+    --background: var(--ion-color-step-50);
+    --color: #fff;
+  }
+  .ios ion-list-header {
+    --background: var(--ion-color-step-50);
+    --color: #fff;
+  }
+
   /*
    * Material Design Dark Theme
    * -------------------------------------------

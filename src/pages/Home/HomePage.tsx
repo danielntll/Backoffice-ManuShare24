@@ -1,7 +1,6 @@
 import {
   IonButton,
   IonButtons,
-  IonCard,
   IonContent,
   IonHeader,
   IonIcon,
@@ -19,7 +18,7 @@ import OrderDetails from "./components/OrderDetails/OrderDetails";
 import AnalyticsDetails from "./components/AnalyticsDetails/AnalyticsDetails";
 import InventoryDetails from "./components/InventoryDetails/InventoryDetails";
 import ReservationDetails from "./components/ReservationDetails/ReservationDetails";
-import { ellipsisVerticalCircle, optionsOutline } from "ionicons/icons";
+import { ellipsisVerticalCircle } from "ionicons/icons";
 import ReviewsDetails from "./components/ReviewsDetails/ReviewsDetails";
 
 interface PageProps {}
@@ -53,13 +52,11 @@ const HomePage: React.FC<PageProps> = ({}) => {
         </IonHeader>
         {/* ----------------- PAGE CONTENT ------------------*/}
         <div className={styles.content}>
-          <IonCard>
-            <OrderDetails />
-            <ReservationDetails />
-            <InventoryDetails />
-            <ReviewsDetails />
-            <AnalyticsDetails />
-          </IonCard>
+          <OrderDetails />
+          <ReservationDetails />
+          <InventoryDetails />
+          <ReviewsDetails />
+          <AnalyticsDetails />
         </div>
         {/* ----------------- EXTRA UI ----------------------*/}
       </IonContent>

@@ -19,6 +19,7 @@ import {
   fileTrayFullOutline,
   fileTrayOutline,
 } from "ionicons/icons";
+import ListHeader from "../../../../components/List__Header/ListHeader";
 
 interface ContainerProps {}
 
@@ -42,13 +43,10 @@ const InventoryDetails: React.FC<ContainerProps> = ({}) => {
   return (
     <div className={styles.container}>
       <IonList inset>
-        <IonListHeader>
-          <IonLabel>{text[l].componentTitle}</IonLabel>
-          <IonButton onClick={handleListAction}>
-            {textButtons[l].btn__go_to_page}
-            <IonIcon icon={chevronForward} />
-          </IonButton>
-        </IonListHeader>
+        <ListHeader
+          title={text[l].componentTitle}
+          callbackListAction={handleListAction}
+        />
         <IonItem button={true} onClick={() => {}}>
           <IonIcon color={"warning"} slot="start" icon={fileTrayFullOutline} />
           <IonLabel>
