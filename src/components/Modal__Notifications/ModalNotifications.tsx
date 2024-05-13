@@ -2,21 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./ModalNotifications.module.css";
 import { text } from "./text";
 import {
-  IonBadge,
   IonButton,
   IonButtons,
   IonContent,
   IonHeader,
-  IonIcon,
-  IonItem,
-  IonItemOption,
-  IonItemOptions,
-  IonItemSliding,
-  IonLabel,
-  IonList,
-  IonListHeader,
   IonModal,
-  IonNote,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -42,8 +32,6 @@ const ModalNotifications: React.FC<ContainerProps> = ({
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
   //CONDITIONS -----------------------
-  const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
-
   const [todayNotifications, setTodayNotifications] = useState<
     typeNotification[]
   >([]);
@@ -82,14 +70,47 @@ const ModalNotifications: React.FC<ContainerProps> = ({
     );
   };
 
-  // --- handleOpenNotificationPage
+  // --- handleOpenNotificationsPage
   /**
-   * Questo metodo serve per aprire la pagina dei notifiche
+   * Questo metodo serve per aprire la pagina delle notifiche
    *
    * @returns void
    */
-  const handleOpenNotificationPage = () => {
-    console.log("Go to notification page");
+  const handleOpenNotificationsPage = () => {
+    console.log("Open notifications page");
+  };
+
+  // --- handleToggleNotificationStatus
+  /**
+   * Questo metodo serve per toggleare lo stato di una notifica
+   *
+   * @param notificationID
+   */
+  const handleToggleNotificationStatus = (notificationID: string) => {
+    notificationsData.map((notification: typeNotification) => {
+      if (notification.notificationID === notificationID) {
+        notification.readed = !notification.readed;
+      }
+    });
+    setNotificationData([...notificationsData]);
+  };
+
+  // --- handleRemoveNotification
+  /**
+   * Questo metodo serve per rimuovere una notifica
+   *
+   * @param notificationID
+   */
+  const handleRemoveNotification = (notificationID: string) => {
+    setNotificationData(
+      notificationsData.filter(
+        (notification) => notification.notificationID !== notificationID
+      )
+    );
+  };
+
+  const hanldeOpenNotificationDetails = (notificationID: string) => {
+    console.log("Open notification details");
   };
 
   //RETURN COMPONENT -----------------
@@ -117,14 +138,18 @@ const ModalNotifications: React.FC<ContainerProps> = ({
             notificationsData={todayNotifications}
             button_text={text[l].btn_list_today}
             button_callback={handleSetAllNotificationsToReaded}
-            callbackSetNotificationData={setNotificationData}
+            callbackOpenNotificationDetails={hanldeOpenNotificationDetails}
+            callbackRemoveNotification={handleRemoveNotification}
+            callbackUpdateNotificationStatus={handleToggleNotificationStatus}
           />
           <ListNotifications
             title={text[l].list_old}
             notificationsData={weekNotifications}
             button_text={text[l].btn_list_old}
-            button_callback={handleOpenNotificationPage}
-            callbackSetNotificationData={setNotificationData}
+            button_callback={handleOpenNotificationsPage}
+            callbackOpenNotificationDetails={hanldeOpenNotificationDetails}
+            callbackRemoveNotification={handleRemoveNotification}
+            callbackUpdateNotificationStatus={handleToggleNotificationStatus}
           />
         </IonContent>
       </IonModal>

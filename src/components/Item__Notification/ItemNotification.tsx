@@ -16,7 +16,7 @@ import { notifications, notificationsOff, trash } from "ionicons/icons";
 
 interface ContainerProps {
   notification: typeNotification;
-  callbackOnClick: (notifica: typeNotification) => void;
+  callbackOnClick: (notificationID: string) => void;
   handleRemoveNotification: (notificationID: string) => void;
   handleToggleNotificationStatus: (notificationID: string) => void;
   data: string;
@@ -38,7 +38,10 @@ const ItemNotification: React.FC<ContainerProps> = ({
   //RETURN COMPONENT -----------------
   return (
     <IonItemSliding>
-      <IonItem button onClick={() => callbackOnClick(notification)}>
+      <IonItem
+        button
+        onClick={() => callbackOnClick(notification.notificationID)}
+      >
         <IonIcon
           color={notification.readed === false ? "primary" : ""}
           slot="start"
