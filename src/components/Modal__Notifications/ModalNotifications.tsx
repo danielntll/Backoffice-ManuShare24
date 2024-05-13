@@ -46,6 +46,8 @@ const ModalNotifications: React.FC<ContainerProps> = ({
     typeNotification[]
   >([]);
 
+  const [selectedFilter, setSelectedFilter] = useState<string>("all");
+
   //FUNCTIONS ------------------------
 
   useEffect(() => {
@@ -171,6 +173,7 @@ const ModalNotifications: React.FC<ContainerProps> = ({
         setFiltereNotifications(notificationsData);
         break;
     }
+    setSelectedFilter(filter);
   };
 
   //RETURN COMPONENT -----------------
@@ -192,6 +195,7 @@ const ModalNotifications: React.FC<ContainerProps> = ({
           </IonToolbar>
           <div className="ion-padding-horizontal ion-padding-top">
             <SegmentFilterNotifications
+              filter={selectedFilter}
               callbackSelectFilter={handleSelectFilter}
             />
           </div>

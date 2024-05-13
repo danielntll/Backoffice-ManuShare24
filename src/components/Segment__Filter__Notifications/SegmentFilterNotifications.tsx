@@ -4,10 +4,12 @@ import { text } from "./text";
 import { IonSegment, IonSegmentButton } from "@ionic/react";
 
 interface ContainerProps {
+  filter: string;
   callbackSelectFilter: (filter: string) => void;
 }
 
 const SegmentFilterNotifications: React.FC<ContainerProps> = ({
+  filter,
   callbackSelectFilter,
 }) => {
   //VARIABLES ------------------------
@@ -21,6 +23,7 @@ const SegmentFilterNotifications: React.FC<ContainerProps> = ({
   return (
     <IonSegment
       scrollable={true}
+      value={filter}
       onIonChange={(e) => handleSelectFilter(e.target.value?.toString() ?? "")}
     >
       <IonSegmentButton value="all">{text[l].filter_all}</IonSegmentButton>
