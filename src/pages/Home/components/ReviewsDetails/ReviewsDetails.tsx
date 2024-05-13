@@ -2,22 +2,8 @@ import { useContext } from "react";
 import styles from "./ReviewsDetails.module.css";
 import { text } from "./text";
 import { ContextLanguage } from "../../../../context/contextLanguage";
-import {
-  IonButton,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
-  IonNote,
-} from "@ionic/react";
-import { textButtons } from "../../../../text/textButtons";
-import {
-  chatbubbleEllipsesOutline,
-  chevronForward,
-  fileTrayFullOutline,
-  happyOutline,
-} from "ionicons/icons";
+import { IonIcon, IonItem, IonLabel, IonList, IonNote } from "@ionic/react";
+import { chatbubbleEllipsesOutline, happyOutline } from "ionicons/icons";
 import ListHeader from "../../../../components/List__Header/ListHeader";
 
 interface ContainerProps {}

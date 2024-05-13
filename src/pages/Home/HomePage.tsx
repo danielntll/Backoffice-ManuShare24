@@ -38,7 +38,6 @@ const HomePage: React.FC<PageProps> = ({}) => {
   //CONDITIONS -----------------------
   const [isModalNotificationsOpen, setIsModalNotificationsOpen] =
     useState<boolean>(false);
-  const [newNotifications, setNewNotifications] = useState([1, 2]);
   const [notifications, setNotifications] = useState<typeNotification[]>([]);
   const [pageName, setPageName] = useState<string | undefined>("");
   const [components, setComponents] = useState<typeWidget[]>([
@@ -90,7 +89,11 @@ const HomePage: React.FC<PageProps> = ({}) => {
           <IonButtons slot="end">
             <IonButton onClick={openNotificationsModal}>
               <IonIcon icon={notificationsOutline} />
-              <IonBadge>{newNotifications.length}</IonBadge>
+              {notifications.filter((notif) => !notif.readed).length > 0 ? (
+                <IonBadge>
+                  {notifications.filter((notif) => !notif.readed).length}
+                </IonBadge>
+              ) : null}
             </IonButton>
             <IonButton>
               <IonIcon icon={ellipsisVerticalCircle} />
