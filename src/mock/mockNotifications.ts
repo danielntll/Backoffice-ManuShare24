@@ -33,4 +33,84 @@ export const mockNotifications: typeNotification[] = [
     category: "feedback",
     readed: true,
   },
+  {
+    notificationID: "456789123",
+    title: "Prenotazione confermata",
+    description: "La prenotazione per l'evento Z è stata confermata",
+    createdAt: Date.now() - 172800000, // Due giorni fa
+    category: "reservation",
+    readed: true,
+  },
+  {
+    notificationID: "789123456",
+    title: "Feedback ricevuto",
+    description: "Hai ricevuto un nuovo feedback per il tuo servizio",
+    createdAt: Date.now() - 259200000, // Tre giorni fa
+    category: "feedback",
+    readed: true,
+  },
+  {
+    notificationID: "456789123",
+    title: "Prenotazione confermata",
+    description: "La prenotazione per l'evento Z è stata confermata",
+    createdAt: Date.now() - 172800000, // Due giorni fa
+    category: "reservation",
+    readed: true,
+  },
+  {
+    notificationID: "789123456",
+    title: "Feedback ricevuto",
+    description: "Hai ricevuto un nuovo feedback per il tuo servizio",
+    createdAt: Date.now() - 259200000, // Tre giorni fa
+    category: "feedback",
+    readed: true,
+  },
+  {
+    notificationID: "456789123",
+    title: "Prenotazione confermata",
+    description: "La prenotazione per l'evento Z è stata confermata",
+    createdAt: Date.now() - 172800000, // Due giorni fa
+    category: "reservation",
+    readed: true,
+  },
+  {
+    notificationID: "789123456",
+    title: "Feedback ricevuto",
+    description: "Hai ricevuto un nuovo feedback per il tuo servizio",
+    createdAt: Date.now() - 259200000, // Tre giorni fa
+    category: "feedback",
+    readed: true,
+  },
+  {
+    notificationID: "456789123",
+    title: "Prenotazione confermata",
+    description: "La prenotazione per l'evento Z è stata confermata",
+    createdAt: Date.now() - 172800000, // Due giorni fa
+    category: "reservation",
+    readed: true,
+  },
+  {
+    notificationID: "789123456",
+    title: "Feedback ricevuto",
+    description: "Hai ricevuto un nuovo feedback per il tuo servizio",
+    createdAt: Date.now() - 259200000, // Tre giorni fa
+    category: "feedback",
+    readed: true,
+  },
+  {
+    notificationID: "456789123",
+    title: "Prenotazione confermata",
+    description: "La prenotazione per l'evento Z è stata confermata",
+    createdAt: Date.now() - 172800000, // Due giorni fa
+    category: "reservation",
+    readed: true,
+  },
+  {
+    notificationID: "789123456",
+    title: "Feedback ricevuto",
+    description: "Hai ricevuto un nuovo feedback per il tuo servizio",
+    createdAt: Date.now() - 259200000, // Tre giorni fa
+    category: "feedback",
+    readed: true,
+  },
 ];
