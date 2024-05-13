@@ -15,6 +15,7 @@ import { typeNotification } from "../../types/typeNotification";
 
 import { isToday } from "../../utils/isToday";
 import ListNotifications from "../List__Notifications/ListNotifications";
+import SegmentFilterNotifications from "../Segment__Filter__Notifications/SegmentFilterNotifications";
 
 interface ContainerProps {
   isOpen: boolean;
@@ -32,6 +33,7 @@ const ModalNotifications: React.FC<ContainerProps> = ({
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
   //CONDITIONS -----------------------
+
   const [todayNotifications, setTodayNotifications] = useState<
     typeNotification[]
   >([]);
@@ -40,20 +42,28 @@ const ModalNotifications: React.FC<ContainerProps> = ({
     typeNotification[]
   >([]);
 
+  const [filteredNotifications, setFiltereNotifications] = useState<
+    typeNotification[]
+  >([]);
+
   //FUNCTIONS ------------------------
 
   useEffect(() => {
+    setFiltereNotifications(notificationsData);
+  }, [notificationsData]);
+
+  useEffect(() => {
     setTodayNotifications(
-      notificationsData.filter((notification) =>
+      filteredNotifications.filter((notification) =>
         isToday(notification.createdAt)
       )
     );
     setWeekNotifications(
-      notificationsData.filter(
+      filteredNotifications.filter(
         (notification) => !isToday(notification.createdAt)
       )
     );
-  }, [notificationsData]);
+  }, [filteredNotifications]);
 
   // --- handleSetAllNotificationsToReaded
   /**
@@ -63,7 +73,7 @@ const ModalNotifications: React.FC<ContainerProps> = ({
    */
   const handleSetAllNotificationsToReaded = () => {
     setNotificationData(
-      notificationsData.map((notification) => ({
+      filteredNotifications.map((notification) => ({
         ...notification,
         readed: true,
       }))
@@ -87,12 +97,12 @@ const ModalNotifications: React.FC<ContainerProps> = ({
    * @param notificationID
    */
   const handleToggleNotificationStatus = (notificationID: string) => {
-    notificationsData.map((notification: typeNotification) => {
+    filteredNotifications.map((notification: typeNotification) => {
       if (notification.notificationID === notificationID) {
         notification.readed = !notification.readed;
       }
     });
-    setNotificationData([...notificationsData]);
+    setNotificationData([...filteredNotifications]);
   };
 
   // --- handleRemoveNotification
@@ -103,7 +113,7 @@ const ModalNotifications: React.FC<ContainerProps> = ({
    */
   const handleRemoveNotification = (notificationID: string) => {
     setNotificationData(
-      notificationsData.filter(
+      filteredNotifications.filter(
         (notification) => notification.notificationID !== notificationID
       )
     );
@@ -111,6 +121,56 @@ const ModalNotifications: React.FC<ContainerProps> = ({
 
   const hanldeOpenNotificationDetails = (notificationID: string) => {
     console.log("Open notification details");
+  };
+
+  // --- handleSelectFilter
+  /**
+   * Questo metodo serve per selezionare un filtro
+   *
+   * @param filter
+   */
+  const handleSelectFilter = (filter: string) => {
+    switch (filter) {
+      case "all":
+        setFiltereNotifications(notificationsData);
+        break;
+      case "unread":
+        setFiltereNotifications(
+          notificationsData.filter((notification) => !notification.readed)
+        );
+        break;
+      case "orders":
+        setFiltereNotifications(
+          notificationsData.filter(
+            (notification) => notification.category === "orders"
+          )
+        );
+        break;
+      case "inventory":
+        setFiltereNotifications(
+          notificationsData.filter(
+            (notification) => notification.category === "inventory"
+          )
+        );
+        break;
+      case "reservation":
+        setFiltereNotifications(
+          notificationsData.filter(
+            (notification) => notification.category === "reservation"
+          )
+        );
+        break;
+      case "feedback":
+        setFiltereNotifications(
+          notificationsData.filter(
+            (notification) => notification.category === "feedback"
+          )
+        );
+        break;
+      default:
+        setFiltereNotifications(notificationsData);
+        break;
+    }
   };
 
   //RETURN COMPONENT -----------------
@@ -130,9 +190,15 @@ const ModalNotifications: React.FC<ContainerProps> = ({
             </IonButtons>
             <IonTitle>{text[l].componentTitle}</IonTitle>
           </IonToolbar>
+          <div className="ion-padding-horizontal ion-padding-top">
+            <SegmentFilterNotifications
+              callbackSelectFilter={handleSelectFilter}
+            />
+          </div>
         </IonHeader>
         <IonContent>
           {/* ------------- CONTENT ------------ */}
+
           <ListNotifications
             title={text[l].list_today}
             notificationsData={todayNotifications}
