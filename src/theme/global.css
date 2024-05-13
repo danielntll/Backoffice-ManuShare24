@@ -49,3 +49,17 @@
 .justify-space {
   justify-content: space-between;
 }
+
+.unread-indicator {
+  background: var(--ion-color-primary);
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 100%;
+
+  position: absolute;
+
+  inset-inline-start: 12px;
+  top: 12px;
+}
