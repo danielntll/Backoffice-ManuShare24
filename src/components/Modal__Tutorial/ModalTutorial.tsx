@@ -1,8 +1,17 @@
-import { useContext } from 'react';
-import styles from './ModalTutorial.module.css';
-import { text } from './text';
-import { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonTitle, IonToolbar } from '@ionic/react';
-import { ContextLanguage } from '../../context/contextLanguage';
+import { useContext } from "react";
+import styles from "./ModalTutorial.module.css";
+import { text } from "./text";
+import {
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonModal,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
+import { ContextLanguage } from "../../context/contextLanguage";
+import { textButtons } from "../../text/textButtons";
 
 interface ContainerProps {
   isOpen: boolean;
@@ -23,9 +32,9 @@ const ModalTutorial: React.FC<ContainerProps> = ({ isOpen, setIsOpen }) => {
     >
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot='start'>
+          <IonButtons slot="start">
             <IonButton color={"medium"} onClick={() => setIsOpen(false)}>
-              {text[l].btn_chiudi}
+              {textButtons[l].btn__close}
             </IonButton>
           </IonButtons>
           <IonTitle>{text[l].componentTitle}</IonTitle>
@@ -33,7 +42,6 @@ const ModalTutorial: React.FC<ContainerProps> = ({ isOpen, setIsOpen }) => {
       </IonHeader>
       <IonContent className="ion-padding">
         {/* ------------- CONTENT ------------ */}
-
       </IonContent>
     </IonModal>
   );

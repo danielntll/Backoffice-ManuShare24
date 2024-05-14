@@ -13,6 +13,7 @@ export const textButtons: typeAvailableLanguagesModel = {
     btn__see_all: "Visualizza tutto",
     btn__open: "Apri",
     btn__go_to_page: "",
+    btn__close: "Chiudi",
   },
   en_GB: {
     btn__toast__close: "Close",
@@ -26,5 +27,6 @@ export const textButtons: typeAvailableLanguagesModel = {
     btn__see_all: "Visualizza tutto",
     btn__open: "Apri",
     btn__go_to_page: "",
+    btn__close: "Chiudi",
   },
 };

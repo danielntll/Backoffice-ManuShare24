@@ -28,6 +28,7 @@ import { typeWidget } from "../../types/typeWidget";
 import ModalNotifications from "../../components/Modal__Notifications/ModalNotifications";
 import { typeNotification } from "../../types/typeNotification";
 import { mockNotifications } from "../../mock/mockNotifications";
+import ModalOrderComponents from "../../components/Modal__Order__Components/ModalOrderComponents";
 
 interface PageProps {}
 
@@ -38,28 +39,51 @@ const HomePage: React.FC<PageProps> = ({}) => {
   //CONDITIONS -----------------------
   const [isModalNotificationsOpen, setIsModalNotificationsOpen] =
     useState<boolean>(false);
+
+  const [isModalOrderComponentsOpen, setIsModalOrderComponentsOpen] =
+    useState<boolean>(false);
   const [notifications, setNotifications] = useState<typeNotification[]>([]);
   const [pageName, setPageName] = useState<string | undefined>("");
   const [components, setComponents] = useState<typeWidget[]>([
     {
       widgetID: "OrderDetails",
       component: <OrderDetails key={"OrderDetails"} />,
+      name: {
+        it_IT: "Ordini",
+        en_GB: "Order Details",
+      },
     },
     {
       widgetID: "ReservationDetails",
       component: <ReservationDetails key={"ReservationDetails"} />,
+      name: {
+        it_IT: "Prenotazioni",
+        en_GB: "Reservation Details",
+      },
     },
     {
       widgetID: "InventoryDetails",
       component: <InventoryDetails key={"InventoryDetails"} />,
+      name: {
+        it_IT: "Inventario",
+        en_GB: "Inventory Details",
+      },
     },
     {
       widgetID: "ReviewsDetails",
       component: <ReviewsDetails key={"ReviewsDetails"} />,
+      name: {
+        it_IT: "Recensioni",
+        en_GB: "Reviews Details",
+      },
     },
     {
       widgetID: "AnalyticsDetails",
       component: <AnalyticsDetails key={"AnalyticsDetails"} />,
+      name: {
+        it_IT: "Analytics",
+        en_GB: "Analytics Details",
+      },
     },
   ]);
 
@@ -77,6 +101,11 @@ const HomePage: React.FC<PageProps> = ({}) => {
   const openNotificationsModal = () => {
     setIsModalNotificationsOpen(!isModalNotificationsOpen);
   };
+
+  const openOrderComponentsModal = () => {
+    setIsModalOrderComponentsOpen(!isModalOrderComponentsOpen);
+  };
+
   //RETURN COMPONENT -----------------
   return (
     <IonPage>
@@ -95,7 +124,7 @@ const HomePage: React.FC<PageProps> = ({}) => {
                 </IonBadge>
               ) : null}
             </IonButton>
-            <IonButton>
+            <IonButton onClick={openOrderComponentsModal}>
               <IonIcon icon={ellipsisVerticalCircle} />
             </IonButton>
           </IonButtons>
@@ -119,6 +148,13 @@ const HomePage: React.FC<PageProps> = ({}) => {
           setIsOpen={setIsModalNotificationsOpen}
           notificationsData={notifications}
           setNotificationData={setNotifications}
+        />
+
+        <ModalOrderComponents
+          callbackSetComponents={setComponents}
+          components={components}
+          isOpen={isModalOrderComponentsOpen}
+          setIsOpen={setIsModalOrderComponentsOpen}
         />
       </IonContent>
     </IonPage>

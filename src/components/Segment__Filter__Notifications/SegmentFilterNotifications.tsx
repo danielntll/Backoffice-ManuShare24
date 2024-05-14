@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ContextLanguage } from "../../context/contextLanguage";
 import { text } from "./text";
 import { IonSegment, IonSegmentButton } from "@ionic/react";
+import styles from "./SegmentFilterNotifications.module.css";
 
 interface ContainerProps {
   filter: string;
@@ -24,6 +25,7 @@ const SegmentFilterNotifications: React.FC<ContainerProps> = ({
     <IonSegment
       scrollable={true}
       value={filter}
+      className={styles.segment_filter_notifications}
       onIonChange={(e) => handleSelectFilter(e.target.value?.toString() ?? "")}
     >
       <IonSegmentButton value="all">{text[l].filter_all}</IonSegmentButton>

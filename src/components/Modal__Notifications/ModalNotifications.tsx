@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import styles from "./ModalNotifications.module.css";
 import { text } from "./text";
 import {
   IonButton,
@@ -16,6 +15,7 @@ import { typeNotification } from "../../types/typeNotification";
 import { isToday } from "../../utils/isToday";
 import ListNotifications from "../List__Notifications/ListNotifications";
 import SegmentFilterNotifications from "../Segment__Filter__Notifications/SegmentFilterNotifications";
+import { textButtons } from "../../text/textButtons";
 
 interface ContainerProps {
   isOpen: boolean;
@@ -179,16 +179,12 @@ const ModalNotifications: React.FC<ContainerProps> = ({
   //RETURN COMPONENT -----------------
   return (
     <>
-      <IonModal
-        isOpen={isOpen}
-        onDidDismiss={() => setIsOpen(false)}
-        className={styles.container}
-      >
+      <IonModal isOpen={isOpen} onDidDismiss={() => setIsOpen(false)}>
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
               <IonButton color={"medium"} onClick={() => setIsOpen(false)}>
-                {text[l].btn_chiudi}
+                {textButtons[l].btn__close}
               </IonButton>
             </IonButtons>
             <IonTitle>{text[l].componentTitle}</IonTitle>
