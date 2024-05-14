@@ -44,48 +44,7 @@ const HomePage: React.FC<PageProps> = ({}) => {
     useState<boolean>(false);
   const [notifications, setNotifications] = useState<typeNotification[]>([]);
   const [pageName, setPageName] = useState<string | undefined>("");
-  const [components, setComponents] = useState<typeWidget[]>([
-    {
-      widgetID: "OrderDetails",
-      component: <OrderDetails key={"OrderDetails"} />,
-      name: {
-        it_IT: "Ordini",
-        en_GB: "Order Details",
-      },
-    },
-    {
-      widgetID: "ReservationDetails",
-      component: <ReservationDetails key={"ReservationDetails"} />,
-      name: {
-        it_IT: "Prenotazioni",
-        en_GB: "Reservation Details",
-      },
-    },
-    {
-      widgetID: "InventoryDetails",
-      component: <InventoryDetails key={"InventoryDetails"} />,
-      name: {
-        it_IT: "Inventario",
-        en_GB: "Inventory Details",
-      },
-    },
-    {
-      widgetID: "ReviewsDetails",
-      component: <ReviewsDetails key={"ReviewsDetails"} />,
-      name: {
-        it_IT: "Recensioni",
-        en_GB: "Reviews Details",
-      },
-    },
-    {
-      widgetID: "AnalyticsDetails",
-      component: <AnalyticsDetails key={"AnalyticsDetails"} />,
-      name: {
-        it_IT: "Analytics",
-        en_GB: "Analytics Details",
-      },
-    },
-  ]);
+  const [components, setComponents] = useState<typeWidget[]>([]);
 
   useEffect(() => {
     setPageName(
@@ -139,7 +98,7 @@ const HomePage: React.FC<PageProps> = ({}) => {
         {/* ----------------- PAGE CONTENT ------------------*/}
         <div className={styles.content}>
           {components.map((widget: typeWidget) => {
-            return widget.component;
+            return <div key={widget.widgetID}>{widget.component}</div>;
           })}
         </div>
         {/* ----------------- EXTRA UI ----------------------*/}

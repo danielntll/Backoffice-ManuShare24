@@ -3,28 +3,33 @@ import styles from "./ModalOrderComponents.module.css";
 import { ContextLanguage } from "../../context/contextLanguage";
 import { text } from "./text";
 import {
+  IonBadge,
   IonButton,
   IonButtons,
   IonContent,
   IonHeader,
+  IonIcon,
   IonItem,
   IonLabel,
   IonList,
-  IonListHeader,
   IonModal,
-  IonReorder,
-  IonReorderGroup,
   IonTitle,
+  IonToggle,
   IonToolbar,
 } from "@ionic/react";
 import { textButtons } from "../../text/textButtons";
 import { typeWidget } from "../../types/typeWidget";
-import OrderDetails from "../../pages/Home/components/OrderDetails/OrderDetails";
-import ReservationDetails from "../../pages/Home/components/ReservationDetails/ReservationDetails";
-import InventoryDetails from "../../pages/Home/components/InventoryDetails/InventoryDetails";
-import ReviewsDetails from "../../pages/Home/components/ReviewsDetails/ReviewsDetails";
-import AnalyticsDetails from "../../pages/Home/components/AnalyticsDetails/AnalyticsDetails";
-import { typeWidgetsCategory } from "../../types/typeWidgetsCategory";
+import { constWidgets } from "../../constants/widgets/constWidgets";
+import { typeWidgetAvailableToUser } from "../../types/typeWidgetAvailableToUser";
+import { mockWidgetsAvailabeToUser } from "../../mock/mockWidgetsAvailabeToUser";
+import {
+  cart,
+  cartOutline,
+  checkmark,
+  checkmarkCircleOutline,
+  lockClosed,
+  lockOpen,
+} from "ionicons/icons";
 
 interface ContainerProps {
   isOpen: boolean;
@@ -47,109 +52,16 @@ const ModalOrderComponents: React.FC<ContainerProps> = ({
 
   const [isOrderDisabled, setIsOrderDisabled] = useState<boolean>(true);
 
-  const [allComponents, setAllComponents] = useState<typeWidgetsCategory[]>([
-    {
-      categoryID: "ordersDetails",
-      name: {
-        it_IT: "Dettagli ordine",
-        en_GB: "Order Details",
-      },
-      description: "Dettagli ordine",
-      widgets: [
-        {
-          widgetID: "OrderDetails",
-          component: <OrderDetails />,
-          name: {
-            it_IT: "Ordini",
-            en_GB: "Order Details",
-          },
-        },
-        {
-          widgetID: "ReservationDetails",
-          component: <ReservationDetails />,
-          name: {
-            it_IT: "Prenotazioni",
-            en_GB: "Reservation Details",
-          },
-        },
-        {
-          widgetID: "InventoryDetails",
-          component: <InventoryDetails />,
-          name: {
-            it_IT: "Inventario",
-            en_GB: "Inventory Details",
-          },
-        },
-        {
-          widgetID: "ReviewsDetails",
-          component: <ReviewsDetails />,
-          name: {
-            it_IT: "Recensioni",
-            en_GB: "Reviews Details",
-          },
-        },
-        {
-          widgetID: "AnalyticsDetails",
-          component: <AnalyticsDetails />,
-          name: {
-            it_IT: "Analytics",
-            en_GB: "Analytics Details",
-          },
-        },
-      ],
-    },
-    {
-      categoryID: "inventoryDetails",
-      name: {
-        it_IT: "Inventario",
-        en_GB: "Inventory Details",
-      },
-      description: "Inventario",
-      widgets: [
-        {
-          widgetID: "OrderDetails",
-          component: <OrderDetails />,
-          name: {
-            it_IT: "Ordini",
-            en_GB: "Order Details",
-          },
-        },
-        {
-          widgetID: "ReservationDetails",
-          component: <ReservationDetails />,
-          name: {
-            it_IT: "Prenotazioni",
-            en_GB: "Reservation Details",
-          },
-        },
-        {
-          widgetID: "InventoryDetails",
-          component: <InventoryDetails />,
-          name: {
-            it_IT: "Inventario",
-            en_GB: "Inventory Details",
-          },
-        },
-        {
-          widgetID: "ReviewsDetails",
-          component: <ReviewsDetails />,
-          name: {
-            it_IT: "Recensioni",
-            en_GB: "Reviews Details",
-          },
-        },
-        {
-          widgetID: "AnalyticsDetails",
-          component: <AnalyticsDetails />,
-          name: {
-            it_IT: "Analytics",
-            en_GB: "Analytics Details",
-          },
-        },
-      ],
-    },
-  ]);
+  const [allComponents, setAllComponents] =
+    useState<typeWidget[]>(constWidgets);
+
+  const [avilableComponents, setAvilableComponents] = useState<
+    typeWidgetAvailableToUser[]
+  >([]);
   //FUNCTIONS ------------------------
+  useEffect(() => {
+    setAvilableComponents(mockWidgetsAvailabeToUser);
+  }, []);
 
   // --- handleReorder
   /**
@@ -177,6 +89,20 @@ const ModalOrderComponents: React.FC<ContainerProps> = ({
     setIsOpen(false);
   };
 
+  const handleToggleWidget = (widget: typeWidget) => {
+    const newComponentsLocal = componentsLocal.filter(
+      (c) => c.widgetID !== widget.widgetID
+    );
+    if (newComponentsLocal.length === componentsLocal.length) {
+      newComponentsLocal.push({
+        widgetID: widget.widgetID,
+        component: widget.component,
+        name: widget.name,
+        description: widget.description,
+      });
+    }
+    setComponentsLocal(newComponentsLocal);
+  };
   //RETURN COMPONENT -----------------
   return (
     <IonModal
@@ -201,31 +127,45 @@ const ModalOrderComponents: React.FC<ContainerProps> = ({
       </IonHeader>
       <IonContent>
         {/* ------------- CONTENT ------------ */}
-        {/* <IonList>
-          <IonReorderGroup
-            disabled={isOrderDisabled}
-            onIonItemReorder={handleReorder}
-          >
-            {componentsLocal?.map((component: typeWidget, index: number) => (
-              <IonItem key={component.widgetID + index}>
-                <IonLabel>{component.name[l]}</IonLabel>
-                <IonReorder slot="start"></IonReorder>
+        <IonList inset>
+          {allComponents.map((widget: typeWidget, index: number) => {
+            let isNotAvailable = avilableComponents.every(
+              (c) => c.widgetID !== widget.widgetID
+            );
+            return (
+              <IonItem key={widget.widgetID + index} button={isNotAvailable}>
+                {isNotAvailable ? (
+                  <IonIcon slot="start" icon={lockClosed} size="small" />
+                ) : (
+                  <></>
+                )}
+
+                <IonLabel>
+                  <h2 className="inline-row-gap">
+                    {isNotAvailable ? (
+                      <IonBadge color={"success"}>Premium</IonBadge>
+                    ) : (
+                      <></>
+                    )}
+                    {widget.name[l]}
+                  </h2>
+                  <p>{widget.description[l]}</p>
+                </IonLabel>
+                {!isNotAvailable ? (
+                  <IonToggle
+                    slot="end"
+                    checked={componentsLocal.some(
+                      (c) => c.widgetID === widget.widgetID
+                    )}
+                    onIonChange={() => handleToggleWidget(widget)}
+                  />
+                ) : (
+                  <></>
+                )}
               </IonItem>
-            ))}
-          </IonReorderGroup>
-        </IonList> */}
-        {allComponents.map((category: typeWidgetsCategory, index: number) => (
-          <IonList key={category.categoryID + index}>
-            <IonListHeader>
-              <IonLabel>{category.name[l]}</IonLabel>
-            </IonListHeader>
-            {category.widgets.map((widget: typeWidget, index: number) => (
-              <IonItem key={widget.widgetID + index}>
-                <IonLabel>{widget.name[l]}</IonLabel>
-              </IonItem>
-            ))}
-          </IonList>
-        ))}
+            );
+          })}
+        </IonList>
       </IonContent>
     </IonModal>
   );
