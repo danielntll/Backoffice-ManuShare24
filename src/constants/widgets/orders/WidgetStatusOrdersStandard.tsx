@@ -1,4 +1,4 @@
-import OrderDetails from "../../../pages/Home/components/OrderDetails/OrderDetails";
+import OrderDetails from "../../../components/OrderDetails/OrderDetails";
 import { typeWidget } from "../../../types/typeWidget";
 
 export const WidgetStatusOrdersStandard: typeWidget = {

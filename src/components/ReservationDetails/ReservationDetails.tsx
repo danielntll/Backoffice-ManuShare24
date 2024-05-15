@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import styles from "./ReservationDetails.module.css";
 import { text } from "./text";
-import { ContextLanguage } from "../../../../context/contextLanguage";
+import { ContextLanguage } from "../../context/contextLanguage";
 import {
   IonButton,
   IonIcon,
@@ -11,14 +11,14 @@ import {
   IonListHeader,
   IonNote,
 } from "@ionic/react";
-import { textButtons } from "../../../../text/textButtons";
+import { textButtons } from "../../text/textButtons";
 import {
   calendarNumber,
   calendarNumberOutline,
   calendarOutline,
   chevronForward,
 } from "ionicons/icons";
-import ListHeader from "../../../../components/List__Header/ListHeader";
+import ListHeader from "../List__Header/ListHeader";
 
 interface ContainerProps {}
 

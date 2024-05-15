@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./ModalOrderDetails.module.css";
 import { text } from "./text";
-import { ContextLanguage } from "../../../../context/contextLanguage";
+import { ContextLanguage } from "../../context/contextLanguage";
 import {
   IonBadge,
   IonButton,
@@ -19,17 +19,17 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { textButtons } from "../../../../text/textButtons";
-import { typeStatusOrder } from "../../../../types/typeStatusOrder";
-import { typeListOrders } from "../../../../types/typeListOrders";
+import { textButtons } from "../../text/textButtons";
+import { typeStatusOrder } from "../../types/typeStatusOrder";
+import { typeListOrders } from "../../types/typeListOrders";
 import {
   typeOrder,
   typeOrderProduct,
   typeProduct,
-} from "../../../../types/typeOrder";
+} from "../../types/typeOrder";
 import { chevronForward, filterOutline, timeOutline } from "ionicons/icons";
-import { mockProducts } from "../../../../mock/mockProducts";
-import ActionsheetFilter from "../../../../components/Actionsheet__Filter/ActionsheetFilter";
+import { mockProducts } from "../../mock/mockProducts";
+import ActionsheetFilter from "../Actionsheet__Filter/ActionsheetFilter";
 
 interface ContainerProps {
   isModalPreviewOpen: boolean;

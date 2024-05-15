@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./OrderDetails.module.css";
 
 import { text } from "./text";
-import { ContextLanguage } from "../../../../context/contextLanguage";
+import { ContextLanguage } from "../../context/contextLanguage";
 import {
   IonButton,
   IonIcon,
@@ -12,15 +12,15 @@ import {
   IonListHeader,
   IonNote,
 } from "@ionic/react";
-import { textButtons } from "../../../../text/textButtons";
+import { textButtons } from "../../text/textButtons";
 import * as icons from "ionicons/icons";
-import { mockOrders } from "../../../../mock/mockOrders";
-import { typeListOrders } from "../../../../types/typeListOrders";
-import { groupOrdersByStatus } from "../../../../utils/groupOrdersByStatus";
-import { typeStatusOrder } from "../../../../types/typeStatusOrder";
-import { mockStatusOrders } from "../../../../mock/mockStatusOrders";
+import { mockOrders } from "../../mock/mockOrders";
+import { typeListOrders } from "../../types/typeListOrders";
+import { groupOrdersByStatus } from "../../utils/groupOrdersByStatus";
+import { typeStatusOrder } from "../../types/typeStatusOrder";
+import { mockStatusOrders } from "../../mock/mockStatusOrders";
 import ModalOrderDetails from "../ModalOrderDetails/ModalOrderDetails";
-import ListHeader from "../../../../components/List__Header/ListHeader";
+import ListHeader from "../List__Header/ListHeader";
 
 interface ContainerProps {}
 

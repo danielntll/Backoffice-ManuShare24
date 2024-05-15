@@ -3,7 +3,7 @@ import styles from "./ModalPurchase.module.css";
 import { text } from "./text";
 import { IonButton, IonContent, IonLabel, IonModal } from "@ionic/react";
 import { ContextLanguage } from "../../context/contextLanguage";
-import ReviewsDetails from "../../pages/Home/components/ReviewsDetails/ReviewsDetails";
+import ReviewsDetails from "../ReviewsDetails/ReviewsDetails";
 
 interface ContainerProps {
   isOpen: boolean;

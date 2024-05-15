@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import styles from "./ModalReorderComponents.module.css";
 import { text } from "./text";
-import { ContextLanguage } from "../../../../context/contextLanguage";
+import { ContextLanguage } from "../../context/contextLanguage";
 
 interface ContainerProps {}
 

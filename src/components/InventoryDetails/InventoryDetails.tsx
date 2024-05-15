@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import styles from "./InventoryDetails.module.css";
 import { text } from "./text";
-import { ContextLanguage } from "../../../../context/contextLanguage";
+import { ContextLanguage } from "../../context/contextLanguage";
 import { IonIcon, IonItem, IonLabel, IonList, IonNote } from "@ionic/react";
 import {
   calendarNumberOutline,
@@ -9,7 +9,8 @@ import {
   fileTrayFullOutline,
   fileTrayOutline,
 } from "ionicons/icons";
-import ListHeader from "../../../../components/List__Header/ListHeader";
+import ListHeader from "../List__Header/ListHeader";
+import ItemInventoryStockUnderLimit from "../Item__Inventory_Stock_Under_Limit/ItemInventoryStockUnderLimit";
 
 interface ContainerProps {}
 
@@ -37,14 +38,9 @@ const InventoryDetails: React.FC<ContainerProps> = ({}) => {
           title={text[l].componentTitle}
           callbackListAction={handleListAction}
         />
-        <IonItem button={true} onClick={() => {}}>
-          <IonIcon color={"warning"} slot="start" icon={fileTrayFullOutline} />
-          <IonLabel>
-            <p>Scorte</p>
-            <h2>Sotto il limite</h2>
-          </IonLabel>
-          <IonNote slot="end">{5}</IonNote>
-        </IonItem>
+        {/* -------------- */}
+        <ItemInventoryStockUnderLimit />
+        {/* -------------- */}
         <IonItem button={true} onClick={() => {}}>
           <IonIcon color={"danger"} slot="start" icon={fileTrayOutline} />
           <IonLabel>

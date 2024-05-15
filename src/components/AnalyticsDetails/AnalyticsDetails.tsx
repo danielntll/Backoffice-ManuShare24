@@ -2,7 +2,7 @@ import { useContext } from "react";
 import styles from "./AnalyticsDetails.module.css";
 
 import { text } from "./text";
-import { ContextLanguage } from "../../../../context/contextLanguage";
+import { ContextLanguage } from "../../context/contextLanguage";
 import {
   IonBadge,
   IonButton,
@@ -18,8 +18,8 @@ import {
   earthOutline,
   trendingUp,
 } from "ionicons/icons";
-import { textButtons } from "../../../../text/textButtons";
-import ListHeader from "../../../../components/List__Header/ListHeader";
+import { textButtons } from "../../text/textButtons";
+import ListHeader from "../List__Header/ListHeader";
 
 interface ContainerProps {}
 

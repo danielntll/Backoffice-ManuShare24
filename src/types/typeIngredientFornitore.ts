@@ -3,6 +3,6 @@ export type typeIngredientFornitore = {
   data: {
     nome?: string;
     telefono?: number;
-    emial?: string;
+    email?: string;
   };
 };

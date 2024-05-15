@@ -1,4 +1,4 @@
-import InventoryDetails from "../../../pages/Home/components/InventoryDetails/InventoryDetails";
+import InventoryDetails from "../../../components/InventoryDetails/InventoryDetails";
 import { typeWidget } from "../../../types/typeWidget";
 
 export const WidgetInventory: typeWidget = {

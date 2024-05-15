@@ -1,4 +1,4 @@
-import ReviewsDetails from "../../../pages/Home/components/ReviewsDetails/ReviewsDetails";
+import ReviewsDetails from "../../../components/ReviewsDetails/ReviewsDetails";
 import { typeWidget } from "../../../types/typeWidget";
 
 export const WidgetReviewsPro: typeWidget = {

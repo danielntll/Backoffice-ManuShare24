@@ -15,7 +15,7 @@ import { text } from "./text";
 import styles from "./HomePage.module.css";
 import { useContext, useEffect, useState } from "react";
 import { ContextLanguage } from "../../context/contextLanguage";
-import { ellipsisVerticalCircle, notificationsOutline } from "ionicons/icons";
+import { gridOutline, notificationsOutline } from "ionicons/icons";
 import { useLocation } from "react-router";
 import { appRoutes } from "../../routes/routes";
 import { typeRoute } from "../../types/typeRoute";
@@ -71,8 +71,8 @@ const HomePage: React.FC<PageProps> = ({}) => {
   const getWidgetConfig = () => {
     setWidgets([
       WidgetStatusOrders,
-      WidgetReservations,
       WidgetInventory,
+      WidgetReservations,
       WidgetAnalytics,
       WidgetReviews,
     ]);
@@ -124,7 +124,7 @@ const HomePage: React.FC<PageProps> = ({}) => {
               ) : null}
             </IonButton>
             <IonButton onClick={openOrderComponentsModal}>
-              <IonIcon icon={ellipsisVerticalCircle} />
+              <IonIcon icon={gridOutline} />
             </IonButton>
           </IonButtons>
         </IonToolbar>

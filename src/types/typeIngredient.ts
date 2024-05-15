@@ -2,7 +2,7 @@ import { typeIngredientManagment } from "./typeIngredientManagment";
 import { typeIngredientStoricoForniture } from "./typeIngredientStoricoForniture";
 
 export type typeIngredient = {
-  uid?: string;
+  ingredientID?: string;
   data: {
     nome: string;
     marca?: string;

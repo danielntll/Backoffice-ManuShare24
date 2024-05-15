@@ -1,4 +1,4 @@
-import ReservationDetails from "../../../pages/Home/components/ReservationDetails/ReservationDetails";
+import ReservationDetails from "../../../components/ReservationDetails/ReservationDetails";
 import { typeWidget } from "../../../types/typeWidget";
 
 export const WidgetReservationsPro: typeWidget = {

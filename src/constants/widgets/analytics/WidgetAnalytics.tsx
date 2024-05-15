@@ -1,4 +1,4 @@
-import AnalyticsDetails from "../../../pages/Home/components/AnalyticsDetails/AnalyticsDetails";
+import AnalyticsDetails from "../../../components/AnalyticsDetails/AnalyticsDetails";
 import { typeWidget } from "../../../types/typeWidget";
 
 export const WidgetAnalytics: typeWidget = {
