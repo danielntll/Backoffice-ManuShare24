@@ -94,14 +94,14 @@ const ModalOrderDetails: React.FC<ContainerProps> = ({
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          {listOrders?.orders.map((order: typeOrder) => {
+          {listOrders?.orders.map((order: typeOrder, index: number) => {
             const now = Date.now();
             const differenceInMilliseconds = now - order.createdAt;
             const differenceInMinutes = Math.floor(
               differenceInMilliseconds / (1000 * 60)
             );
             return (
-              <IonCard>
+              <IonCard key={order.orderID + index}>
                 <IonCardHeader className={styles.header}>
                   <IonCardSubtitle className="inline-row-sb">
                     <h3 className="inline-row-gap">

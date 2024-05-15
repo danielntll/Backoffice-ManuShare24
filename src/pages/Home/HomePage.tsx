@@ -15,12 +15,7 @@ import { text } from "./text";
 import styles from "./HomePage.module.css";
 import { useContext, useEffect, useState } from "react";
 import { ContextLanguage } from "../../context/contextLanguage";
-import OrderDetails from "./components/OrderDetails/OrderDetails";
-import AnalyticsDetails from "./components/AnalyticsDetails/AnalyticsDetails";
-import InventoryDetails from "./components/InventoryDetails/InventoryDetails";
-import ReservationDetails from "./components/ReservationDetails/ReservationDetails";
 import { ellipsisVerticalCircle, notificationsOutline } from "ionicons/icons";
-import ReviewsDetails from "./components/ReviewsDetails/ReviewsDetails";
 import { useLocation } from "react-router";
 import { appRoutes } from "../../routes/routes";
 import { typeRoute } from "../../types/typeRoute";
@@ -29,6 +24,11 @@ import ModalNotifications from "../../components/Modal__Notifications/ModalNotif
 import { typeNotification } from "../../types/typeNotification";
 import { mockNotifications } from "../../mock/mockNotifications";
 import ModalOrderComponents from "../../components/Modal__Order__Components/ModalOrderComponents";
+import { WidgetStatusOrders } from "../../constants/widgets/orders/WidgetStatusOrders";
+import { WidgetReservations } from "../../constants/widgets/reservation/WidgetReservations";
+import { WidgetInventory } from "../../constants/widgets/inventory/WidgetInventory";
+import { WidgetAnalytics } from "../../constants/widgets/analytics/WidgetAnalytics";
+import { WidgetReviews } from "../../constants/widgets/reviews/WidgetReviews";
 
 interface PageProps {}
 
@@ -39,12 +39,12 @@ const HomePage: React.FC<PageProps> = ({}) => {
   //CONDITIONS -----------------------
   const [isModalNotificationsOpen, setIsModalNotificationsOpen] =
     useState<boolean>(false);
-
   const [isModalOrderComponentsOpen, setIsModalOrderComponentsOpen] =
     useState<boolean>(false);
-  const [notifications, setNotifications] = useState<typeNotification[]>([]);
   const [pageName, setPageName] = useState<string | undefined>("");
-  const [components, setComponents] = useState<typeWidget[]>([]);
+
+  const [notifications, setNotifications] = useState<typeNotification[]>([]);
+  const [widgets, setWidgets] = useState<typeWidget[]>([]);
 
   useEffect(() => {
     setPageName(
@@ -54,13 +54,53 @@ const HomePage: React.FC<PageProps> = ({}) => {
   }, [location]);
 
   useEffect(() => {
+    // TODO: prelevare le notifiche dal CONTEXT
     setNotifications(mockNotifications);
+    getWidgetConfig();
   }, []);
   //FUNCTIONS ------------------------
+  // --- getWidgetsConfig()
+  /**
+   *  Questo metodo serve per ottenere la lista di widget
+   * visualizzabili sulla HomePage dal Database.
+   * Questo per permette di avere lo stesso tipo di configurazione
+   * cross-app per l'utente.
+   *
+   *
+   */
+  const getWidgetConfig = () => {
+    setWidgets([
+      WidgetStatusOrders,
+      WidgetReservations,
+      WidgetInventory,
+      WidgetAnalytics,
+      WidgetReviews,
+    ]);
+  };
+
+  // --- handleSetWidgets()
+  /**
+   *  Questo metodo serve per aggiornare la lista di widget
+   * visualizzabili sulla HomePage
+   *
+   * @param newWidgets typeWidget - array di widget nuovo
+   */
+  const handleUpdateWidgets = (newWidgets: typeWidget[]) => {
+    setWidgets(newWidgets);
+  };
+
+  // --- openNotificationsModal()
+  /**
+   *
+   */
   const openNotificationsModal = () => {
     setIsModalNotificationsOpen(!isModalNotificationsOpen);
   };
 
+  // --- openOrderComponentsModal()
+  /**
+   *
+   */
   const openOrderComponentsModal = () => {
     setIsModalOrderComponentsOpen(!isModalOrderComponentsOpen);
   };
@@ -97,8 +137,8 @@ const HomePage: React.FC<PageProps> = ({}) => {
         </IonHeader>
         {/* ----------------- PAGE CONTENT ------------------*/}
         <div className={styles.content}>
-          {components.map((widget: typeWidget) => {
-            return <div key={widget.widgetID}>{widget.component}</div>;
+          {widgets.map((widget: typeWidget, index: number) => {
+            return <div key={widget.widgetID + index}>{widget.component}</div>;
           })}
         </div>
         {/* ----------------- EXTRA UI ----------------------*/}
@@ -110,8 +150,8 @@ const HomePage: React.FC<PageProps> = ({}) => {
         />
 
         <ModalOrderComponents
-          callbackSetComponents={setComponents}
-          components={components}
+          callbackUpdateWidgets={handleUpdateWidgets}
+          widgets={widgets}
           isOpen={isModalOrderComponentsOpen}
           setIsOpen={setIsModalOrderComponentsOpen}
         />
