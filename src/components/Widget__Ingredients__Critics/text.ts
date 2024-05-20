@@ -1,8 +1,8 @@
 export const text = {
   it_IT: {
-    componentTitle: "DefaultComponent",
+    componentTitle: "Ingredienti critici",
   },
   en_GB: {
-    componentTitle: "DefaultComponent",
+    componentTitle: "Ingredienti critici",
   },
 };

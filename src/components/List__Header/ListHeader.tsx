@@ -7,11 +7,13 @@ import { chevronForward } from "ionicons/icons";
 
 interface ContainerProps {
   title: string;
+  subtitle?: string;
   callbackListAction: () => void;
 }
 
 const ListHeader: React.FC<ContainerProps> = ({
   title,
+  subtitle,
   callbackListAction,
 }) => {
   //VARIABLES ------------------------
@@ -21,7 +23,12 @@ const ListHeader: React.FC<ContainerProps> = ({
   //RETURN COMPONENT -----------------
   return (
     <IonListHeader onClick={callbackListAction}>
-      <IonLabel className={styles.lable}>{title}</IonLabel>
+      <IonLabel className={styles.lable}>
+        {subtitle ? <p className="ion-padding-top">{subtitle}</p> : ""}
+        <h1>
+          <b>{title}</b>
+        </h1>
+      </IonLabel>
       <IonButton size="small">
         {textButtons[l].btn__go_to_page}
         <IonIcon icon={chevronForward} />

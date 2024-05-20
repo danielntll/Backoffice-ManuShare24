@@ -6,7 +6,7 @@ import { text } from "./text";
 interface ContainerProps {
   isOpen: boolean;
   setIsOpen: (state: boolean) => void;
-  callbackSelectedValue: (value: string) => void;
+  callbackSelectedValue: (value: any) => void;
   buttons: ActionSheetButton[];
 }
 
