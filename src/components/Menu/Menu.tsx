@@ -15,11 +15,13 @@ import "./Menu.css";
 import { appRoutes } from "../../routes/routes";
 import { useContext } from "react";
 import { ContextLanguage } from "../../context/contextLanguage";
+import { AuthContext } from "../../context/contextAuth";
 
 const Menu: React.FC = () => {
   //VARIABLES ------------------------
   const location = useLocation();
   const { l } = useContext(ContextLanguage);
+  const { authenticateUser } = useContext(AuthContext);
   //CONDITIONS -----------------------
   //FUNCTIONS ------------------------
   //RETURN COMPONENT -----------------
@@ -27,8 +29,8 @@ const Menu: React.FC = () => {
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
-          <IonListHeader>Inbox</IonListHeader>
-          <IonNote>hi@ionicframework.com</IonNote>
+          <IonListHeader>Menu</IonListHeader>
+          <IonNote>{authenticateUser?.email}</IonNote>
           {appRoutes.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
