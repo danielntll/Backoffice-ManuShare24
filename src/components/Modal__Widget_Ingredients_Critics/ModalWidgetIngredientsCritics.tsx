@@ -8,10 +8,14 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
+  IonItem,
+  IonLabel,
   IonList,
+  IonListHeader,
   IonModal,
   IonReorderGroup,
   IonSearchbar,
+  IonSpinner,
   IonTitle,
   IonToolbar,
   ItemReorderEventDetail,
@@ -25,6 +29,8 @@ import ItemIngredientCritic from "../Item__Ingredient_Critic/ItemIngredientCriti
 import { optionsOutline } from "ionicons/icons";
 import ActionsheetFilter from "../Actionsheet__Filter/ActionsheetFilter";
 import { typeListModify } from "../../types/typeListModify";
+import { mockIngredients } from "../../mock/mockIngredients";
+import { ContextToast } from "../../context/contextToast";
 
 interface ContainerProps {
   isOpen: boolean;
@@ -41,7 +47,8 @@ const ModalWidgetIngredientsCritics: React.FC<ContainerProps> = ({
 }) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
-
+  const { toast } = useContext(ContextToast);
+  const maxSelectedLength = 5;
   //CONDITIONS -----------------------
 
   // --- selectedIngredientsLocal
@@ -54,6 +61,19 @@ const ModalWidgetIngredientsCritics: React.FC<ContainerProps> = ({
   const [selectedIngredientsLocal, setSelectedIngredientsLocal] = useState<
     typeIngredient[]
   >([]);
+
+  // --- allIngredients
+  /**
+   * Questa variabile rappresenta la fetch di tutti gli ingredienti, in step da 10 elementi.
+   */
+  const [allIngredients, setAllIngredients] = useState<typeIngredient[]>([]);
+
+  // --- isFetching
+  /**
+   * Indica se la fetch degli ingredienti è in corso.
+   */
+
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   // --- searchResult
   /**
@@ -81,24 +101,59 @@ const ModalWidgetIngredientsCritics: React.FC<ContainerProps> = ({
   // --- isActionsSheetOpen
   /// Questa variabile indica se il menu delle azioni è aperto o meno.
   const [isActionsSheetOpen, setIsActionSheetOpen] = useState<boolean>(false);
+
+  // --- needSave
+  /// Questa variabile indica se serve salvare delle modifiche o meno. Il controllo è settato in un useEffect che confrontaray  l'array locale con l'array di ingredienti arrivato tramite props.
+  const [needSave, setNeedSave] = useState<boolean>(false);
   //FUNCTIONS ------------------------
 
   // --- useEffect [ingredients]
   /**
-   *
+   * 1. Imposta una copia locale degli ingredienti selezionati passati tramite props
+   * 2. Esegue una chiamata di fetch se tutti gli ingredienti sono vuoti
    */
   useEffect(() => {
     setSelectedIngredientsLocal(ingredients);
+    if (allIngredients.length === 0) {
+      fetchIngredients();
+    }
   }, [ingredients]);
 
-  // --- handleSetSelectedIngredients()
+  // --- useEffect [selectedIngredientsLocal]
+  /**
+   *  Serve per:
+   * 1. Controlla se ci sono delle modifiche tra l'array locale e quello arrivato tramite props: se sì, si attiva il pulsante "salva". In caso contrario rimane attivo il pulsante "opzioni"
+   *
+   */
+  useEffect(() => {
+    if (selectedIngredientsLocal !== ingredients) {
+      setNeedSave(true);
+    } else {
+      setNeedSave(false);
+    }
+  }, [selectedIngredientsLocal]);
+
+  // --- fetchIngredients()
+  /**
+   * Questo metodo si occupa di eseguire la fetch di tutti gli ingredienti
+   */
+  const fetchIngredients = async () => {
+    setIsFetching(true);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setAllIngredients([...mockIngredients, ...mockIngredients]);
+    setIsFetching(false);
+  };
+
+  // --- handleSaveSelectedIngredients()
   /**
    * Questo metodo serve per salvare la nuova lista degli ingredienti
    * sia nel server che localmente.
    *
    */
-  const handleSetSelectedIngredients = () => {
+  const handleSaveSelectedIngredients = () => {
+    // TODO: creare salvataggio sul server
     callbackSetSelectedIngredients(selectedIngredientsLocal);
+    setNeedSave(false);
   };
 
   // --- handleSearchInput()
@@ -148,15 +203,48 @@ const ModalWidgetIngredientsCritics: React.FC<ContainerProps> = ({
     setIsActionSheetOpen(!isActionsSheetOpen);
   };
 
+  // --- handleReorder
+  /**
+   * Questo metodo si occupa di riordinare la lista degli ingredienti locali nella variabile "selectedIngredientsLocal".
+   *
+   * @param event CustomEvent<ItemReorderEventDetail> - evento di reorder dal componente di default
+   */
   const handleReorder = (event: CustomEvent<ItemReorderEventDetail>) => {
     // The `from` and `to` properties contain the index of the item
     // when the drag started and ended, respectively
     console.log("Dragged from index", event.detail.from, "to", event.detail.to);
 
+    // Update the local state with the reordered list
+    const reorderedList = [...selectedIngredientsLocal];
+    const [reorderedItem] = reorderedList.splice(event.detail.from, 1);
+    reorderedList.splice(event.detail.to, 0, reorderedItem);
+    setSelectedIngredientsLocal(reorderedList);
+
     // Finish the reorder and position the item in the DOM based on
     // where the gesture ended. This method can also be called directly
     // by the reorder group
     event.detail.complete();
+  };
+
+  // --- handleSelectDeselect()
+  /**
+   * Questo metodo permette di selezionare o deselezionare dalla lista locale un ingrediente dato il suo ID
+   *
+   * @param ingredientToToggle typeIngredient - Ingrediente da selezionare o deselezionare
+   *
+   */
+  const handleSelectDeselect = (ingredientToToggle: typeIngredient) => {
+    const newComponentsLocal = selectedIngredientsLocal.filter(
+      (c) => c.ingredientID !== ingredientToToggle.ingredientID
+    );
+    if (newComponentsLocal.length === selectedIngredientsLocal.length) {
+      if (selectedIngredientsLocal.length < maxSelectedLength) {
+        newComponentsLocal.push(ingredientToToggle);
+      } else {
+        toast("warning", text[l].warning_max_limit);
+      }
+    }
+    setSelectedIngredientsLocal(newComponentsLocal);
   };
 
   //RETURN COMPONENT -----------------
@@ -176,9 +264,18 @@ const ModalWidgetIngredientsCritics: React.FC<ContainerProps> = ({
             </IonButtons>
             <IonTitle>{WidgetInventoryIngredientsCritics.name[l]}</IonTitle>
             <IonButtons slot="end">
-              <IonButton onClick={handleOpenOptions}>
-                <IonIcon icon={optionsOutline} />
-              </IonButton>
+              {needSave ? (
+                <IonButton
+                  color={"success"}
+                  onClick={handleSaveSelectedIngredients}
+                >
+                  {textButtons[l].btn__upload}
+                </IonButton>
+              ) : (
+                <IonButton onClick={handleOpenOptions}>
+                  <IonIcon icon={optionsOutline} />
+                </IonButton>
+              )}
             </IonButtons>
           </IonToolbar>
           <IonToolbar>
@@ -193,6 +290,18 @@ const ModalWidgetIngredientsCritics: React.FC<ContainerProps> = ({
         <IonContent>
           {/* ------------- CONTENT ------------ */}
           <IonList>
+            <IonListHeader>
+              <IonLabel className={styles.lable}>
+                {isSearching || searchResult !== null
+                  ? text[l].list_research
+                  : text[l].list_selected}
+              </IonLabel>
+              <IonLabel className="ion-text-end ion-padding-end">
+                {isSearching || searchResult !== null
+                  ? searchResult?.length ?? ""
+                  : selectedIngredientsLocal.length + "/" + maxSelectedLength}
+              </IonLabel>
+            </IonListHeader>
             <IonReorderGroup disabled={false} onIonItemReorder={handleReorder}>
               {isSearching ? (
                 <>
@@ -214,6 +323,13 @@ const ModalWidgetIngredientsCritics: React.FC<ContainerProps> = ({
                               }
                               ingredient={ingredient}
                               type={isModifing ?? "button"}
+                              isSelected={selectedIngredientsLocal.some(
+                                (c) =>
+                                  c.ingredientID === ingredient.ingredientID
+                              )}
+                              callbackSelect={() =>
+                                handleSelectDeselect(ingredient)
+                              }
                             />
                           );
                         }
@@ -229,6 +345,13 @@ const ModalWidgetIngredientsCritics: React.FC<ContainerProps> = ({
                               }
                               ingredient={ingredient}
                               type={isModifing ?? "button"}
+                              isSelected={selectedIngredientsLocal.some(
+                                (c) =>
+                                  c.ingredientID === ingredient.ingredientID
+                              )}
+                              callbackSelect={() =>
+                                handleSelectDeselect(ingredient)
+                              }
                             />
                           );
                         }
@@ -237,6 +360,42 @@ const ModalWidgetIngredientsCritics: React.FC<ContainerProps> = ({
               )}
             </IonReorderGroup>
           </IonList>
+          {isSearching || searchResult !== null ? (
+            <></>
+          ) : (
+            <IonList>
+              <IonListHeader>
+                <IonLabel className={styles.lable}>{text[l].list_all}</IonLabel>
+              </IonListHeader>
+              {isFetching ? (
+                <IonItem>
+                  <div className="ion-text-center">
+                    <IonSpinner />
+                  </div>
+                </IonItem>
+              ) : (
+                allIngredients.map(
+                  (ingredient: typeIngredient, index: number) => {
+                    return (
+                      <ItemIngredientCritic
+                        key={
+                          "ModalWidgetIngredientsCritics" +
+                          ingredient.ingredientID +
+                          index
+                        }
+                        ingredient={ingredient}
+                        type={isModifing ?? "button"}
+                        isSelected={selectedIngredientsLocal.some(
+                          (c) => c.ingredientID === ingredient.ingredientID
+                        )}
+                        callbackSelect={() => handleSelectDeselect(ingredient)}
+                      />
+                    );
+                  }
+                )
+              )}
+            </IonList>
+          )}
         </IonContent>
       </IonModal>
       {/* ----------------- EXTRA UI ----------------------*/}
@@ -254,6 +413,12 @@ const ModalWidgetIngredientsCritics: React.FC<ContainerProps> = ({
           setIsActionSheetOpen(false);
         }}
         buttons={[
+          {
+            text: text[l].opt_info,
+            data: {
+              action: "cancel",
+            },
+          },
           {
             text: text[l].opt_reorder,
             data: {

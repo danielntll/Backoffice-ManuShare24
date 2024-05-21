@@ -2,14 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./WidgetIngredientsCritics.module.css";
 import { ContextLanguage } from "../../context/contextLanguage";
 import { text } from "./text";
-import {
-  IonAvatar,
-  IonBadge,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonNote,
-} from "@ionic/react";
+import { IonList } from "@ionic/react";
 import ListHeader from "../List__Header/ListHeader";
 import { typeIngredient } from "../../types/typeIngredient";
 import { mockIngredients } from "../../mock/mockIngredients";
@@ -58,7 +51,11 @@ const WidgetIngredientsCritics: React.FC<ContainerProps> = ({}) => {
   const getSelectedIngredients = async () => {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    setSelectedIngredients(mockIngredients);
+    setSelectedIngredients([
+      mockIngredients[0],
+      mockIngredients[1],
+      mockIngredients[2],
+    ]);
     setIsLoading(false);
   };
 
