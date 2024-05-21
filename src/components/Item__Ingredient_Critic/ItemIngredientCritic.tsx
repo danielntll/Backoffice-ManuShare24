@@ -92,9 +92,7 @@ const ItemIngredientCritic: React.FC<ContainerProps> = ({
           {skeleton ? (
             <IonSkeletonText animated={true}></IonSkeletonText>
           ) : (
-            <IonBadge color={"warning"}>
-              {ingredient?.managment?.quantita}
-            </IonBadge>
+            ingredient?.managment?.quantita
           )}
         </IonNote>
       )}

@@ -189,12 +189,12 @@ const ModalNotifications: React.FC<ContainerProps> = ({
             </IonButtons>
             <IonTitle>{text[l].componentTitle}</IonTitle>
           </IonToolbar>
-          <div className="ion-padding-horizontal ion-padding-top">
+          <IonToolbar>
             <SegmentFilterNotifications
               filter={selectedFilter}
               callbackSelectFilter={handleSelectFilter}
             />
-          </div>
+          </IonToolbar>
         </IonHeader>
         <IonContent>
           {/* ------------- CONTENT ------------ */}

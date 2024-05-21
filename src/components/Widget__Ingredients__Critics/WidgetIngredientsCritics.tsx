@@ -7,7 +7,7 @@ import ListHeader from "../List__Header/ListHeader";
 import { typeIngredient } from "../../types/typeIngredient";
 import { mockIngredients } from "../../mock/mockIngredients";
 import { WidgetInventoryIngredientsCritics } from "../../constants/widgets/inventory/WidgetInventoryIngredientsCritics";
-import ModalWidgetIngredientsCritics from "../Modal__Widget_Ingredients_Critics/ModalWidgetIngredientsCritics";
+import ModalWidgetIngredientsCritics from "../Modal__Widget__Ingredients__Critics/ModalWidgetIngredientsCritics";
 import ItemIngredientCritic from "../Item__Ingredient_Critic/ItemIngredientCritic";
 
 interface ContainerProps {}

@@ -19,7 +19,6 @@ import {
   IonTitle,
   IonToolbar,
   ItemReorderEventDetail,
-  useIonActionSheet,
 } from "@ionic/react";
 import { ContextLanguage } from "../../context/contextLanguage";
 import { textButtons } from "../../text/textButtons";
@@ -27,7 +26,6 @@ import { typeIngredient } from "../../types/typeIngredient";
 import { WidgetInventoryIngredientsCritics } from "../../constants/widgets/inventory/WidgetInventoryIngredientsCritics";
 import ItemIngredientCritic from "../Item__Ingredient_Critic/ItemIngredientCritic";
 import { optionsOutline } from "ionicons/icons";
-import ActionsheetFilter from "../Actionsheet__Filter/ActionsheetFilter";
 import { typeListModify } from "../../types/typeListModify";
 import { mockIngredients } from "../../mock/mockIngredients";
 import { ContextToast } from "../../context/contextToast";
@@ -154,6 +152,7 @@ const ModalWidgetIngredientsCritics: React.FC<ContainerProps> = ({
     // TODO: creare salvataggio sul server
     callbackSetSelectedIngredients(selectedIngredientsLocal);
     setNeedSave(false);
+    setIsModifing(null);
   };
 
   // --- handleSearchInput()
