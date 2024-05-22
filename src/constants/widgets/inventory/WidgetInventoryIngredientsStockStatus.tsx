@@ -1,9 +1,9 @@
-import WidgetIngredientsLowStock from "../../../components/Widget__Ingredients__Low__Stock/WidgetIngredientsLowStock";
+import WidgetIngredientsStockStatus from "../../../components/Widget__Ingredients__Stock__Status/WidgetIngredientsStockStatus";
 import { typeWidget } from "../../../types/typeWidget";
 
-export const WidgetInventoryIngredientsLowStock: typeWidget = {
-  widgetID: "WidgetIngredientsLowStock",
-  component: <WidgetIngredientsLowStock />,
+export const WidgetInventoryIngredientsStockStatus: typeWidget = {
+  widgetID: "WidgetInventoryIngredientsStockStatus",
+  component: <WidgetIngredientsStockStatus />,
   category: {
     it_IT: "Inventario",
     en_GB: "Inventory Status",

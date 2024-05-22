@@ -1,20 +1,20 @@
 import { useContext, useEffect, useState } from "react";
-import styles from "./WidgetIngredientsLowStock.module.css";
+import styles from "./WidgetIngredientsStockStatus.module.css";
 import { ContextLanguage } from "../../context/contextLanguage";
 import { text } from "./text";
 import { IonList } from "@ionic/react";
 import ListHeader from "../List__Header/ListHeader";
-import { WidgetInventoryIngredientsLowStock } from "../../constants/widgets/inventory/WidgetInventoryIngredientsLowStock";
+import { WidgetInventoryIngredientsStockStatus } from "../../constants/widgets/inventory/WidgetInventoryIngredientsStockStatus";
 import { typeIngredient } from "../../types/typeIngredient";
 import { mockIngredients } from "../../mock/mockIngredients";
 import ItemIngredientsStockOveriview from "../Item__Ingredients__Stock__Overiview/ItemIngredientsStockOveriview";
 import { close, trashOutline, trendingDown } from "ionicons/icons";
 import { typeFilterWidgetLowStock } from "../../types/typeFilterWidgetLowStock";
-import ModalWidgetIngredientsLowStock from "../Modal__Widget__Ingredients__Low__Stock/ModalWidgetIngredientsLowStock";
+import ModalWidgetIngredientsStockStatus from "../Modal__Widget__Ingredients__Stock__Status/ModalWidgetIngredientsStockStatus";
 
 interface ContainerProps {}
 
-const WidgetIngredientsLowStock: React.FC<ContainerProps> = ({}) => {
+const WidgetIngredientsStockStatus: React.FC<ContainerProps> = ({}) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
   //CONDITIONS -----------------------
@@ -132,10 +132,10 @@ const WidgetIngredientsLowStock: React.FC<ContainerProps> = ({}) => {
       <div className={styles.container}>
         <IonList inset>
           <ListHeader
-            title={WidgetInventoryIngredientsLowStock.name[l]}
+            title={WidgetInventoryIngredientsStockStatus.name[l]}
             subtitle={
-              WidgetInventoryIngredientsLowStock.category !== undefined
-                ? WidgetInventoryIngredientsLowStock.category[l]
+              WidgetInventoryIngredientsStockStatus.category !== undefined
+                ? WidgetInventoryIngredientsStockStatus.category[l]
                 : undefined
             }
             callbackListAction={() => handleOpenModal("lowStock")}
@@ -167,7 +167,7 @@ const WidgetIngredientsLowStock: React.FC<ContainerProps> = ({}) => {
         </IonList>
       </div>
       {/* ----------------- EXTRA UI ----------------------*/}
-      <ModalWidgetIngredientsLowStock
+      <ModalWidgetIngredientsStockStatus
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
         filter={filter}
@@ -179,4 +179,4 @@ const WidgetIngredientsLowStock: React.FC<ContainerProps> = ({}) => {
   );
 };
 
-export default WidgetIngredientsLowStock;
+export default WidgetIngredientsStockStatus;

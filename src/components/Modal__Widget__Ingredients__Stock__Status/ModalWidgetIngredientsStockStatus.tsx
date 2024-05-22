@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import styles from "./ModalWidgetIngredientsLowStock.module.css";
+import styles from "./ModalWidgetIngredientsStockStatus.module.css";
 import { ContextLanguage } from "../../context/contextLanguage";
 import { text } from "./text";
 import { typeIngredient } from "../../types/typeIngredient";
@@ -18,7 +18,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { textButtons } from "../../text/textButtons";
-import { WidgetInventoryIngredientsLowStock } from "../../constants/widgets/inventory/WidgetInventoryIngredientsLowStock";
+import { WidgetInventoryIngredientsStockStatus } from "../../constants/widgets/inventory/WidgetInventoryIngredientsStockStatus";
 import ItemIngredientCritic from "../Item__Ingredient_Critic/ItemIngredientCritic";
 
 interface ContainerProps {
@@ -30,7 +30,7 @@ interface ContainerProps {
   filter: string;
 }
 
-const ModalWidgetIngredientsLowStock: React.FC<ContainerProps> = ({
+const ModalWidgetIngredientsStockStatus: React.FC<ContainerProps> = ({
   isOpen,
   setIsOpen,
   ingredientsLowStock,
@@ -61,7 +61,7 @@ const ModalWidgetIngredientsLowStock: React.FC<ContainerProps> = ({
                 {textButtons[l].btn__close}
               </IonButton>
             </IonButtons>
-            <IonTitle>{WidgetInventoryIngredientsLowStock.name[l]}</IonTitle>
+            <IonTitle>{WidgetInventoryIngredientsStockStatus.name[l]}</IonTitle>
           </IonToolbar>
           <IonToolbar>
             <IonSegment
@@ -100,7 +100,7 @@ const ModalWidgetIngredientsLowStock: React.FC<ContainerProps> = ({
                     return (
                       <ItemIngredientCritic
                         key={
-                          "ModalWidgetIngredientsLowStock" +
+                          "ModalWidgetIngredientsStockStatus" +
                           ingredient.ingredientID +
                           index
                         }
@@ -127,7 +127,7 @@ const ModalWidgetIngredientsLowStock: React.FC<ContainerProps> = ({
                     return (
                       <ItemIngredientCritic
                         key={
-                          "ModalWidgetIngredientsLowStock" +
+                          "ModalWidgetIngredientsStockStatus" +
                           ingredient.ingredientID +
                           index
                         }
@@ -154,7 +154,7 @@ const ModalWidgetIngredientsLowStock: React.FC<ContainerProps> = ({
                     return (
                       <ItemIngredientCritic
                         key={
-                          "ModalWidgetIngredientsLowStock" +
+                          "ModalWidgetIngredientsStockStatus" +
                           ingredient.ingredientID +
                           index
                         }
@@ -173,4 +173,4 @@ const ModalWidgetIngredientsLowStock: React.FC<ContainerProps> = ({
   );
 };
 
-export default ModalWidgetIngredientsLowStock;
+export default ModalWidgetIngredientsStockStatus;
