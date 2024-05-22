@@ -1,19 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import styles from "./WidgetIngredientsStockStatusLow.module.css";
+import styles from "./WidgetIngredientsStockStatusNoStock.module.css";
 import { ContextLanguage } from "../../context/contextLanguage";
 import { text } from "./text";
 import { IonList } from "@ionic/react";
 import ListHeader from "../List__Header/ListHeader";
 import { typeIngredient } from "../../types/typeIngredient";
 import { mockIngredients } from "../../mock/mockIngredients";
-import { WidgetInventoryIngredientsStockStatusLow } from "../../constants/widgets/inventory/WidgetInventoryIngredientsStockStatusLow";
-
-import ModalWidgetIngredientsStockStatusLow from "../Modal__Widget__Ingredients__Stock__Status__Low/ModalWidgetIngredientsStockStatusLow";
-import ItemIngredientCritic from "../Item__Ingredient_Critic/ItemIngredientCritic";
+import { WidgetInventoryIngredientsStockStatusNoStock } from "../../constants/widgets/inventory/WidgetInventoryIngredientsStockStatusNoStock";
+import ModalWidgetIngredientsStockStatusNoStock from "../Modal__Widget__Ingredients__Stock__Status__NoStock/ModalWidgetIngredientsStockStatusNoStock";
+import ItemIngredientStockStatusNoStock from "../Item__Ingredient__Stock__Status__NoStock/ItemIngredientStockStatusNoStock";
 
 interface ContainerProps {}
 
-const WidgetIngredientsStockStatusLow: React.FC<ContainerProps> = ({}) => {
+const WidgetIngredientsStockStatusNoStock: React.FC<ContainerProps> = ({}) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
   //CONDITIONS -----------------------
@@ -89,28 +88,29 @@ const WidgetIngredientsStockStatusLow: React.FC<ContainerProps> = ({}) => {
       <div className={styles.container}>
         <IonList inset>
           <ListHeader
-            title={WidgetInventoryIngredientsStockStatusLow.name[l]}
+            title={WidgetInventoryIngredientsStockStatusNoStock.name[l]}
             subtitle={
-              WidgetInventoryIngredientsStockStatusLow.category !== undefined
-                ? WidgetInventoryIngredientsStockStatusLow.category[l]
+              WidgetInventoryIngredientsStockStatusNoStock.category !==
+              undefined
+                ? WidgetInventoryIngredientsStockStatusNoStock.category[l]
                 : undefined
             }
             callbackListAction={openModalHandleIngredientsCritics}
           />
           {isLoading ? (
             <>
-              <ItemIngredientCritic skeleton />
-              <ItemIngredientCritic skeleton />
-              <ItemIngredientCritic skeleton />
+              <ItemIngredientStockStatusNoStock skeleton />
+              <ItemIngredientStockStatusNoStock skeleton />
+              <ItemIngredientStockStatusNoStock skeleton />
             </>
           ) : (
             <>
               {selectedIngredients.map(
                 (ingredient: typeIngredient, index: number) => {
                   return (
-                    <ItemIngredientCritic
+                    <ItemIngredientStockStatusNoStock
                       key={
-                        "WidgetIngredientsStockStatusLow" +
+                        "WidgetIngredientsStockStatusNoStock" +
                         ingredient.ingredientID +
                         index
                       }
@@ -124,7 +124,7 @@ const WidgetIngredientsStockStatusLow: React.FC<ContainerProps> = ({}) => {
         </IonList>
       </div>
       {/* ----------------- EXTRA UI ----------------------*/}
-      <ModalWidgetIngredientsStockStatusLow
+      <ModalWidgetIngredientsStockStatusNoStock
         isOpen={isModalHandleIngredientsCriticsOpen}
         setIsOpen={setIsModalHandleIngredientsCriticsOpen}
         ingredients={selectedIngredients}
@@ -134,4 +134,4 @@ const WidgetIngredientsStockStatusLow: React.FC<ContainerProps> = ({}) => {
   );
 };
 
-export default WidgetIngredientsStockStatusLow;
+export default WidgetIngredientsStockStatusNoStock;
