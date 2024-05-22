@@ -74,10 +74,10 @@ const HomePage: React.FC<PageProps> = ({}) => {
    */
   const getWidgetConfig = () => {
     setWidgets([
-      WidgetInventoryIngredientsStockStatusNoStock,
-      WidgetInventoryIngredientsStockStatusLow,
       WidgetInventoryIngredientsStockStatus,
       WidgetInventoryIngredientsCritics,
+      WidgetInventoryIngredientsStockStatusLow,
+      WidgetInventoryIngredientsStockStatusNoStock,
       WidgetStatusOrders,
       WidgetInventory,
       WidgetReservations,

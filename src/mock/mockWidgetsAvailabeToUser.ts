@@ -26,4 +26,24 @@ export const mockWidgetsAvailabeToUser: typeWidgetAvailableToUser[] = [
     purchaseID: "123",
     createdAt: Date.now(),
   },
+  {
+    widgetID: "WidgetInventoryIngredientsStockStatusNoStock",
+    purchaseID: "123",
+    createdAt: Date.now(),
+  },
+  {
+    widgetID: "WidgetInventoryIngredientsStockStatusLow",
+    purchaseID: "123",
+    createdAt: Date.now(),
+  },
+  {
+    widgetID: "WidgetInventoryIngredientsStockStatus",
+    purchaseID: "123",
+    createdAt: Date.now(),
+  },
+  {
+    widgetID: "WidgetInventoryIngredientsCritics",
+    purchaseID: "123",
+    createdAt: Date.now(),
+  },
 ];
