@@ -31,6 +31,7 @@ import { WidgetAnalytics } from "../../constants/widgets/analytics/WidgetAnalyti
 import { WidgetReviews } from "../../constants/widgets/reviews/WidgetReviews";
 import { WidgetInventoryIngredientsCritics } from "../../constants/widgets/inventory/WidgetInventoryIngredientsCritics";
 import { WidgetInventoryIngredientsStockStatus } from "../../constants/widgets/inventory/WidgetInventoryIngredientsStockStatus";
+import { WidgetInventoryIngredientsStockStatusLow } from "../../constants/widgets/inventory/WidgetInventoryIngredientsStockStatusLow";
 
 interface PageProps {}
 
@@ -72,6 +73,7 @@ const HomePage: React.FC<PageProps> = ({}) => {
    */
   const getWidgetConfig = () => {
     setWidgets([
+      WidgetInventoryIngredientsStockStatusLow,
       WidgetInventoryIngredientsStockStatus,
       WidgetInventoryIngredientsCritics,
       WidgetStatusOrders,
