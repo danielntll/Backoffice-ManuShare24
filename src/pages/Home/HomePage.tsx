@@ -11,7 +11,6 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { text } from "./text";
-
 import styles from "./HomePage.module.css";
 import { useContext, useEffect, useState } from "react";
 import { ContextLanguage } from "../../context/contextLanguage";
@@ -29,10 +28,7 @@ import { WidgetReservations } from "../../constants/widgets/reservation/WidgetRe
 import { WidgetInventory } from "../../constants/widgets/inventory/WidgetInventory";
 import { WidgetAnalytics } from "../../constants/widgets/analytics/WidgetAnalytics";
 import { WidgetReviews } from "../../constants/widgets/reviews/WidgetReviews";
-import { WidgetInventoryIngredientsCritics } from "../../constants/widgets/inventory/WidgetInventoryIngredientsCritics";
 import { WidgetInventoryIngredientsStockStatus } from "../../constants/widgets/inventory/WidgetInventoryIngredientsStockStatus";
-import { WidgetInventoryIngredientsStockStatusLow } from "../../constants/widgets/inventory/WidgetInventoryIngredientsStockStatusLow";
-import { WidgetInventoryIngredientsStockStatusNoStock } from "../../constants/widgets/inventory/WidgetInventoryIngredientsStockStatusNoStock";
 
 interface PageProps {}
 
@@ -75,9 +71,6 @@ const HomePage: React.FC<PageProps> = ({}) => {
   const getWidgetConfig = () => {
     setWidgets([
       WidgetInventoryIngredientsStockStatus,
-      WidgetInventoryIngredientsCritics,
-      WidgetInventoryIngredientsStockStatusLow,
-      WidgetInventoryIngredientsStockStatusNoStock,
       WidgetStatusOrders,
       WidgetInventory,
       WidgetReservations,

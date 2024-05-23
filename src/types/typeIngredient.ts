@@ -1,5 +1,5 @@
 import { typeIngredientManagment } from "./typeIngredientManagment";
-import { typeIngredientStoricoForniture } from "./typeIngredientStoricoForniture";
+import { typeIngredientSupplyHistory } from "./typeIngredientSupplyHistory";
 
 export type typeIngredient = {
   ingredientID?: string;
@@ -10,5 +10,5 @@ export type typeIngredient = {
     immagineUrl?: string;
   };
   managment?: typeIngredientManagment;
-  storico_forniture?: typeIngredientStoricoForniture[];
+  storico_forniture?: typeIngredientSupplyHistory[];
 };
