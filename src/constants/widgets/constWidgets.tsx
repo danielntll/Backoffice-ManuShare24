@@ -7,16 +7,18 @@ import { WidgetInventoryIngredientsStockStatusLow } from "./inventory/WidgetInve
 import { WidgetInventoryIngredientsStockStatusNoStock } from "./inventory/WidgetInventoryIngredientsStockStatusNoStock";
 import { WidgetStatusOrders } from "./orders/WidgetStatusOrders";
 import { WidgetStatusOrdersStandard } from "./orders/WidgetStatusOrdersStandard";
-import { WidgetReservations } from "./reservation/WidgetReservations";
-import { WidgetReservationsPro } from "./reservation/WidgetReservationsPro";
+import { WidgetReservations } from "./booking/WidgetReservations";
+import { WidgetReservationsPro } from "./booking/WidgetReservationsPro";
 import { WidgetReviews } from "./reviews/WidgetReviews";
 import { WidgetReviewsPro } from "./reviews/WidgetReviewsPro";
 import { WidgetReviewsStandard } from "./reviews/WidgetReviewsStandard";
+import { ConstDefinitionWidgetBookingOverview } from "./booking/ConstDefinition__WidgetBookingOverview";
 
 export const constWidgetsFREE: typeWidget[] = [
   WidgetStatusOrders,
   WidgetReservations,
   WidgetInventory,
+  ConstDefinitionWidgetBookingOverview,
   WidgetInventoryIngredientsStockStatusNoStock,
   WidgetInventoryIngredientsStockStatusLow,
   WidgetInventoryIngredientsStockStatus,

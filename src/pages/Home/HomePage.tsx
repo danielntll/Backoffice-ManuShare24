@@ -24,11 +24,12 @@ import { typeNotification } from "../../types/typeNotification";
 import { mockNotifications } from "../../mock/mockNotifications";
 import ModalOrderComponents from "../../components/Modal__Order__Components/ModalOrderComponents";
 import { WidgetStatusOrders } from "../../constants/widgets/orders/WidgetStatusOrders";
-import { WidgetReservations } from "../../constants/widgets/reservation/WidgetReservations";
+import { WidgetReservations } from "../../constants/widgets/booking/WidgetReservations";
 import { WidgetInventory } from "../../constants/widgets/inventory/WidgetInventory";
 import { WidgetAnalytics } from "../../constants/widgets/analytics/WidgetAnalytics";
 import { WidgetReviews } from "../../constants/widgets/reviews/WidgetReviews";
 import { WidgetInventoryIngredientsStockStatus } from "../../constants/widgets/inventory/WidgetInventoryIngredientsStockStatus";
+import { ConstDefinitionWidgetBookingOverview } from "../../constants/widgets/booking/ConstDefinition__WidgetBookingOverview";
 
 interface PageProps {}
 
@@ -70,6 +71,7 @@ const HomePage: React.FC<PageProps> = ({}) => {
    */
   const getWidgetConfig = () => {
     setWidgets([
+      ConstDefinitionWidgetBookingOverview,
       WidgetInventoryIngredientsStockStatus,
       WidgetStatusOrders,
       WidgetInventory,
