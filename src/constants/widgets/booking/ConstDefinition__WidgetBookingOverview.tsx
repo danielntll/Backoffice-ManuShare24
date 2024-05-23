@@ -9,7 +9,7 @@ export const ConstDefinitionWidgetBookingOverview: typeWidget = {
     en_GB: "Booking Details",
   },
   name: {
-    it_IT: "Calendario Prenotazioni",
+    it_IT: "Lista Prenotazioni",
     en_GB: "Reservation Details",
   },
   description: {

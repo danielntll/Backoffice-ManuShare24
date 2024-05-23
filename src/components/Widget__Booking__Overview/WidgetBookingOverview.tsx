@@ -10,6 +10,16 @@ import { mockBookings } from "../../mock/mockBooking";
 import { isToday } from "../../utils/isToday";
 import { ConstDefinitionWidgetBookingOverview } from "../../constants/widgets/booking/ConstDefinition__WidgetBookingOverview";
 
+import {
+  checkmark,
+  close,
+  hourglassOutline,
+  shieldCheckmarkOutline,
+  timeOutline,
+  warningOutline,
+} from "ionicons/icons";
+import ItemBookingOverview from "../Item__Booking__Overview__Today__Approved/ItemBookingOverviewTodayApproved";
+
 interface ContainerProps {}
 
 const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
@@ -40,11 +50,16 @@ const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
     null
   );
 
-  // --- bookingApproved
+  // --- bookingPending
   /// Lista delle prenotazioni da approvare
   const [bookingPending, setBookingPending] = useState<typeBooking[] | null>(
     null
   );
+  // --- bookingPendingForToday
+  /// Lista delle prenotazioni da approvare
+  const [bookingPendingForToday, setBookingPendingForToday] = useState<
+    typeBooking[] | null
+  >(null);
 
   // --- bookingApproved
   /// Lista delle prenotazioni rifiutate dal ristoratore
@@ -114,8 +129,15 @@ const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
   const fetchBookingPending = async () => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
+    const bookingPending: typeBooking[] = mockBookings.filter(
+      (booking) => booking.bookingStatus === "pending"
+    );
+
     setBookingPending(
       mockBookings.filter((booking) => booking.bookingStatus === "pending")
+    );
+    setBookingPendingForToday(
+      bookingPending.filter((booking) => isToday(booking.bookingDate))
     );
   };
   // --- fetchBookingRejected
@@ -167,8 +189,47 @@ const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
             }
             callbackListAction={() => handleOpenModal("approved")}
           />
+          <ItemBookingOverview
+            callbackClick={() => console.log("click")}
+            icon={shieldCheckmarkOutline}
+            title={text[l].today__approved}
+            subtitle={text[l].today__approved__subtitle}
+            number={bookingApprovedForToday?.length ?? 0}
+            skeleton={isFetching}
+          />
+          <ItemBookingOverview
+            callbackClick={() => console.log("click")}
+            icon={warningOutline}
+            title={text[l].today__pending}
+            subtitle={text[l].today__pending__subtitle}
+            number={bookingPendingForToday?.length ?? 0}
+            skeleton={isFetching}
+          />
+          <ItemBookingOverview
+            callbackClick={() => console.log("click")}
+            icon={checkmark}
+            title={text[l].all__approved}
+            subtitle={text[l].all__approved__subtitle}
+            number={bookingApproved?.length ?? 0}
+            skeleton={isFetching}
+          />
+          <ItemBookingOverview
+            callbackClick={() => console.log("click")}
+            icon={hourglassOutline}
+            title={text[l].all__pending}
+            subtitle={text[l].all__pending__subtitle}
+            number={bookingPending?.length ?? 0}
+            skeleton={isFetching}
+          />
+          <ItemBookingOverview
+            callbackClick={() => console.log("click")}
+            icon={close}
+            title={text[l].all__rejected}
+            subtitle={text[l].all__rejected__subtitle}
+            number={bookingRejected?.length ?? 0}
+            skeleton={isFetching}
+          />
         </IonList>
-        <p>{text[l].componentTitle}</p>
       </div>
       {/* ----------------- EXTRA UI ----------------------*/}
     </>

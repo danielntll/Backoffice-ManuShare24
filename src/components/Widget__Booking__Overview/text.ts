@@ -1,8 +1,26 @@
 export const text = {
   it_IT: {
-    componentTitle: "DefaultComponent",
+    today__approved: "Approvate",
+    today__approved__subtitle: "Oggi",
+    today__pending: "In Attesa di approvazione",
+    today__pending__subtitle: "Oggi",
+    all__approved: "Approvate",
+    all__approved__subtitle: "Tutte delle richieste approvate",
+    all__pending: "In Attesa di approvazione",
+    all__pending__subtitle: "Tutte delle richieste in attesa di approvazione",
+    all__rejected: "Annullate",
+    all__rejected__subtitle: "Tutte le richieste Annullate",
   },
   en_GB: {
-    componentTitle: "DefaultComponent",
+    today__approved: "Approvati",
+    today__approved__subtitle: "Oggi",
+    today__pending: "In Attesa di approvazione",
+    today__pending__subtitle: "Oggi",
+    all__approved: "Approvate",
+    all__approved__subtitle: "Tutte delle richieste approvate",
+    all__pending: "In Attesa di approvazione",
+    all__pending__subtitle: "Tutte delle richieste in attesa di approvazione",
+    all__rejected: "Annullate",
+    all__rejected__subtitle: "Tutte le richieste Annullate",
   },
 };
