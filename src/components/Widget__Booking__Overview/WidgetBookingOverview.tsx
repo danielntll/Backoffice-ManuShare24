@@ -15,10 +15,11 @@ import {
   close,
   hourglassOutline,
   shieldCheckmarkOutline,
-  timeOutline,
   warningOutline,
 } from "ionicons/icons";
-import ItemBookingOverview from "../Item__Booking__Overview__Today__Approved/ItemBookingOverviewTodayApproved";
+import ItemBookingOverview from "../Item__Booking__Overview/ItemBookingOverview";
+import ModalWidgetBookingOverview from "../Modal__Widget__Booking__Overview/ModalWidgetBookingOverview";
+import { typeBookingFilter } from "../../types/typeBookingFilter";
 
 interface ContainerProps {}
 
@@ -28,7 +29,7 @@ const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
   //CONDITIONS -----------------------
   // --- filter
   /// Stato del filtro
-  const [filter, setFilter] = useState<typeBookingStatus>("approved");
+  const [filter, setFilter] = useState<typeBookingFilter>("filter_today");
 
   // --- isModalOpen
   /// Questa variabile serve per indicare se il modal è aperto
@@ -168,10 +169,10 @@ const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
    * Questo metodo serve per aprire il modale
    * con la lista di tutti gli eventi di prenotazione
    *
-   * @param filter: typeBookingStatus - lo stato di prenotazione da visualizzare
+   * @param filter: typeBookingFilter - lo stato di prenotazione da visualizzare
    *
    */
-  const handleOpenModal = (filter: typeBookingStatus) => {
+  const handleOpenModal = (filter: typeBookingFilter) => {
     setFilter(filter);
     setIsModalOpen(!isModalOpen);
   };
@@ -187,10 +188,10 @@ const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
                 ? ConstDefinitionWidgetBookingOverview.category[l]
                 : undefined
             }
-            callbackListAction={() => handleOpenModal("approved")}
+            callbackListAction={() => handleOpenModal("filter_today")}
           />
           <ItemBookingOverview
-            callbackClick={() => console.log("click")}
+            callbackClick={() => handleOpenModal("filter_today")}
             icon={shieldCheckmarkOutline}
             title={text[l].today__approved}
             subtitle={text[l].today__approved__subtitle}
@@ -198,7 +199,7 @@ const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
             skeleton={isFetching}
           />
           <ItemBookingOverview
-            callbackClick={() => console.log("click")}
+            callbackClick={() => handleOpenModal("filter_today")}
             icon={warningOutline}
             title={text[l].today__pending}
             subtitle={text[l].today__pending__subtitle}
@@ -206,7 +207,7 @@ const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
             skeleton={isFetching}
           />
           <ItemBookingOverview
-            callbackClick={() => console.log("click")}
+            callbackClick={() => handleOpenModal("filter_all_approved")}
             icon={checkmark}
             title={text[l].all__approved}
             subtitle={text[l].all__approved__subtitle}
@@ -214,7 +215,7 @@ const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
             skeleton={isFetching}
           />
           <ItemBookingOverview
-            callbackClick={() => console.log("click")}
+            callbackClick={() => handleOpenModal("filter_all_pending")}
             icon={hourglassOutline}
             title={text[l].all__pending}
             subtitle={text[l].all__pending__subtitle}
@@ -222,7 +223,7 @@ const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
             skeleton={isFetching}
           />
           <ItemBookingOverview
-            callbackClick={() => console.log("click")}
+            callbackClick={() => handleOpenModal("filter_all_rejected")}
             icon={close}
             title={text[l].all__rejected}
             subtitle={text[l].all__rejected__subtitle}
@@ -232,6 +233,16 @@ const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
         </IonList>
       </div>
       {/* ----------------- EXTRA UI ----------------------*/}
+      <ModalWidgetBookingOverview
+        isOpen={isModalOpen}
+        setIsOpen={() => setIsModalOpen(false)}
+        filter={filter}
+        bookingApprovedForToday={bookingApprovedForToday ?? []}
+        bookingPendingForToday={bookingPendingForToday ?? []}
+        bookingApproved={bookingApproved ?? []}
+        bookingPending={bookingPending ?? []}
+        bookingRejected={bookingRejected ?? []}
+      />
     </>
   );
 };
