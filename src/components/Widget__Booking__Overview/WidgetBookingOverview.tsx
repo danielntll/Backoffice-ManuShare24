@@ -148,9 +148,14 @@ const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
   const fetchBookingRejected = async () => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    setBookingRejected(
-      mockBookings.filter((booking) => booking.bookingStatus === "rejected")
+    const rej = mockBookings.filter(
+      (booking) => booking.bookingStatus === "rejected"
     );
+
+    const canc = mockBookings.filter(
+      (booking) => booking.bookingStatus === "cancelled"
+    );
+    setBookingRejected([...rej, ...canc]);
   };
   // --- fetchBookingCancelled
   /**
@@ -237,6 +242,7 @@ const WidgetBookingOverview: React.FC<ContainerProps> = ({}) => {
         isOpen={isModalOpen}
         setIsOpen={() => setIsModalOpen(false)}
         filter={filter}
+        isLoading={isFetching}
         bookingApprovedForToday={bookingApprovedForToday ?? []}
         bookingPendingForToday={bookingPendingForToday ?? []}
         bookingApproved={bookingApproved ?? []}

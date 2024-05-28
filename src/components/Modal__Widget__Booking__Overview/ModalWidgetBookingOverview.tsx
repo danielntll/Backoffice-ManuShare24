@@ -18,10 +18,9 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { textButtons } from "../../text/textButtons";
-import ItemIngredientCritic from "../Item__Ingredient_Critic/ItemIngredientCritic";
 import { ConstDefinitionWidgetBookingOverview } from "../../constants/widgets/booking/ConstDefinition__WidgetBookingOverview";
 import { typeBooking } from "../../types/typeBooking";
-import ItemBookingPending from "../Item__Booking__Pending/ItemBookingPending";
+import ItemBookingStatus from "../Item__Booking__Status/ItemBookingStatus";
 
 interface ContainerProps {
   isOpen: boolean;
@@ -32,6 +31,7 @@ interface ContainerProps {
   bookingPending: typeBooking[];
   bookingRejected: typeBooking[];
   filter: string;
+  isLoading: boolean;
 }
 
 const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
@@ -43,6 +43,7 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
   bookingApproved,
   bookingPending,
   bookingRejected,
+  isLoading,
 }) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
@@ -107,7 +108,7 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                 {bookingPendingForToday.map(
                   (booking: typeBooking, index: number) => {
                     return (
-                      <ItemBookingPending
+                      <ItemBookingStatus
                         key={
                           "ModalWidgetBookingOverview" +
                           booking.bookingID +
@@ -115,6 +116,7 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                           text[l].today_pending
                         }
                         booking={booking}
+                        isLoading={isLoading}
                         onClick={() => {}}
                       />
                     );
@@ -131,7 +133,7 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                 {bookingApprovedForToday.map(
                   (booking: typeBooking, index: number) => {
                     return (
-                      <ItemBookingPending
+                      <ItemBookingStatus
                         key={
                           "ModalWidgetBookingOverview" +
                           booking.bookingID +
@@ -139,6 +141,7 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                           text[l].today_approved
                         }
                         booking={booking}
+                        isLoading={isLoading}
                         onClick={() => {}}
                       />
                     );
@@ -158,7 +161,7 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                 </IonListHeader>
                 {bookingPending.map((booking: typeBooking, index: number) => {
                   return (
-                    <ItemBookingPending
+                    <ItemBookingStatus
                       key={
                         "ModalWidgetBookingOverview" +
                         booking.bookingID +
@@ -166,6 +169,7 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                         +"filter_all_pending"
                       }
                       booking={booking}
+                      isLoading={isLoading}
                       onClick={() => {}}
                     />
                   );
@@ -185,7 +189,7 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                 </IonListHeader>
                 {bookingApproved.map((booking: typeBooking, index: number) => {
                   return (
-                    <ItemBookingPending
+                    <ItemBookingStatus
                       key={
                         "ModalWidgetBookingOverview" +
                         booking.bookingID +
@@ -193,6 +197,7 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                         +"filter_all_approved"
                       }
                       booking={booking}
+                      isLoading={isLoading}
                       onClick={() => {}}
                     />
                   );
@@ -207,12 +212,12 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                     {text[l].filter_all_rejected}
                   </IonLabel>
                   <IonLabel className="ion-text-end ion-padding-end">
-                    {bookingApproved?.length ?? 0}
+                    {bookingRejected?.length ?? 0}
                   </IonLabel>
                 </IonListHeader>
                 {bookingRejected.map((booking: typeBooking, index: number) => {
                   return (
-                    <ItemBookingPending
+                    <ItemBookingStatus
                       key={
                         "ModalWidgetBookingOverview" +
                         booking.bookingID +
@@ -220,6 +225,7 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                         +"filter_all_rejected"
                       }
                       booking={booking}
+                      isLoading={isLoading}
                       onClick={() => {}}
                     />
                   );

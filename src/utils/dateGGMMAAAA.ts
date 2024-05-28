@@ -8,6 +8,6 @@ export const dateGGMMAAAA = (timestamp: number): string => {
     "/" +
     month.toString().padStart(2, "0") +
     "/" +
-    year
+    year.toString()
   );
 };

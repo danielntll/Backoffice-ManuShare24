@@ -17,4 +17,5 @@ export type typeBooking = {
     phone: string; // Telefono dell'utente che ha prenotato
     address: string; // Indirizzo dell'utente che ha prenotato
   };
+  tableID?: string; // ID del tavolo che ha prenotato
 };

@@ -18,12 +18,51 @@ export const mockBookings: typeBooking[] = [
       phone: "+39 333 1234567",
       address: "Via Roma 123, 00100 Roma",
     },
+    tableID: "Ti-1",
+  },
+  {
+    bookingID: "bookingID54",
+    bookingStatus: "approved",
+    createdAt: 1678886400000, // 2023-03-15T00:00:00.000Z
+    bookingDate: 1679059200000, // 2023-03-17T00:00:00.000Z
+    peopleNumber: 2,
+    kidsNumber: 1,
+    noteByCustomer: "Tavolo vicino alla finestra",
+    noteByAdmin: "Prenotazione per compleanno",
+    customerData: {
+      userID: "userID1",
+      firstName: "Mario",
+      lastName: "Rossi",
+      email: "mario.rossi@email.com",
+      phone: "+39 333 1234567",
+      address: "Via Roma 123, 00100 Roma",
+    },
+    tableID: "Ti-2",
+  },
+  {
+    bookingID: "bookingID88",
+    bookingStatus: "approved",
+    createdAt: 1678886400000, // 2023-03-15T00:00:00.000Z
+    bookingDate: 1679059200000, // 2023-03-17T00:00:00.000Z
+    peopleNumber: 2,
+    kidsNumber: 1,
+    noteByCustomer: "Tavolo vicino alla finestra",
+    noteByAdmin: "Prenotazione per compleanno",
+    customerData: {
+      userID: "userID1",
+      firstName: "Mario",
+      lastName: "Rossi",
+      email: "mario.rossi@email.com",
+      phone: "+39 333 1234567",
+      address: "Via Roma 123, 00100 Roma",
+    },
+    tableID: "Ti-3",
   },
   {
     bookingID: "bookingID2",
     bookingStatus: "pending",
     createdAt: 1678799940000, // 2023-03-14T00:00:00.000Z
-    bookingDate: 1679145600000, // 2023-03-18T00:00:00.000Z
+    bookingDate: Date.now(), // 2023-03-18T00:00:00.000Z
     peopleNumber: 4,
     noteByCustomer: "Tavolo all'aperto",
     customerData: {
