@@ -29,12 +29,14 @@ interface ContainerProps {
   booking: typeBooking;
   onClick: () => void;
   isLoading: boolean;
+  showStatus?: boolean;
 }
 
 const ItemBookingStatus: React.FC<ContainerProps> = ({
   booking,
   onClick,
   isLoading,
+  showStatus = true,
 }) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
@@ -104,41 +106,46 @@ const ItemBookingStatus: React.FC<ContainerProps> = ({
         />
       </IonAvatar>
       <IonLabel>
-        <p>
-          <IonBadge color={color}>{statusLocal ?? ""}</IonBadge>
+        <p className="inline-row-gap">
+          <h3 className="inline-row-gap">
+            {booking.customerData.firstName} {booking.customerData.lastName}
+            {booking.customerData.userID != null ? (
+              <IonIcon icon={chatbubblesOutline} />
+            ) : (
+              ""
+            )}
+            {booking.customerData.email != null ? (
+              <IonIcon icon={mailOutline} />
+            ) : (
+              ""
+            )}
+            {booking.customerData.phone != null ? (
+              <IonIcon icon={callOutline} />
+            ) : (
+              ""
+            )}
+          </h3>
+          {showStatus && <IonBadge color={color}>{statusLocal ?? ""}</IonBadge>}
         </p>
         <h2 className="inline-row-gap">
-          <span className="inline-row-gap">
-            <IonIcon icon={timeOutline} />
+          <span className="inline-row-sb">
+            <IonIcon className="icon-margin-right" icon={timeOutline} />
             {dateHHMM(booking.bookingDate)}
           </span>{" "}
-          <span className="inline-row-gap">
-            <IonIcon icon={calendarNumberOutline} />
+        </h2>
+        <h2 className="inline-row-gap">
+          <span className="inline-row-sb">
+            <IonIcon
+              className="icon-margin-right"
+              icon={calendarNumberOutline}
+            />
             {dateGGMMAAAA(booking.bookingDate)}
           </span>
         </h2>
-        <h3 className="inline-row-gap">
-          {booking.customerData.firstName} {booking.customerData.lastName}
-          {booking.customerData.userID != null ? (
-            <IonIcon icon={chatbubblesOutline} />
-          ) : (
-            ""
-          )}
-          {booking.customerData.email != null ? (
-            <IonIcon icon={mailOutline} />
-          ) : (
-            ""
-          )}
-          {booking.customerData.phone != null ? (
-            <IonIcon icon={callOutline} />
-          ) : (
-            ""
-          )}
-        </h3>
+
         <p className="inline-row-gap">
           <IonBadge className="inline-row-gap" color={"medium"}>
-            <IonIcon icon={peopleOutline} />
-            {booking.peopleNumber}
+            x{booking.peopleNumber}
           </IonBadge>
 
           {booking.noteByCustomer != null
