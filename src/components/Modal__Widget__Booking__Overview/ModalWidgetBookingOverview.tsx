@@ -21,6 +21,7 @@ import { textButtons } from "../../text/textButtons";
 import { ConstDefinitionWidgetBookingOverview } from "../../constants/widgets/booking/ConstDefinition__WidgetBookingOverview";
 import { typeBooking } from "../../types/typeBooking";
 import ItemBookingStatus from "../Item__Booking__Status/ItemBookingStatus";
+import ItemBookingDoPromote from "../Item__Booking_DoPromote/ItemBookingDoPromote";
 
 interface ContainerProps {
   isOpen: boolean;
@@ -53,6 +54,18 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
   useEffect(() => {
     setFilterLocal(filter);
   }, [filter]);
+
+  // --- handleOpenBookingDetails()
+  /**
+   * Questo metodo serve per aprire la pagina con i dettagli della prenotazione
+   *
+   *
+   * @param typeBooking booking - l'oggetto prenotazione da visualizzare in dettaglio
+   */
+  const handleOpenBookingDetails = (booking: typeBooking) => {
+    console.log(booking);
+  };
+
   //RETURN COMPONENT -----------------
   return (
     <>
@@ -130,6 +143,9 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                     {bookingApprovedForToday?.length ?? 0}
                   </IonLabel>
                 </IonListHeader>
+                {bookingApprovedForToday.length === 0 && (
+                  <ItemBookingDoPromote />
+                )}
                 {bookingApprovedForToday.map(
                   (booking: typeBooking, index: number) => {
                     return (
@@ -159,6 +175,7 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                     {bookingPending?.length ?? 0}
                   </IonLabel>
                 </IonListHeader>
+                {bookingPending.length === 0 && <ItemBookingDoPromote />}
                 {bookingPending.map((booking: typeBooking, index: number) => {
                   return (
                     <ItemBookingStatus
@@ -187,6 +204,7 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                     {bookingApproved?.length ?? 0}
                   </IonLabel>
                 </IonListHeader>
+                {bookingApproved.length === 0 && <ItemBookingDoPromote />}
                 {bookingApproved.map((booking: typeBooking, index: number) => {
                   return (
                     <ItemBookingStatus
@@ -215,6 +233,7 @@ const ModalWidgetBookingOverview: React.FC<ContainerProps> = ({
                     {bookingRejected?.length ?? 0}
                   </IonLabel>
                 </IonListHeader>
+                {bookingRejected.length === 0 && <ItemBookingDoPromote />}
                 {bookingRejected.map((booking: typeBooking, index: number) => {
                   return (
                     <ItemBookingStatus
