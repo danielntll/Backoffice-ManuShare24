@@ -30,6 +30,7 @@ import { WidgetAnalytics } from "../../constants/widgets/analytics/WidgetAnalyti
 import { WidgetReviews } from "../../constants/widgets/reviews/WidgetReviews";
 import { WidgetInventoryIngredientsStockStatus } from "../../constants/widgets/inventory/WidgetInventoryIngredientsStockStatus";
 import { ConstDefinitionWidgetBookingOverview } from "../../constants/widgets/booking/ConstDefinition__WidgetBookingOverview";
+import { ConstDefinitionWidgetBookingOverviewCalendar } from "../../constants/widgets/booking/ConstDefinition__WidgetBookingOverview__Calendar";
 
 interface PageProps {}
 
@@ -71,6 +72,7 @@ const HomePage: React.FC<PageProps> = ({}) => {
    */
   const getWidgetConfig = () => {
     setWidgets([
+      ConstDefinitionWidgetBookingOverviewCalendar,
       ConstDefinitionWidgetBookingOverview,
       WidgetInventoryIngredientsStockStatus,
       WidgetStatusOrders,

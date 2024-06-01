@@ -13,8 +13,10 @@ import { WidgetReviews } from "./reviews/WidgetReviews";
 import { WidgetReviewsPro } from "./reviews/WidgetReviewsPro";
 import { WidgetReviewsStandard } from "./reviews/WidgetReviewsStandard";
 import { ConstDefinitionWidgetBookingOverview } from "./booking/ConstDefinition__WidgetBookingOverview";
+import { ConstDefinitionWidgetBookingOverviewCalendar } from "./booking/ConstDefinition__WidgetBookingOverview__Calendar";
 
 export const constWidgetsFREE: typeWidget[] = [
+  ConstDefinitionWidgetBookingOverviewCalendar,
   WidgetStatusOrders,
   WidgetReservations,
   WidgetInventory,
