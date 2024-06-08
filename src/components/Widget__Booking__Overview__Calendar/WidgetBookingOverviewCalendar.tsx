@@ -6,6 +6,7 @@ import ListHeader from "../List__Header/ListHeader";
 import { ConstDefinitionWidgetBookingOverviewCalendar } from "../../constants/widgets/booking/ConstDefinition__WidgetBookingOverview__Calendar";
 import ModalWidgetBookingOverviewCalendar from "../Modal__Widget__Booking__Overview__Calendar/ModalWidgetBookingOverviewCalendar";
 import { text } from "./text";
+import { dateConvertPicketToString } from "../../utils/dateConvertPicketToString";
 
 interface ContainerProps {}
 
@@ -18,20 +19,17 @@ const WidgetBookingOverviewCalendar: React.FC<ContainerProps> = ({}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false); // State for loading
   //FUNCTIONS ------------------------
 
-  // --- handleOnDateClick()
   /**
-   * Questo metodo permette di gestire l'evento del click
-   * su una data del calendario.
-   * Quando si clicca si imposta la data selezionata
-   * e si apre il modal.
+   * Gestisce l'evento di click su una data nel calendario.
    *
-   * @param event string | string[] | undefined | null - Data selezionata
+   * Questa funzione aggiorna lo stato `selectedDate` con la data selezionata,
+   * convertendo il valore dell'evento in una stringa utilizzando la funzione
+   * `dateConvertPicketToString`. Quindi, apre il modal.
+   *
+   * @param date La data selezionata, in formato stringa o array di stringhe.
    */
-  const handleOnDateClick = (event: string | string[] | undefined | null) => {
-    console.log(event);
-    // Convert the event to a single string
-    const selectedDateString = Array.isArray(event) ? event[0] : event || "";
-    setSelectedDate(selectedDateString);
+  const handleOnDateClick = (date: string | string[] | undefined | null) => {
+    setSelectedDate(dateConvertPicketToString(date));
     setIsModalOpen(true);
   };
 

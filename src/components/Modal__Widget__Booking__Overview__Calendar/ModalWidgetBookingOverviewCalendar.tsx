@@ -281,6 +281,7 @@ const ModalWidgetBookingOverviewCalendar: React.FC<ContainerProps> = ({
       <ModalWidgetBookingAdd
         isOpen={isModalAddOpen}
         setIsOpen={setIsModalAddOpen}
+        date={selectedDate}
       />
     </>
   );
