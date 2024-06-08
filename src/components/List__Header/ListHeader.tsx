@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import styles from "./ListHeader.module.css";
 import { ContextLanguage } from "../../context/contextLanguage";
 import { IonButton, IonIcon, IonLabel, IonListHeader } from "@ionic/react";
@@ -8,13 +8,19 @@ import { chevronForward } from "ionicons/icons";
 interface ContainerProps {
   title: string;
   subtitle?: string;
-  callbackListAction: () => void;
+  callbackListAction?: () => void;
+  button?: React.ReactNode;
 }
 
 const ListHeader: React.FC<ContainerProps> = ({
   title,
   subtitle,
   callbackListAction,
+  button = (
+    <IonButton size="small">
+      <IonIcon icon={chevronForward} />
+    </IonButton>
+  ),
 }) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
@@ -29,10 +35,7 @@ const ListHeader: React.FC<ContainerProps> = ({
           <b>{title}</b>
         </h1>
       </IonLabel>
-      <IonButton size="small">
-        {textButtons[l].btn__go_to_page}
-        <IonIcon icon={chevronForward} />
-      </IonButton>
+      {callbackListAction ? button : ""}
     </IonListHeader>
   );
 };

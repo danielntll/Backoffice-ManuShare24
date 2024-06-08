@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./ModalWidgetBookingOverview.module.css";
 import { ContextLanguage } from "../../context/contextLanguage";
 import { text } from "./text";
-import { typeIngredient } from "../../types/typeIngredient";
 import {
   IonButton,
   IonButtons,

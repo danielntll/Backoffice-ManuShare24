@@ -1,8 +1,16 @@
 .icon-margin-left {
   margin-left: 8px;
 }
+
 .icon-margin-right {
   margin-right: 8px;
+}
+.icon-margin-lef-light {
+  margin-left: 4px;
+}
+
+.icon-margin-right-light {
+  margin-right: 4px;
 }
 
 .info-text {

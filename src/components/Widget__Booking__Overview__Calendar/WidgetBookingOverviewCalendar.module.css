@@ -2,4 +2,5 @@
 }
 .calendar {
   max-width: none;
+  background-color: var(--ion-color-step-100);
 }

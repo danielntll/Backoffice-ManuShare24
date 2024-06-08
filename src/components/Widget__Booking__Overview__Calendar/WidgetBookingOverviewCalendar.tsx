@@ -1,12 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styles from "./WidgetBookingOverviewCalendar.module.css";
 import { ContextLanguage } from "../../context/contextLanguage";
-import { text } from "./text";
-import { IonDatetime, IonItem, IonList } from "@ionic/react";
+import { IonButton, IonDatetime, IonList } from "@ionic/react";
 import ListHeader from "../List__Header/ListHeader";
 import { ConstDefinitionWidgetBookingOverviewCalendar } from "../../constants/widgets/booking/ConstDefinition__WidgetBookingOverview__Calendar";
-import ItemBookingStatus from "../Item__Booking__Status/ItemBookingStatus";
-import { mockBookings } from "../../mock/mockBooking";
+import ModalWidgetBookingOverviewCalendar from "../Modal__Widget__Booking__Overview__Calendar/ModalWidgetBookingOverviewCalendar";
+import { text } from "./text";
 
 interface ContainerProps {}
 
@@ -14,8 +13,40 @@ const WidgetBookingOverviewCalendar: React.FC<ContainerProps> = ({}) => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
   //CONDITIONS -----------------------
-
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // State for modal
+  const [selectedDate, setSelectedDate] = useState<string>(""); // State for selected date
+  const [isLoading, setIsLoading] = useState<boolean>(false); // State for loading
   //FUNCTIONS ------------------------
+
+  // --- handleOnDateClick()
+  /**
+   * Questo metodo permette di gestire l'evento del click
+   * su una data del calendario.
+   * Quando si clicca si imposta la data selezionata
+   * e si apre il modal.
+   *
+   * @param event string | string[] | undefined | null - Data selezionata
+   */
+  const handleOnDateClick = (event: string | string[] | undefined | null) => {
+    console.log(event);
+    // Convert the event to a single string
+    const selectedDateString = Array.isArray(event) ? event[0] : event || "";
+    setSelectedDate(selectedDateString);
+    setIsModalOpen(true);
+  };
+
+  // --- openTodayDate()
+  /**
+   * Questo metodo permette di aprire la data di oggi
+   * nel calendario.
+   *
+   * @param Nessuno
+   */
+  const openTodayDate = () => {
+    const today = new Date();
+    const isoString = today.toISOString();
+    handleOnDateClick(isoString);
+  };
   //RETURN COMPONENT -----------------
   return (
     <>
@@ -29,41 +60,42 @@ const WidgetBookingOverviewCalendar: React.FC<ContainerProps> = ({}) => {
                 ? ConstDefinitionWidgetBookingOverviewCalendar.category[l]
                 : undefined
             }
-            callbackListAction={() => {}}
+            callbackListAction={openTodayDate}
+            button={<IonButton>{text[l].today}</IonButton>}
           />
           <IonDatetime
             className={styles.calendar}
             presentation="date"
+            onIonChange={(event) => handleOnDateClick(event.detail.value)}
             highlightedDates={(isoString) => {
               const date = new Date(isoString);
               const utcDay = date.getUTCDate();
 
               if (utcDay % 5 === 0) {
                 return {
-                  textColor: "#800080",
-                  backgroundColor: "#ffc0cb",
+                  textColor: "var(--ion-color-success-contrast)",
+                  backgroundColor: "var(--ion-color-success)",
                 };
               }
 
               if (utcDay % 3 === 0) {
                 return {
-                  textColor: "var(--ion-color-secondary-contrast)",
-                  backgroundColor: "var(--ion-color-secondary)",
+                  textColor: "var(--ion-color-warning-contrast)",
+                  backgroundColor: "var(--ion-color-warning)",
                 };
               }
 
               return undefined;
             }}
           ></IonDatetime>
-
-          <ItemBookingStatus
-            key={"WidgetBookingOverviewCalendar"}
-            booking={mockBookings[0]}
-            isLoading={false}
-            onClick={() => {}}
-          />
         </IonList>
       </div>
+      <ModalWidgetBookingOverviewCalendar
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        selectedDate={selectedDate}
+        isLoading={isLoading}
+      />
     </>
   );
 };
