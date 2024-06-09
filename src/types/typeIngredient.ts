@@ -10,5 +10,5 @@ export type typeIngredient = {
     immagineUrl?: string;
   };
   managment?: typeIngredientManagment;
-  storico_forniture?: typeIngredientSupplyHistory[];
+  supplyHistory?: typeIngredientSupplyHistory[];
 };

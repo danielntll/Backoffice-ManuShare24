@@ -20,7 +20,7 @@ import {
 } from "@ionic/react";
 import { text } from "./text";
 
-import styles from "./IngredientiAggiungiModificaPage.module.css";
+import styles from "./IngredientsAddAndModifyPage.module.css";
 import { useContext, useEffect, useState } from "react";
 import { textButtons } from "../../../text/textButtons";
 import { route_IngredientiDashboardPage } from "../../../routes/singleRoute";
@@ -31,7 +31,7 @@ import ImageUploader from "../../../components/Image__Uploader/ImageUploader";
 import { ContextToast } from "../../../context/contextToast";
 import { cloudUpload } from "ionicons/icons";
 
-const IngredientiAggiungiModificaPage: React.FC = () => {
+const IngredientsAddAndModifyPage: React.FC = () => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
   const { id } = useParams<{ id: string }>();
@@ -246,4 +246,4 @@ const IngredientiAggiungiModificaPage: React.FC = () => {
   );
 };
 
-export default IngredientiAggiungiModificaPage;
+export default IngredientsAddAndModifyPage;

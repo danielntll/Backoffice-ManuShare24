@@ -44,7 +44,7 @@ import { AuthContextProvider } from "./context/contextAuth";
 import HomePage from "./pages/Home/HomePage";
 import IngredientiDashboardPage from "./pages/Ingredients/Dashboard/IngredientiDashboardPage";
 import ImpostazioniPage from "./pages/Impostazioni/ImpostazioniPage";
-import IngredientiAggiungiModificaPage from "./pages/Ingredients/Aggiungi_Modifica/IngredientiAggiungiModificaPage";
+import IngredientiAggiungiModificaPage from "./pages/Ingredients/Add__And__Modify/IngredientiAggiungiModificaPage";
 import AttivitaDashboardPage from "./pages/Attivita/Dashboard/AttivitaDashboardPage";
 import { ProviderContextLanguage } from "./context/contextLanguage";
 import { ProviderContextToast } from "./context/contextToast";
