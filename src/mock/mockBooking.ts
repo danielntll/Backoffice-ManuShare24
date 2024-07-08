@@ -2,6 +2,63 @@ import { typeBooking } from "../types/typeBooking";
 
 export const mockBookings: typeBooking[] = [
   {
+    bookingID: "bookingID15413",
+    bookingStatus: "approved",
+    createdAt: 1678886400000, // 2023-03-15T00:00:00.000Z
+    bookingDate: Date.now(), // 2023-03-17T00:00:00.000Z
+    peopleNumber: 2,
+    kidsNumber: 1,
+    noteByCustomer: "Tavolo vicino alla finestra",
+    noteByAdmin: "Prenotazione per compleanno",
+    customerData: {
+      userID: "userID1",
+      firstName: "Mario",
+      lastName: "Rossi",
+      email: "mario.rossi@email.com",
+      phone: "+39 333 1234567",
+      address: "Via Roma 123, 00100 Roma",
+    },
+    tableID: "Ti-1",
+  },
+  {
+    bookingID: "bookingID112341",
+    bookingStatus: "approved",
+    createdAt: 1678886400000, // 2023-03-15T00:00:00.000Z
+    bookingDate: Date.now(), // 2023-03-17T00:00:00.000Z
+    peopleNumber: 2,
+    kidsNumber: 1,
+    noteByCustomer: "Tavolo vicino alla finestra",
+    noteByAdmin: "Prenotazione per compleanno",
+    customerData: {
+      userID: "userID1",
+      firstName: "Mario",
+      lastName: "Rossi",
+      email: "mario.rossi@email.com",
+      phone: "+39 333 1234567",
+      address: "Via Roma 123, 00100 Roma",
+    },
+    tableID: "Ti-1",
+  },
+  {
+    bookingID: "bookingID14364",
+    bookingStatus: "approved",
+    createdAt: 1678886400000, // 2023-03-15T00:00:00.000Z
+    bookingDate: Date.now(), // 2023-03-17T00:00:00.000Z
+    peopleNumber: 2,
+    kidsNumber: 1,
+    noteByCustomer: "Tavolo vicino alla finestra",
+    noteByAdmin: "Prenotazione per compleanno",
+    customerData: {
+      userID: "userID1",
+      firstName: "Mario",
+      lastName: "Rossi",
+      email: "mario.rossi@email.com",
+      phone: "+39 333 1234567",
+      address: "Via Roma 123, 00100 Roma",
+    },
+    tableID: "Ti-1",
+  },
+  {
     bookingID: "bookingID1",
     bookingStatus: "approved",
     createdAt: 1678886400000, // 2023-03-15T00:00:00.000Z

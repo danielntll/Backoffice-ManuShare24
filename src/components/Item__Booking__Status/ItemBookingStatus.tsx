@@ -9,6 +9,7 @@ import {
   IonItem,
   IonLabel,
   IonNote,
+  IonSkeletonText,
 } from "@ionic/react";
 import { typeBooking } from "../../types/typeBooking";
 import { dateHHMM } from "../../utils/dateHHMM";
@@ -19,14 +20,13 @@ import {
   callOutline,
   chatbubblesOutline,
   mailOutline,
-  peopleOutline,
   timeOutline,
 } from "ionicons/icons";
 import { typeTable } from "../../types/typeTable";
 import { mockTables } from "../../mock/mockTables";
 
 interface ContainerProps {
-  booking: typeBooking;
+  booking?: typeBooking;
   onClick: () => void;
   isLoading: boolean;
   showStatus?: boolean;
@@ -63,7 +63,7 @@ const ItemBookingStatus: React.FC<ContainerProps> = ({
   //FUNCTIONS ------------------------
   useEffect(() => {
     if (!isLoading) {
-      switch (booking.bookingStatus) {
+      switch (booking?.bookingStatus) {
         case "approved":
           setStatusLocal(text[l].status_approved);
           setColor("success");
@@ -85,7 +85,7 @@ const ItemBookingStatus: React.FC<ContainerProps> = ({
           setColor("success");
           break;
       }
-      if (booking.tableID != null) {
+      if (booking?.tableID != null) {
         getTableInformations(booking.tableID);
       }
     }
@@ -100,60 +100,86 @@ const ItemBookingStatus: React.FC<ContainerProps> = ({
   return (
     <IonItem button onClick={onClick}>
       <IonAvatar slot="start">
-        <img
-          alt="Silhouette of a person's head"
-          src="https://ionicframework.com/docs/img/demos/avatar.svg"
-        />
+        {isLoading ? (
+          <IonSkeletonText animated={true}></IonSkeletonText>
+        ) : (
+          <img
+            alt="Silhouette of a person's head"
+            src="https://ionicframework.com/docs/img/demos/avatar.svg"
+          />
+        )}
       </IonAvatar>
       <IonLabel>
         <p className="inline-row-gap">
-          <h3 className="inline-row-gap">
-            {booking.customerData.firstName} {booking.customerData.lastName}
-            {booking.customerData.userID != null ? (
-              <IonIcon icon={chatbubblesOutline} />
-            ) : (
-              ""
-            )}
-            {booking.customerData.email != null ? (
-              <IonIcon icon={mailOutline} />
-            ) : (
-              ""
-            )}
-            {booking.customerData.phone != null ? (
-              <IonIcon icon={callOutline} />
-            ) : (
-              ""
-            )}
-          </h3>
+          {isLoading ? (
+            <IonSkeletonText animated={true}></IonSkeletonText>
+          ) : (
+            <h3 className="inline-row-gap">
+              {booking?.customerData.firstName} {booking?.customerData.lastName}
+              {booking?.customerData.userID != null ? (
+                <IonIcon icon={chatbubblesOutline} />
+              ) : (
+                ""
+              )}
+              {booking?.customerData.email != null ? (
+                <IonIcon icon={mailOutline} />
+              ) : (
+                ""
+              )}
+              {booking?.customerData.phone != null ? (
+                <IonIcon icon={callOutline} />
+              ) : (
+                ""
+              )}
+            </h3>
+          )}
+
           {showStatus && <IonBadge color={color}>{statusLocal ?? ""}</IonBadge>}
         </p>
         <h2 className="inline-row-gap">
-          <span className="inline-row-sb">
-            <IonIcon className="icon-margin-right" icon={timeOutline} />
-            {dateHHMM(booking.bookingDate)}
-          </span>{" "}
+          {isLoading ? (
+            <IonSkeletonText animated={true}></IonSkeletonText>
+          ) : (
+            <span className="inline-row-sb">
+              <IonIcon className="icon-margin-right" icon={timeOutline} />
+              {booking && dateHHMM(booking.bookingDate)}
+            </span>
+          )}
         </h2>
         <h2 className="inline-row-gap">
-          <span className="inline-row-sb">
-            <IonIcon
-              className="icon-margin-right"
-              icon={calendarNumberOutline}
-            />
-            {dateGGMMAAAA(booking.bookingDate)}
-          </span>
+          {isLoading ? (
+            <IonSkeletonText animated={true}></IonSkeletonText>
+          ) : (
+            <span className="inline-row-sb">
+              <IonIcon
+                className="icon-margin-right"
+                icon={calendarNumberOutline}
+              />
+              {booking && dateGGMMAAAA(booking.bookingDate)}
+            </span>
+          )}
         </h2>
 
         <p className="inline-row-gap">
-          <IonBadge className="inline-row-gap" color={"medium"}>
-            x{booking.peopleNumber}
-          </IonBadge>
-
-          {booking.noteByCustomer != null
+          {isLoading ? (
+            <IonSkeletonText animated={true}></IonSkeletonText>
+          ) : (
+            <IonBadge className="inline-row-gap" color={"medium"}>
+              x{booking?.peopleNumber}
+            </IonBadge>
+          )}
+          {booking?.noteByCustomer != null
             ? "Note: " + `${booking.noteByCustomer ?? ""}`
             : ""}
         </p>
       </IonLabel>
-      <IonNote slot="end">{tableInformation?.tableID ?? ""}</IonNote>
+      <IonNote slot="end">
+        {isLoading ? (
+          <IonSkeletonText animated={true}></IonSkeletonText>
+        ) : (
+          tableInformation?.tableID ?? ""
+        )}
+      </IonNote>
     </IonItem>
   );
 };
