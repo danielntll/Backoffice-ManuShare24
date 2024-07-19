@@ -13,6 +13,7 @@ import ImageUploaderItem from "../Image__Uploader__Item/ImageUploaderItem";
 import { textButtons } from "../../text/textButtons";
 
 import styles from "./ImageUploader.module.css";
+import ListHeader from "../List__Header/ListHeader";
 
 interface ContainerProps {
   defaultImages?: string[];
@@ -30,7 +31,6 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
   const [isSelectMethodOpen, setIsSelectMethodOpen] = useState<boolean>(false);
   //USE EFFECT -----------------------
   useEffect(() => {
-    console.log(imagesFILE);
     const newImageUrls: any = [];
     imagesFILE?.forEach((image: any) => {
       newImageUrls.push(URL.createObjectURL(image));
@@ -101,16 +101,15 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
         multiple
       />
       <IonList className={styles.container} inset>
-        <IonListHeader>
-          <IonLabel>{text[l].componentTitle}</IonLabel>
-          <IonButton onClick={() => setIsSelectMethodOpen(!isSelectMethodOpen)}>
-            {text[l].btn__select}
-          </IonButton>
-        </IonListHeader>
+        <ListHeader
+          title={text[l].componentTitle}
+          buttonText={text[l].btn__select}
+          callbackOnClick={() => setIsSelectMethodOpen(!isSelectMethodOpen)}
+        />
 
         {/* SELECTED IMAGES */}
         {imageURL.length === 0 ? (
-          <IonItem>
+          <IonItem lines="none">
             <IonLabel>
               <p>{text[l].text_images}</p>
             </IonLabel>
@@ -127,8 +126,6 @@ const ImageUploader: React.FC<ContainerProps> = ({ defaultImages }) => {
             ))}
           </>
         )}
-
-        <div className="ion-padding-bottom"></div>
       </IonList>
       {imageURL.length > 0 ? (
         <IonLabel>

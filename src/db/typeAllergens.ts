@@ -1,8 +1,13 @@
+import { typeAvailableLanguagesModel } from "../types/typeAvailableLanguage";
+
 export type typeAllergens = {
   // Identificativo Univoco
   UID: string;
   // Nome dell'allergenico
-  name: string;
+  name: typeAvailableLanguagesModel;
   // Indirizzo URL dell'icona rappresentativa
-  iconURL: string;
+  iconURL: {
+    white: string;
+    black: string;
+  };
 };

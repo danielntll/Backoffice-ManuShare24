@@ -1,8 +1,13 @@
+import { typeAvailableLanguagesModel } from "../types/typeAvailableLanguage";
+
 export type typeDietaryRestictions = {
   // Identificativo Univoco
   UID: string;
   // Nome della restrizione dietetica
-  name: string;
+  name: typeAvailableLanguagesModel;
   // Indirizzo URL dell'icona rappresentativa
-  iconURL: string;
+  iconURL: {
+    white: string;
+    black: string;
+  };
 };

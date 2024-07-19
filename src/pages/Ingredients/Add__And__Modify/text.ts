@@ -25,8 +25,16 @@ export const text: typeAvailableLanguagesModel = {
       ph: "Azienda produttrice",
     },
     optional_list_title: "Informazioni opzionali",
+    segments: {
+      details: "Dettagli",
+      inventory: "Inventario",
+    },
   },
   en_GB: {
+    segments: {
+      details: "Dettagli",
+      inventory: "Inventario",
+    },
     optional_list_title: "Informazioni opzionali",
     pageTitleAdd: "Add",
     pageTitleModify: "Modify",

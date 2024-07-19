@@ -1,20 +1,11 @@
 import {
   IonBackButton,
-  IonButton,
   IonButtons,
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
   IonContent,
   IonHeader,
-  IonIcon,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
   IonPage,
-  IonTextarea,
+  IonSegment,
+  IonSegmentButton,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -27,16 +18,44 @@ import { route_IngredientiDashboardPage } from "../../../routes/singleRoute";
 import { useParams } from "react-router";
 import { ContextLanguage } from "../../../context/contextLanguage";
 import { typeIngredient } from "../../../types/typeIngredient";
-import ImageUploader from "../../../components/Image__Uploader/ImageUploader";
 import { ContextToast } from "../../../context/contextToast";
-import { cloudUpload } from "ionicons/icons";
+import SectionInfoIngredient from "../../../components/Section__Info__Ingredient/SectionInfoIngredient";
+import SectionInventoryIngredient from "../../../components/Section__Inventory__Ingredient/SectionInventoryIngredient";
 
 const IngredientsAddAndModifyPage: React.FC = () => {
   //VARIABLES ------------------------
   const { l } = useContext(ContextLanguage);
-  const { id } = useParams<{ id: string }>();
   const { toast } = useContext(ContextToast);
+
+  // --- useParams
+  /**
+   * Serve per prendere dal indirizzo URL l'ID dell'ingrediente da modificare.
+   *
+   * SE l'ID corrisponde a "nuovo" allora è un nuovo ingrediente.
+   * Questo controllo viene fatto nel useEffect
+   */
+
+  const { id } = useParams<{ id: string }>();
   //USE STATE -----------------------
+
+  // --- segment
+  /**
+   * Questa variabile rappresenta il pannel da visualizzare
+   * tra:
+   * - "details": dove modificare tutte le informazioni dell'ingrediente
+   * - "inventory": dove modificare le informazioni dell'inventario
+   */
+  const [segment, setSegment] = useState<string>("details");
+
+  // --- pageTitle
+  /**
+   * Questa variabile rappresenta il titolo della pagina:
+   *
+   * Può essere o "Modifica" o "Aggiungi" e viene calcolato
+   * nel useEffect.
+   */
+  const [pageTitle, setPageTitle] = useState<string>(text[l].pageTitleAdd);
+
   const [idIngrediente, setIdIngrediente] = useState<string | undefined>(
     undefined
   );
@@ -59,10 +78,15 @@ const IngredientsAddAndModifyPage: React.FC = () => {
    * SE no ALLORA questa pagina è in modalità modifica
    * quindi deve fare una fetch dell'ingrediente con
    * l'ID trovato nella path.
+   *
+   * Definisce anche il titolo della pagina
    */
   useEffect(() => {
     if (id !== "nuovo") {
       fetchIngredienteByID(id);
+      setPageTitle(text[l].pageTitleAdd);
+    } else {
+      setPageTitle(text[l].pageTitleModify);
     }
   }, [id]);
 
@@ -140,107 +164,31 @@ const IngredientsAddAndModifyPage: React.FC = () => {
               defaultHref={route_IngredientiDashboardPage.path}
             />
           </IonButtons>
-          <IonTitle>
-            {id !== "nuovo" ? text[l].pageTitleModify : text[l].pageTitleAdd}
-          </IonTitle>
+          <IonTitle>{pageTitle}</IonTitle>
+        </IonToolbar>
+        <IonToolbar>
+          <IonSegment
+            value={segment}
+            onIonChange={(e) => setSegment(e.target.value?.toString() ?? "")}
+          >
+            <IonSegmentButton value="details">
+              {text[l].segments.details}
+            </IonSegmentButton>
+            <IonSegmentButton value="inventory">
+              {text[l].segments.inventory}
+            </IonSegmentButton>
+          </IonSegment>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">
-              {id !== "nuovo" ? text[l].pageTitleModify : text[l].pageTitleAdd}
-            </IonTitle>
+            <IonTitle size="large">{pageTitle}</IonTitle>
           </IonToolbar>
         </IonHeader>
         {/* ----------------- PAGE CONTENT ------------------*/}
-        <div className={styles.content}>
-          <form onSubmit={handleUploadIngredient}>
-            {/* --- Action Buttons ---- */}
-            <div className={styles.container__action}>
-              <IonButton
-                onClick={handleUploadIngredient}
-                fill="solid"
-                color={"tertiary"}
-              >
-                {textButtons[l].btn__upload_exit}
-                <IonIcon className="icon-margin-left" icon={cloudUpload} />
-              </IonButton>
-              <IonButton
-                onClick={handleUploadIngredient}
-                fill="solid"
-                color={"primary"}
-              >
-                {textButtons[l].btn__upload_new}
-                <IonIcon className="icon-margin-left" icon={cloudUpload} />
-              </IonButton>
-            </div>
-            {/* --- Form --- */}
-            <IonCard>
-              <IonCardHeader>
-                <IonCardSubtitle>{text[l].cardSubtitle}</IonCardSubtitle>
-              </IonCardHeader>
-              {/* OBBLIGATORIO */}
-              <IonList inset>
-                {/* ----  displayName ----- */}
-                <IonItem>
-                  <IonInput
-                    required
-                    clearInput
-                    label={text[l].input__displayName.label}
-                    placeholder={text[l].input__displayName.ph}
-                    labelPlacement="stacked"
-                    type={"text"}
-                    value={nome}
-                    counter={true}
-                    maxlength={140}
-                    helperText={text[l].input__displayName.help}
-                    onIonInput={(e) => setNome(e.detail.value!)}
-                  />
-                </IonItem>
-              </IonList>
-              {/* OPZIONALE */}
-              <IonList inset>
-                <IonListHeader>
-                  <IonLabel>{text[l].optional_list_title}</IonLabel>
-                </IonListHeader>
-                {/* ----  marca ----- */}
-                <IonItem>
-                  <IonInput
-                    required
-                    clearInput
-                    label={text[l].input__marca.label}
-                    placeholder={text[l].input__marca.ph}
-                    labelPlacement="stacked"
-                    type={"text"}
-                    value={marca}
-                    onIonInput={(e) => setMarca(e.detail.value!)}
-                  />
-                </IonItem>
-                {/* ----  description ----- */}
-                <IonItem>
-                  <IonTextarea
-                    label={text[l].input__description.label}
-                    placeholder={text[l].input__description.ph}
-                    labelPlacement="stacked"
-                    value={descrizione}
-                    autoGrow={true}
-                    onIonInput={(e) => setDescrizione(e.detail.value!)}
-                  />
-                </IonItem>
-              </IonList>
-
-              <IonLabel>
-                <p className="ion-padding-horizontal">
-                  {text[l].input__description.help}
-                </p>
-              </IonLabel>
-
-              {/* --------- IMMAGINI --------- */}
-              <ImageUploader />
-            </IonCard>
-          </form>
-        </div>
+        {segment === "details" && <SectionInfoIngredient />}
+        {segment === "inventory" && <SectionInventoryIngredient />}
         {/* ----------------- EXTRA UI ----------------------*/}
       </IonContent>
     </IonPage>
